@@ -1,0 +1,4 @@
+repository "KidsTouchGame 2025-10-20_10-51-23/KidsTouchGame@14569686095466@cloud"
+  path "/"
+    br "/main"
+    co "/main"
