@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 536646257
   m_SortingLayer: 4
   m_SortingOrder: 6
-  m_Sprite: {fileID: 2490400633526075177, guid: cf1ee6875c67e974ab6e27d055c6eca7, type: 3}
+  m_Sprite: {fileID: 3500680291411888395, guid: 22b6766d00a088a458a166417a58a51b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -168,5 +168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dff037f3662ba548b8fbf5d30a33e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBullet
-  speed: 10
-  lifetime: 3
+  speed: 4
+  lifetime: 16
+  hitEffectOnPlayer: {fileID: 7575617972279380594, guid: 7085f882c1bb986429839d8793ce3715, type: 3}
+  hitEffectOnBullet: {fileID: 7575617972279380594, guid: 34feebf8328beb0429c03e2b4d24d5f0, type: 3}
+  explosionScaleOnPlayerHit: 5
+  explosionScaleOnBulletHit: 0.5
+  hitSfx: {fileID: 8300000, guid: f65d90e370d0e5e4992e8430bc41819f, type: 3}
+  hitSfxVolume: 0.5

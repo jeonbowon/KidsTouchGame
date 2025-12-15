@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("¿É¼Ç")]
+    [Header("ì˜µì…˜")]
     public GameObject explosionPrefab;
 
     private bool isDead = false;
@@ -11,12 +11,12 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead) return;
 
-        // ÀûÀÇ ÃÑ¾Ë¿¡ ´êÀ¸¸é ÆÄ±«
+        // ì ì˜ ì´ì•Œì— ë‹¿ìœ¼ë©´ íŒŒê´´
         if (other.CompareTag("EnemyBullet"))
         {
             Die();
         }
-        // (¼±ÅÃ) Àû º»Ã¼¿Í Ãæµ¹ ½Ãµµ µ¿ÀÏ Ã³¸®
+        // (ì„ íƒ) ì  ë³¸ì²´ì™€ ì¶©ëŒ ì‹œë„ ë™ì¼ ì²˜ë¦¬
         else if (other.CompareTag("Enemy"))
         {
             Die();
@@ -30,11 +30,10 @@ public class PlayerController : MonoBehaviour
         if (explosionPrefab != null)
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
-        // ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ® Á¦°Å
         Destroy(gameObject);
 
-        // GM¿¡°Ô º¸°í ¡æ ¸ñ¼û °¨¼Ò/¸®½ºÆù/°ÔÀÓ¿À¹ö ÆÇ´Ü
-        if (GameManager.I != null)
-            GameManager.I.OnPlayerDied();
+        // âŒ ì œê±°
+        // GameManager.I.OnPlayerDied();
     }
+
 }

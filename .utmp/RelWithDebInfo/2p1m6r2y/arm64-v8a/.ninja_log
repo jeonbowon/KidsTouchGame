@@ -1,0 +1,23 @@
+# ninja log v5
+13	1977	7872234233944160	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	3fcbc9216d3b22f3
+284	637	7872234220516346	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	18c8131c53b8cdcc
+137	1666	7872234230821808	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	7580af8c75baaae2
+637	936	7872234223393561	D:/Applications_Web/Unity/KidsTouchGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2p1m6r2y/obj/arm64-v8a/libswappywrapper.so	e134065a5bd9d654
+83	1715	7872234231328614	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	e78afe82312380b7
+56	1615	7872234230324190	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	610daf87cb12caae
+225	1839	7872234232575780	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	42ca694fc4349a3
+110	1646	7872234230621310	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	11c68a06885535d1
+164	1706	7872234231258510	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	4403741cf86b9f34
+193	1918	7872234233377962	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9bb68d31fb88f9eb
+1977	2110	7872234235322702	D:/Applications_Web/Unity/KidsTouchGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2p1m6r2y/obj/arm64-v8a/libgame.so	7a0712e9f3137129
+204	454	7872245814465676	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	18c8131c53b8cdcc
+455	708	7872245816876276	D:/Applications_Web/Unity/KidsTouchGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2p1m6r2y/obj/arm64-v8a/libswappywrapper.so	e134065a5bd9d654
+36	1610	7872245825949309	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	610daf87cb12caae
+105	1641	7872245826292763	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	4403741cf86b9f34
+85	1646	7872245826302768	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	11c68a06885535d1
+146	1726	7872245827124677	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	7580af8c75baaae2
+62	1747	7872245827373335	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	e78afe82312380b7
+174	1865	7872245828558906	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	42ca694fc4349a3
+128	2000	7872245829925163	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9bb68d31fb88f9eb
+11	2044	7872245830323305	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	3fcbc9216d3b22f3
+2045	2173	7872245831652241	D:/Applications_Web/Unity/KidsTouchGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2p1m6r2y/obj/arm64-v8a/libgame.so	7a0712e9f3137129

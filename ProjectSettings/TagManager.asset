@@ -65,5 +65,8 @@ TagManager:
   - name: Effects
     uniqueID: 62670621
     locked: 0
+  - name: Coin
+    uniqueID: 2280538073
+    locked: 0
   m_RenderingLayers:
   - Default

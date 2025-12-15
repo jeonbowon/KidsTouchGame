@@ -13,7 +13,7 @@ public class EnemyShooter : MonoBehaviour
 
     [Header("Auto")]
     [SerializeField] private bool autoStartOnEnable = true; // 활성화 시 자동 발사 시작
-    [SerializeField] private bool logVerbose = true; // 상세 로그
+    [SerializeField] private bool logVerbose = true;        // 상세 로그
 
     // 상태
     private bool autoFire = false;
@@ -117,15 +117,53 @@ public class EnemyShooter : MonoBehaviour
         while (true)
         {
             float iv = inFormation ? fireIntervalInFormation : fireIntervalAttacking;
-            FireOne();
+            FireOneAuto();                      // ← 자동 발사
             yield return new WaitForSeconds(iv);
         }
     }
 
-    /// <summary>필요 시 버튼/이벤트에서 수동 테스트용</summary>
-    public void ManualFire() => FireOne();
+    /// <summary>
+    /// 외부에서 “플레이어를 향해 한 발 쏴라” 할 때 호출
+    /// (EnemyRandomMover 등에서 사용)
+    /// </summary>
+    public void FireAtPlayer()
+    {
+        Transform p = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (p == null)
+        {
+            if (logVerbose) Debug.Log("[EnemyShooter] FireAtPlayer: Player not found", this);
+            return;
+        }
 
-    private void FireOne()
+        Vector3 pos = (muzzle != null) ? muzzle.position : transform.position;
+        Vector2 dir = ((Vector2)p.position - (Vector2)pos).normalized;
+
+        FireOneWithDir(pos, dir);
+    }
+
+    /// <summary>필요 시 버튼/이벤트에서 수동 테스트용</summary>
+    public void ManualFire() => FireOneAuto();
+
+    /// <summary>
+    /// 기존 자동 발사용: 플레이어 방향을 내부에서 계산
+    /// </summary>
+    private void FireOneAuto()
+    {
+        Vector3 pos = (muzzle != null) ? muzzle.position : transform.position;
+
+        // 플레이어 조준(없으면 아래)
+        Vector2 dir = Vector2.down;
+        Transform player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        if (player != null)
+            dir = ((Vector2)player.position - (Vector2)pos).normalized;
+
+        FireOneWithDir(pos, dir);
+    }
+
+    /// <summary>
+    /// 실제 탄 하나를 생성/활성화하는 공통 루틴
+    /// </summary>
+    private void FireOneWithDir(Vector3 pos, Vector2 dir)
     {
         if (bulletPrefab == null)
         {
@@ -139,13 +177,6 @@ public class EnemyShooter : MonoBehaviour
             Debug.LogError("[EnemyShooter] FetchBullet() 가 null을 반환", this);
             return;
         }
-
-        Vector3 pos = (muzzle != null) ? muzzle.position : transform.position;
-
-        // 플레이어 조준(없으면 아래)
-        Vector2 dir = Vector2.down;
-        Transform player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        if (player != null) dir = ((Vector2)player.position - (Vector2)pos).normalized;
 
         float enemySpeed = (GameManager.I != null) ? GameManager.I.GetEnemyBulletSpeed() : 4f;
 
@@ -172,27 +203,46 @@ public class EnemyShooter : MonoBehaviour
             Debug.Log($"[EnemyShooter] FIRE  pos={pos} dir={dir} spd={enemySpeed} stage={GameManager.I?.CurrentStage}", this);
     }
 
+    /// <summary>
+    /// 풀에서 비활성 탄을 가져오고, 없으면 "가장 오래된 탄"을 강제로 재사용
+    /// => 더 이상 무한 Instantiate 하지 않음
+    /// </summary>
     private GameObject FetchBullet()
     {
         if (pool == null || pool.Length == 0)
         {
-            if (bulletPrefab == null) return null;
+            // 이 경우는 거의 없겠지만 방어 코드
             var extra = Instantiate(bulletPrefab);
             extra.SetActive(false);
-            if (logVerbose) Debug.Log("[EnemyShooter] Pool empty -> extra bullet instantiated", this);
+            if (logVerbose) Debug.Log("[EnemyShooter] Pool was null -> extra bullet instantiated", this);
             return extra;
         }
 
+        // 비활성 탄 찾기
         for (int i = 0; i < pool.Length; i++)
         {
             poolCursor = (poolCursor + 1) % pool.Length;
-            if (!pool[poolCursor].activeSelf) return pool[poolCursor];
+            var candidate = pool[poolCursor];
+
+            if (candidate != null && !candidate.activeSelf)
+                return candidate;
         }
 
-        var extra2 = Instantiate(bulletPrefab);
-        extra2.SetActive(false);
-        if (logVerbose) Debug.Log("[EnemyShooter] Pool full -> extra bullet instantiated", this);
-        return extra2;
+        // 전부 사용 중이면 "가장 오래된" 것을 재사용 (강제 덮어쓰기)
+        poolCursor = (poolCursor + 1) % pool.Length;
+        var reuse = pool[poolCursor];
+
+        if (reuse == null)
+        {
+            // 혹시 파괴되었다면 새로 하나 만들어서 슬롯에 넣어줌 (단 한 번)
+            reuse = Instantiate(bulletPrefab);
+            pool[poolCursor] = reuse;
+            reuse.SetActive(false);
+            if (logVerbose) Debug.Log("[EnemyShooter] Pool slot was null -> recreated bullet", this);
+        }
+
+        reuse.SetActive(false); // 상태 초기화
+        return reuse;
     }
 
 #if UNITY_EDITOR

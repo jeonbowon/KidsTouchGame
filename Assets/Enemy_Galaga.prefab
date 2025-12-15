@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8289898395854840634}
   - component: {fileID: 1414861067765547752}
   - component: {fileID: 4072068180583713718}
+  - component: {fileID: 306487303772585196}
   m_Layer: 0
   m_Name: Enemy_Galaga
   m_TagString: Enemy
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5913254508372441322}
@@ -83,12 +84,12 @@ SpriteRenderer:
   m_SortingLayerID: 1756411759
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b62a6b04f6dde6741a578b93fb370c14, type: 3}
+  m_Sprite: {fileID: 8596640243658272642, guid: 4c5ac9c87d79f8a4e9d6ff6d79ef4833, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.72, y: 3.02}
+  m_Size: {x: 4.82, y: 6.46}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -159,8 +160,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.72, y: 3.02}
-    newSize: {x: 1.72, y: 3.02}
+    oldSize: {x: 0.86, y: 1.47}
+    newSize: {x: 4.82, y: 6.46}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -179,13 +180,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26651ae120375fc4b8b9e1942a670519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyGalaga
-  moveToSeatSpeed: 3
-  returnSpeed: 3.5
+  baseSpeed: 0.01
+  speedPerStage: 0.2
+  horizontalAmplitude: 6
+  horizontalFrequency: 0.9
+  useGalagaMove: 1
   hp: 1
   shooter: {fileID: 0}
   explosionPrefab: {fileID: 7575617972279380594, guid: 7085f882c1bb986429839d8793ce3715, type: 3}
   dieSfx: {fileID: 8300000, guid: 9606b99cacfb45f46b6b33d1c06c105e, type: 3}
-  explodeWhenOffscreen: 1
+  itemPrefab: {fileID: 9194623500998723778, guid: e5d72a1bd20a21243ab8e2a6df26b9df, type: 3}
+  itemDropChance: 1
+--- !u!114 &306487303772585196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3488670620421249143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6d8bceaa132d4d4f807e6036c7a6311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRandomMover
+  moveSpeed: 0.3
+  horizontalRange: 1.5
+  horizontalSpeed: 0.1
+  verticalAmplitude: 6
+  verticalFrequency: 0.9
+  dirChangeIntervalMin: 1
+  dirChangeIntervalMax: 5
+  shooter: {fileID: 0}
+  fireIntervalMin: 1
+  fireIntervalMax: 16
 --- !u!1 &8916515078990085093
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +258,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
   bulletPrefab: {fileID: 4792998038007425532, guid: 4cec8e824a0c84747a5033f0553a97e4, type: 3}
+  muzzle: {fileID: 0}
   fireIntervalInFormation: 2.5
-  fireIntervalAttacking: 0.6
-  bulletSpeed: 6
+  fireIntervalAttacking: 3
+  autoStartOnEnable: 1
+  logVerbose: 1

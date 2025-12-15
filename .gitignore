@@ -38,3 +38,7 @@ ExportedObj/
 *.exe
 *.dll
 sysinfo.txt
+
+/.plastic/
+/ignore.conf
+

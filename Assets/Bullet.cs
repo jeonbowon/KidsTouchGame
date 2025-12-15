@@ -87,23 +87,40 @@ public class Bullet : MonoBehaviour, IBullet
         }
     }
 
+    /// <summary>
+    /// 외부(EnemyBullet 등)에서 강제로 비활성화시킬 때 사용
+    /// </summary>
+    public void DespawnFromOutside()
+    {
+        Despawn();
+    }
+
     void Despawn()
     {
         // 다음 재사용을 위해 초기화
         speedOverride = -1f;
 
-        // 풀 호환: Destroy 대신 비활성화
-        if (gameObject.activeSelf)
-            gameObject.SetActive(false);
+        // 🔹 현재는 풀링을 사용하지 않으므로, 무한히 쌓이지 않도록 파괴
+        if (this != null && gameObject != null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // ⭕ 적 탄과의 충돌은 EnemyBullet 쪽에서 처리하므로 여기서는 스킵
+        if (other.GetComponent<EnemyBullet>() != null)
+            return;
+
         // 팀킬 방지: 오너 기준으로 처리
         if (owner == BulletOwner.Player)
         {
             if (other.CompareTag("Enemy"))
             {
+                // 🔹 적 카운트 감소
+                GameManager.I?.OnEnemyKilled();
+
                 // 적 제거(프로젝트 규칙에 맞게)
                 Destroy(other.gameObject);
                 Despawn();
