@@ -1,20 +1,32 @@
 using UnityEngine;
 
 /// <summary>
-/// 화면 안에서 랜덤한 지점을 계속 찍으면서
-/// 부드럽게 이동하는 보너스 적 전용 이동 스크립트.
-/// EnemyGalaga.useGalagaMove 는 반드시 false 로 설정하고,
-/// EnemyRandomMover 는 꺼두어야 함.
+/// 화면 안에서 랜덤한 지점을 계속 찍으면서 부드럽게 이동하는 이동 스크립트.
+/// - 보너스 적/랜덤 이동 적에서 공용으로 사용 가능.
+/// - EnemyGalaga.useGalagaMove 는 반드시 false 로 설정.
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class EnemyBonusMover : MonoBehaviour
 {
-    [Header("이동 속도(난이도 조절용)")]
+    [Header("이동 속도(기본값)")]
     [Tooltip("한 번 목표로 움직일 때 최소 속도")]
     public float moveSpeedMin = 1.5f;
 
     [Tooltip("한 번 목표로 움직일 때 최대 속도")]
     public float moveSpeedMax = 2.5f;
+
+    [Header("스테이지 스케일링 (랜덤 이동 전투 적용)")]
+    [Tooltip("true면 CurrentStage에 따라 이동 속도가 점점 빨라집니다. (Stage2부터 등장하는 새 적에 권장)")]
+    public bool scaleSpeedByStage = false;
+
+    [Tooltip("Stage1 기준으로, 스테이지가 1 올라갈 때 최소 속도에 더해질 값")]
+    public float moveSpeedMinPerStage = 0.12f;
+
+    [Tooltip("Stage1 기준으로, 스테이지가 1 올라갈 때 최대 속도에 더해질 값")]
+    public float moveSpeedMaxPerStage = 0.15f;
+
+    [Tooltip("스테이지 스케일링 적용 시 속도 최소/최대 클램프")]
+    public Vector2 moveSpeedClamp = new Vector2(1.0f, 6.0f);
 
     [Header("목표 지점 변경 주기(초)")]
     [Tooltip("다음 목표 지점을 고를 최소 시간")]
@@ -135,9 +147,29 @@ public class EnemyBonusMover : MonoBehaviour
         hasBounds = true;
     }
 
-    /// <summary>
-    /// 다음 목표 지점과 이동 속도를 랜덤으로 선택.
-    /// </summary>
+    private int GetStage()
+    {
+        if (GameManager.I == null) return 1;
+        return Mathf.Max(1, GameManager.I.CurrentStage);
+    }
+
+    private void GetScaledSpeedRange(out float min, out float max)
+    {
+        min = moveSpeedMin;
+        max = moveSpeedMax;
+
+        if (!scaleSpeedByStage) return;
+
+        int stage = GetStage();
+        float addMin = (stage - 1) * moveSpeedMinPerStage;
+        float addMax = (stage - 1) * moveSpeedMaxPerStage;
+
+        min = Mathf.Clamp(min + addMin, moveSpeedClamp.x, moveSpeedClamp.y);
+        max = Mathf.Clamp(max + addMax, moveSpeedClamp.x, moveSpeedClamp.y);
+
+        if (max < min) max = min;
+    }
+
     private void PickNewTarget()
     {
         if (!hasBounds)
@@ -147,11 +179,10 @@ public class EnemyBonusMover : MonoBehaviour
 
         float x = Random.Range(minX + cameraPadding, maxX - cameraPadding);
         float y = Random.Range(minY + cameraPadding, maxY - cameraPadding);
-
         targetPos = new Vector2(x, y);
 
-        // 난이도에 따라 이동 속도 랜덤 선택
-        currentSpeed = Random.Range(moveSpeedMin, moveSpeedMax);
+        GetScaledSpeedRange(out float sMin, out float sMax);
+        currentSpeed = Random.Range(sMin, sMax);
 
         // 다음 목표 변경 시간 설정
         float t = Random.Range(changeTargetTimeMin, changeTargetTimeMax);

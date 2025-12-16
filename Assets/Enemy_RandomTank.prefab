@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8289898395854840634}
   - component: {fileID: 1414861067765547752}
   - component: {fileID: 4072068180583713718}
-  - component: {fileID: -763470678471803395}
+  - component: {fileID: -8881958959558255186}
   m_Layer: 0
-  m_Name: Enemy_Bonus2
+  m_Name: Enemy_RandomTank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5913254508372441322}
@@ -84,12 +84,12 @@ SpriteRenderer:
   m_SortingLayerID: 1756411759
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1725748588953933516, guid: 1668c7e246a55874cb7a387110271d6d, type: 3}
+  m_Sprite: {fileID: -6028113021395174531, guid: 84c97b583897dd94b807e649594ad8d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 12.26, y: 8.19}
+  m_Size: {x: 4.82, y: 6.46}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -160,13 +160,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.59, y: 0.79}
-    newSize: {x: 12.26, y: 8.19}
+    oldSize: {x: 1.89, y: 1.36}
+    newSize: {x: 4.82, y: 6.46}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &4072068180583713718
 MonoBehaviour:
@@ -180,18 +180,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26651ae120375fc4b8b9e1942a670519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyGalaga
-  baseSpeed: 0.1
+  baseSpeed: 0.01
   speedPerStage: 0.2
   horizontalAmplitude: 6
   horizontalFrequency: 0.9
   useGalagaMove: 0
-  hp: 1
+  hp: 2
   shooter: {fileID: 0}
-  explosionPrefab: {fileID: 7575617972279380594, guid: 5abd5184149185240a2762219cd4deb6, type: 3}
-  dieSfx: {fileID: 8300000, guid: d763a7a8f934fb94c81f9c1ab87e6b7e, type: 3}
-  itemPrefab: {fileID: 9194623500998723778, guid: bf90fc8790b8c99428536d7a43359a41, type: 3}
+  explosionPrefab: {fileID: 7575617972279380594, guid: 7085f882c1bb986429839d8793ce3715, type: 3}
+  dieSfx: {fileID: 8300000, guid: 9606b99cacfb45f46b6b33d1c06c105e, type: 3}
+  itemPrefab: {fileID: 9194623500998723778, guid: e5d72a1bd20a21243ab8e2a6df26b9df, type: 3}
   itemDropChance: 1
---- !u!114 &-763470678471803395
+--- !u!114 &-8881958959558255186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,16 +203,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac88d5312a7e81449474948ee0073d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBonusMover
-  moveSpeedMin: 1
-  moveSpeedMax: 1.8
+  moveSpeedMin: 1.5
+  moveSpeedMax: 2.5
   scaleSpeedByStage: 0
   moveSpeedMinPerStage: 0.12
   moveSpeedMaxPerStage: 0.15
   moveSpeedClamp: {x: 1, y: 6}
   changeTargetTimeMin: 1.5
-  changeTargetTimeMax: 3.5
+  changeTargetTimeMax: 3
   cameraPadding: 0.5
-  lifeTime: 0
+  lifeTime: 15
 --- !u!1 &8916515078990085093
 GameObject:
   m_ObjectHideFlags: 0

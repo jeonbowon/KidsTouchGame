@@ -1,26 +1,31 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class EnemyRandomMover : MonoBehaviour
 {
-    [Header("±âº» ÀÌµ¿ ¼Óµµ")]
-    public float moveSpeed = 1.5f;
+    [Header("Stage (GameManager.CurrentStage ê¸°ë°˜)")]
+    public float moveSpeedStage1 = 1.5f;
+    public float moveSpeedPerStage = 0.2f;
+    public Vector2 moveSpeedClamp = new Vector2(0.5f, 8.0f);
 
-    [Header("¼öÆò ·£´ı ÀÌµ¿ (½ºÆù À§Ä¡ ±âÁØ ¹İ°æ)")]
-    [Tooltip("½ºÆùµÈ x À§Ä¡¸¦ ±âÁØÀ¸·Î ÁÂ¿ì·Î ÀÌµ¿ÇÒ ÃÖ´ë °Å¸®")]
+    public float horizontalSpeedStage1 = 2.0f;
+    public float horizontalSpeedPerStage = 0.15f;
+    public Vector2 horizontalSpeedClamp = new Vector2(0.5f, 10.0f);
+
+    [Tooltip("ì†ë„ ë³€í™”ê°€ ë¶€ë“œëŸ½ê²Œ ë”°ë¼ê°€ê²Œ(ê°€ê°ì†). 0ì´ë©´ ì¦‰ì‹œ ì ìš©")]
+    public float accel = 6.0f;
+
+    [Header("ìˆ˜í‰ ëœë¤ ì´ë™ (ìŠ¤í° ìœ„ì¹˜ ê¸°ì¤€ ë°˜ê²½)")]
     public float horizontalRange = 1.5f;
 
-    [Tooltip("ÁÂ¿ì ÀÌµ¿ ¼Óµµ")]
-    public float horizontalSpeed = 2f;
-
-    [Header("¼öÁ÷ ·£´ı Èçµé¸²")]
+    [Header("ìˆ˜ì§ ëœë¤ í”ë“¤ë¦¼")]
     public float verticalAmplitude = 0.5f;
     public float verticalFrequency = 1.5f;
 
-    [Header("·£´ı ¹æÇâ º¯°æ ÁÖ±â")]
+    [Header("ëœë¤ ë°©í–¥ ë³€ê²½ ì£¼ê¸°")]
     public float dirChangeIntervalMin = 1f;
     public float dirChangeIntervalMax = 3f;
 
-    [Header("ÃÑ¾Ë ¹ß»ç")]
+    [Header("ì´ì•Œ ë°œì‚¬")]
     public EnemyShooter shooter;
     public float fireIntervalMin = 1.0f;
     public float fireIntervalMax = 2.5f;
@@ -29,16 +34,19 @@ public class EnemyRandomMover : MonoBehaviour
     private float _nextDirChangeTime;
     private float _nextFireTime;
     private float _currentDir = 1f;
-
-    // ¡Ú Ãß°¡: °¢ Àû °³Ã¼¸¶´Ù ÀÚ±â ±âÁØÀÌ µÉ x Áß½É°ª
     private float _centerX;
+
+    // í˜„ì¬ ì ìš© ì¤‘ì¸ ì†ë„(ê°€ê°ì†)
+    private float _downNow;
+    private float _horiNow;
 
     void Start()
     {
         _baseY = transform.position.y;
-
-        // ¡Ú ½ºÆùµÈ À§Ä¡¸¦ ±âÁØÀ¸·Î ÁÂ¿ì ÀÌµ¿ ¹üÀ§¸¦ Àâ´Â´Ù
         _centerX = transform.position.x;
+
+        _downNow = GetTargetDownSpeed();
+        _horiNow = GetTargetHorizontalSpeed();
 
         ScheduleNextDirectionChange();
         ScheduleNextFire();
@@ -46,35 +54,70 @@ public class EnemyRandomMover : MonoBehaviour
 
     void Update()
     {
+        // ëª©í‘œ ì†ë„(ìŠ¤í…Œì´ì§€ ë°˜ì˜)
+        float targetDown = GetTargetDownSpeed();
+        float targetHori = GetTargetHorizontalSpeed();
+
+        // ê°€ê°ì†(ë¶€ë“œëŸ½ê²Œ ë”°ë¼ê°€ê¸°)
+        if (accel <= 0f)
+        {
+            _downNow = targetDown;
+            _horiNow = targetHori;
+        }
+        else
+        {
+            float t = 1f - Mathf.Exp(-accel * Time.deltaTime); // í”„ë ˆì„ ë…ë¦½ ë³´ê°„
+            _downNow = Mathf.Lerp(_downNow, targetDown, t);
+            _horiNow = Mathf.Lerp(_horiNow, targetHori, t);
+        }
+
         MovePattern();
         ShootingPattern();
+    }
+
+    int GetStage()
+    {
+        // âœ… ëŒ€í‘œë‹˜ GameManager.cs ê¸°ì¤€ í™•ì •
+        return (GameManager.I != null) ? Mathf.Max(1, GameManager.I.CurrentStage) : 1;
+    }
+
+    float GetTargetDownSpeed()
+    {
+        int stage = GetStage();
+        float s = moveSpeedStage1 + (stage - 1) * moveSpeedPerStage;
+        return Mathf.Clamp(s, moveSpeedClamp.x, moveSpeedClamp.y);
+    }
+
+    float GetTargetHorizontalSpeed()
+    {
+        int stage = GetStage();
+        float s = horizontalSpeedStage1 + (stage - 1) * horizontalSpeedPerStage;
+        return Mathf.Clamp(s, horizontalSpeedClamp.x, horizontalSpeedClamp.y);
     }
 
     void MovePattern()
     {
         Vector3 pos = transform.position;
 
-        // ÁÂ¿ì ÀÌµ¿
-        pos.x += _currentDir * horizontalSpeed * Time.deltaTime;
+        // ì¢Œìš° ì´ë™
+        pos.x += _currentDir * _horiNow * Time.deltaTime;
 
-        // ¡Ú ÀÌ ÀûÀÇ "Áß½É À§Ä¡" ±âÁØÀ¸·Î¸¸ ¹üÀ§¸¦ Á¦ÇÑ
         float minX = _centerX - horizontalRange;
         float maxX = _centerX + horizontalRange;
 
-        // ¹üÀ§¸¦ ³Ñ¾î°¡¸é ¹æÇâÚãÀü + Å¬·¥ÇÁ
         if (pos.x < minX || pos.x > maxX)
         {
             _currentDir *= -1f;
             pos.x = Mathf.Clamp(pos.x, minX, maxX);
         }
 
-        // ¼öÁ÷ ¿şÀÌºê ÆĞÅÏ
+        // ìˆ˜ì§ ì›¨ì´ë¸Œ + í•˜ê°•
         float waveY = Mathf.Sin(Time.time * verticalFrequency) * verticalAmplitude;
-        pos.y = _baseY + waveY - moveSpeed * Time.deltaTime; // ÃµÃµÈ÷ ¾Æ·¡·Î ³»·Á°¡µµ·Ï
+        pos.y = _baseY + waveY - _downNow * Time.deltaTime;
 
         transform.position = pos;
 
-        // ÀÏÁ¤ ½Ã°£¸¶´Ù ¹æÇâ ·£´ı º¯°æ
+        // ëœë¤ ë°©í–¥ ë³€ê²½
         if (Time.time >= _nextDirChangeTime)
         {
             _currentDir = Random.value > 0.5f ? 1f : -1f;

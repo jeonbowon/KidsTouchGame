@@ -42,3 +42,5 @@ sysinfo.txt
 /.plastic/
 /ignore.conf
 
+.utmp/
+

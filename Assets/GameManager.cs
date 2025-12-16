@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string firstStageSceneName = "Stage1";
 
     [Header("Stage Flow")]
-    [SerializeField] private int maxStage = 5;
+    [SerializeField] private int maxStage = 10;
 
     [Header("Fallback (Optional)")]
     [SerializeField] private string playerPrefabResourcePath = "";
@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviour
     [Header("GameOver UI (Resources)")]
     [SerializeField] private string gameOverPanelResourcePath = "GameOverPanel";
     private GameOverPanel gameOverPanelInstance;
+
+    [Header("Continue Reward")]
+    [Tooltip("Continue(보상광고) 성공 시 부활할 목숨 수. 요청사항: 3")]
+    [SerializeField] private int continueLives = 3;
 
     public int CurrentStage { get; private set; } = 1;
     public int Lives { get; private set; }
@@ -402,7 +406,7 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
-        // ✅ 2) 두번째 GameOver(보너스 +1까지 사용 후): 선택 없이 광고 후 무조건 Menu
+        // ✅ 2) 두번째 GameOver(보너스 사용 후): 선택 없이 광고 후 무조건 Menu
         if (!isHandlingGameOverFlow)
             StartCoroutine(Co_SecondGameOverAdsThenMenuFlow());
 
@@ -437,12 +441,38 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"[GAME] First GameOver: 선택됨 = {_choice}");
 
+		// Menu 선택 시: 전면광고 후 메뉴로 이동
         if (_choice == GameOverChoice.Menu)
         {
+            if (gameOverPanelInstance != null)
+                gameOverPanelInstance.Show("SHOWING AD...\n(Interstitial)", showButtons: false);
+
+            yield return new WaitForSecondsRealtime(0.2f);
+
+            bool done = false;
+
+            Debug.Log($"[ADS] (First Menu) ShowInterstitial 요청 / InterstitialReady={(AdManager.I != null ? AdManager.I.IsInterstitialReady.ToString() : "null")}");
+
+            if (AdManager.I != null)
+            {
+                AdManager.I.ShowInterstitial(ok =>
+                {
+                    done = true; // ok 여부와 상관없이(실패/미준비 포함) 메뉴로는 간다
+                }, "FirstMenuToMenu_Interstitial");
+            }
+            else
+            {
+                Debug.LogWarning("[ADS] AdManager 없음 → 광고 스킵 후 MainMenu 이동");
+                done = true;
+            }
+
+            while (!done) yield return null;
+
             Time.timeScale = 1f;
             DestroyGameOverPanelInstance();
-            Debug.Log("[GAME] Menu 선택 → MainMenu 로드");
+            Debug.Log("[GAME] Menu 선택 → (전면광고 후) MainMenu 로드");
             SceneManager.LoadScene(mainMenuSceneName);
+
             isHandlingGameOverFlow = false;
             yield break;
         }
@@ -453,30 +483,27 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.2f);
 
-        bool done = false;
+        bool done2 = false;
         bool success = false;
 
-        // 광고 로그를 확실히 남김
-        //Debug.Log($"[ADS] (First Continue) ShowRewarded 요청 / IsReady={(AdManager.I != null ? AdManager.I.IsReady.ToString() : "null")}");
         Debug.Log($"[ADS] (First Continue) ShowRewarded 요청 / RewardedReady={(AdManager.I != null ? AdManager.I.IsRewardedReady.ToString() : "null")}");
-
 
         if (AdManager.I != null)
         {
             AdManager.I.ShowRewarded(ok =>
             {
                 success = ok;
-                done = true;
+                done2 = true;
             }, "FirstContinue");
         }
         else
         {
             Debug.LogWarning("[ADS] AdManager 없음 → 광고 실패");
-            done = true;
+            done2 = true;
             success = false;
         }
 
-        while (!done) yield return null;
+        while (!done2) yield return null;
 
         Debug.Log($"[ADS] (First Continue) 종료 success={success}");
 
@@ -484,7 +511,8 @@ public class GameManager : MonoBehaviour
         {
             bonusContinueUsed = true;
 
-            Lives = 1; // ✅ 반드시 +1로 시작
+            // +1 → +3 부활
+            Lives = Mathf.Max(1, continueLives);   // continueLives가 0으로 들어와도 최소 1 보장
             UpdateLivesUI();
 
             Time.timeScale = 1f;
@@ -499,12 +527,12 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
             SpawnPlayer();
 
-            Debug.Log("[GAME] Continue 성공 → +1 부활 완료 (bonusContinueUsed=true)");
+            Debug.Log($"[GAME] Continue 성공 → +{Lives} 부활 완료 (bonusContinueUsed=true)");
             isHandlingGameOverFlow = false;
             yield break;
         }
 
-        // 광고 실패면: 첫 GameOver라도 멈춰있게 두지 말고 메뉴로 보냄
+        // 광고 실패면 메뉴로
         Time.timeScale = 1f;
         DestroyGameOverPanelInstance();
         Debug.Log("[GAME] Continue 광고 실패 → MainMenu 로드");
@@ -531,7 +559,7 @@ public class GameManager : MonoBehaviour
         {
             AdManager.I.ShowInterstitial(ok =>
             {
-                done = true; // ok는 로그로만 봐도 됨
+                done = true;
             }, "SecondDeathToMenu_Interstitial");
         }
         else
@@ -550,7 +578,6 @@ public class GameManager : MonoBehaviour
 
         isHandlingGameOverFlow = false;
     }
-
 
     // ─────────────────────────────────────────────────────────────
     // GameOverPanel 버튼 콜백

@@ -1,1 +1,0 @@
-D:\Applications_Web\Unity\KidsTouchGame\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\2p1m6r2y\obj\arm64-v8a

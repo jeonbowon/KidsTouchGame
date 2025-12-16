@@ -11,13 +11,13 @@ public class EnemyGalaga : MonoBehaviour
     public float horizontalFrequency = 1f;   // 좌우 속도
 
     [Tooltip("true 이면 Galaga 패턴으로 위에서 아래로 + 좌우 흔들리며 이동")]
-    public bool useGalagaMove = true;   // ★ 보너스 적에서는 false 로 설정
+    public bool useGalagaMove = true;   // ★ 랜덤 이동 적/보너스 적에서는 false 로 설정
 
     private float moveSpeed;
     private float sinTime = 0f;
 
     [Header("HP")]
-    public float hp = 1f;
+    public float hp = 1f;               // ★ 새 적(탱커)은 프리팹에서 2로 설정
 
     [Header("Shooting")]
     public EnemyShooter shooter;

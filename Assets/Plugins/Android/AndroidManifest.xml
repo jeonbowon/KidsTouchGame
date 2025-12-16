@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tnbsoft.kidsshootinggame">
 
+    <!-- 필수 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
@@ -12,6 +13,12 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:theme">
 
+        <!-- ★ AdMob Android App ID (필수, 누락 시 즉시 크래시) -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3852398620139102~6276153711" />
+
+        <!-- Unity 메인 액티비티 -->
         <activity
             android:name="com.unity3d.player.UnityPlayerGameActivity"
             android:exported="true"
@@ -28,7 +35,7 @@
 
         </activity>
 
-        <!-- Unity/플러그인 메타데이터는 병합으로 자동 들어오는 게 정상입니다. -->
+        <!-- Unity/플러그인 메타데이터는 병합으로 자동 추가 -->
     </application>
 
 </manifest>
