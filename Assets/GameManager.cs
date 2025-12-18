@@ -84,8 +84,11 @@ public class GameManager : MonoBehaviour
     public float GetEnemyBulletSpeed()
     {
         float s = enemyBulletSpeedStage1 + (CurrentStage - 1) * enemyBulletSpeedPerStage;
-        return Mathf.Clamp(s, enemyBulletSpeedClamp.x, enemyBulletSpeedClamp.y);
+        float r = Mathf.Clamp(s, enemyBulletSpeedClamp.x, enemyBulletSpeedClamp.y);
+        Debug.Log($"[GM] id={GetInstanceID()} stage={CurrentStage} stage1={enemyBulletSpeedStage1} perStage={enemyBulletSpeedPerStage} -> {r}");
+        return r;
     }
+
 
     // ✅ Continue(+1) 광고는 이번 런에서 딱 1번만
     private bool bonusContinueUsed = false;

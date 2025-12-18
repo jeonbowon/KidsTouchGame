@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5913254508372441322}
@@ -186,6 +186,13 @@ MonoBehaviour:
   horizontalFrequency: 0.9
   useGalagaMove: 0
   hp: 2
+  useTwoPipHpUI: 1
+  hpUiShowTimeAfterHit: 0
+  hitFlashDuration: 30
+  hitFlashCount: 90
+  hitFlashColor: {r: 0, g: 0.7490196, b: 1, a: 1}
+  damageSmokePrefab: {fileID: 2854761377723280070, guid: 3625849fe8a48bc40af081d8adce6c1c, type: 3}
+  applyPrefabLocalPosition: 1
   shooter: {fileID: 0}
   explosionPrefab: {fileID: 7575617972279380594, guid: 7085f882c1bb986429839d8793ce3715, type: 3}
   dieSfx: {fileID: 8300000, guid: 9606b99cacfb45f46b6b33d1c06c105e, type: 3}
@@ -203,16 +210,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac88d5312a7e81449474948ee0073d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBonusMover
-  moveSpeedMin: 1.5
-  moveSpeedMax: 2.5
+  moveSpeedMin: 0.5
+  moveSpeedMax: 3.5
   scaleSpeedByStage: 0
   moveSpeedMinPerStage: 0.12
   moveSpeedMaxPerStage: 0.15
-  moveSpeedClamp: {x: 1, y: 6}
-  changeTargetTimeMin: 1.5
+  moveSpeedClamp: {x: 2, y: 6}
+  changeTargetTimeMin: 0.5
   changeTargetTimeMax: 3
   cameraPadding: 0.5
-  lifeTime: 15
+  lifeTime: 30
 --- !u!1 &8916515078990085093
 GameObject:
   m_ObjectHideFlags: 0

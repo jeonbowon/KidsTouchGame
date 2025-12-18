@@ -8,35 +8,31 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class EnemyBonusMover : MonoBehaviour
 {
-    [Header("이동 속도(기본값)")]
-    [Tooltip("한 번 목표로 움직일 때 최소 속도")]
+    [Header("이동 속도(Stage1 기준)")]
+    [Tooltip("Stage1 기준: 한 번 목표로 움직일 때 최소 속도")]
     public float moveSpeedMin = 1.5f;
 
-    [Tooltip("한 번 목표로 움직일 때 최대 속도")]
+    [Tooltip("Stage1 기준: 한 번 목표로 움직일 때 최대 속도")]
     public float moveSpeedMax = 2.5f;
 
-    [Header("스테이지 스케일링 (랜덤 이동 전투 적용)")]
-    [Tooltip("true면 CurrentStage에 따라 이동 속도가 점점 빨라집니다. (Stage2부터 등장하는 새 적에 권장)")]
-    public bool scaleSpeedByStage = false;
+    [Header("스테이지 스케일링 (이 스크립트 내부에서 직접 제어)")]
+    [Tooltip("true면 CurrentStage에 따라 이동 속도가 점점 빨라집니다.")]
+    public bool scaleSpeedByStage = true;
 
-    [Tooltip("Stage1 기준으로, 스테이지가 1 올라갈 때 최소 속도에 더해질 값")]
+    [Tooltip("스테이지가 1 올라갈 때 최소 속도에 더해질 값")]
     public float moveSpeedMinPerStage = 0.12f;
 
-    [Tooltip("Stage1 기준으로, 스테이지가 1 올라갈 때 최대 속도에 더해질 값")]
+    [Tooltip("스테이지가 1 올라갈 때 최대 속도에 더해질 값")]
     public float moveSpeedMaxPerStage = 0.15f;
 
     [Tooltip("스테이지 스케일링 적용 시 속도 최소/최대 클램프")]
     public Vector2 moveSpeedClamp = new Vector2(1.0f, 6.0f);
 
     [Header("목표 지점 변경 주기(초)")]
-    [Tooltip("다음 목표 지점을 고를 최소 시간")]
     public float changeTargetTimeMin = 1.5f;
-
-    [Tooltip("다음 목표 지점을 고를 최대 시간")]
     public float changeTargetTimeMax = 3.0f;
 
     [Header("카메라 안쪽 여유(클램핑 포함)")]
-    [Tooltip("화면 가장자리에서 얼마나 안쪽까지만 움직일지")]
     public float cameraPadding = 0.5f;
 
     [Header("수명 설정")]

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8289898395854840634}
   - component: {fileID: 1414861067765547752}
   - component: {fileID: 4072068180583713718}
-  - component: {fileID: 306487303772585196}
+  - component: {fileID: 4054344598964335641}
   m_Layer: 0
   m_Name: Enemy_Galaga
   m_TagString: Enemy
@@ -184,35 +184,40 @@ MonoBehaviour:
   speedPerStage: 0.2
   horizontalAmplitude: 6
   horizontalFrequency: 0.9
-  useGalagaMove: 1
+  useGalagaMove: 0
   hp: 1
   shooter: {fileID: 0}
   explosionPrefab: {fileID: 7575617972279380594, guid: 7085f882c1bb986429839d8793ce3715, type: 3}
   dieSfx: {fileID: 8300000, guid: 9606b99cacfb45f46b6b33d1c06c105e, type: 3}
   itemPrefab: {fileID: 9194623500998723778, guid: e5d72a1bd20a21243ab8e2a6df26b9df, type: 3}
   itemDropChance: 1
---- !u!114 &306487303772585196
+--- !u!114 &4054344598964335641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3488670620421249143}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6d8bceaa132d4d4f807e6036c7a6311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRandomMover
-  moveSpeed: 0.3
-  horizontalRange: 1.5
-  horizontalSpeed: 0.1
-  verticalAmplitude: 6
-  verticalFrequency: 0.9
-  dirChangeIntervalMin: 1
-  dirChangeIntervalMax: 5
+  moveSpeedStage1: 1
+  moveSpeedPerStage: 0.2
+  moveSpeedClamp: {x: 1, y: 8}
+  horizontalSpeedStage1: 1.5
+  horizontalSpeedPerStage: 0.5
+  horizontalSpeedClamp: {x: 1, y: 10}
+  accel: 1
+  horizontalRange: 3.5
+  verticalAmplitude: 0.5
+  verticalFrequency: 2.5
+  dirChangeIntervalMin: 0.5
+  dirChangeIntervalMax: 4
   shooter: {fileID: 0}
-  fireIntervalMin: 1
-  fireIntervalMax: 16
+  fireIntervalMin: 0.5
+  fireIntervalMax: 2.5
 --- !u!1 &8916515078990085093
 GameObject:
   m_ObjectHideFlags: 0

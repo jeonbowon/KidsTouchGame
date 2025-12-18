@@ -3,11 +3,15 @@
 public class EnemyRandomMover : MonoBehaviour
 {
     [Header("Stage (GameManager.CurrentStage 기반)")]
+    [Tooltip("Stage1 하강 속도")]
     public float moveSpeedStage1 = 1.5f;
+    [Tooltip("스테이지가 1 오를 때마다 하강 속도 증가량")]
     public float moveSpeedPerStage = 0.2f;
     public Vector2 moveSpeedClamp = new Vector2(0.5f, 8.0f);
 
+    [Tooltip("Stage1 좌우 속도")]
     public float horizontalSpeedStage1 = 2.0f;
+    [Tooltip("스테이지가 1 오를 때마다 좌우 속도 증가량")]
     public float horizontalSpeedPerStage = 0.15f;
     public Vector2 horizontalSpeedClamp = new Vector2(0.5f, 10.0f);
 
@@ -30,23 +34,30 @@ public class EnemyRandomMover : MonoBehaviour
     public float fireIntervalMin = 1.0f;
     public float fireIntervalMax = 2.5f;
 
-    private float _baseY;
+    // ─────────────────────────────────────────────
+    private float _spawnY;
+    private float _centerX;
+
     private float _nextDirChangeTime;
     private float _nextFireTime;
     private float _currentDir = 1f;
-    private float _centerX;
 
     // 현재 적용 중인 속도(가감속)
     private float _downNow;
     private float _horiNow;
 
+    // ✅ 하강 누적(이게 없어서 속도 체감이 거의 없던 문제 발생)
+    private float _fallAccum;
+
     void Start()
     {
-        _baseY = transform.position.y;
+        _spawnY = transform.position.y;
         _centerX = transform.position.x;
 
         _downNow = GetTargetDownSpeed();
         _horiNow = GetTargetHorizontalSpeed();
+
+        _fallAccum = 0f;
 
         ScheduleNextDirectionChange();
         ScheduleNextFire();
@@ -54,7 +65,6 @@ public class EnemyRandomMover : MonoBehaviour
 
     void Update()
     {
-        // 목표 속도(스테이지 반영)
         float targetDown = GetTargetDownSpeed();
         float targetHori = GetTargetHorizontalSpeed();
 
@@ -77,7 +87,7 @@ public class EnemyRandomMover : MonoBehaviour
 
     int GetStage()
     {
-        // ✅ 대표님 GameManager.cs 기준 확정
+        // 대표님 GameManager.cs 기준
         return (GameManager.I != null) ? Mathf.Max(1, GameManager.I.CurrentStage) : 1;
     }
 
@@ -98,9 +108,10 @@ public class EnemyRandomMover : MonoBehaviour
     void MovePattern()
     {
         Vector3 pos = transform.position;
+        float dt = Time.deltaTime;
 
-        // 좌우 이동
-        pos.x += _currentDir * _horiNow * Time.deltaTime;
+        // 1) 좌우 이동
+        pos.x += _currentDir * _horiNow * dt;
 
         float minX = _centerX - horizontalRange;
         float maxX = _centerX + horizontalRange;
@@ -111,13 +122,18 @@ public class EnemyRandomMover : MonoBehaviour
             pos.x = Mathf.Clamp(pos.x, minX, maxX);
         }
 
-        // 수직 웨이브 + 하강
+        // 2) ✅ 하강 누적 (속도 변화가 실제로 누적되어 “체감”되게)
+        _fallAccum += _downNow * dt;
+
+        // 3) 수직 웨이브(흔들림)
         float waveY = Mathf.Sin(Time.time * verticalFrequency) * verticalAmplitude;
-        pos.y = _baseY + waveY - _downNow * Time.deltaTime;
+
+        // ✅ 핵심: baseY로 매 프레임 되돌아가지 않게 누적 하강값을 반영
+        pos.y = _spawnY + waveY - _fallAccum;
 
         transform.position = pos;
 
-        // 랜덤 방향 변경
+        // 4) 랜덤 방향 변경
         if (Time.time >= _nextDirChangeTime)
         {
             _currentDir = Random.value > 0.5f ? 1f : -1f;

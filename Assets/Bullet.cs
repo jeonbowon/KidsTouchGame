@@ -113,26 +113,28 @@ public class Bullet : MonoBehaviour, IBullet
         if (other.GetComponent<EnemyBullet>() != null)
             return;
 
-        // 팀킬 방지: 오너 기준으로 처리
+        // 팀킬 방지 + 역할 분리:
+        //  - 적의 HP/폭발/사운드/드랍/킬카운트는 EnemyGalaga가 담당
+        //  - 총알은 "맞으면 사라짐"만 담당
+
         if (owner == BulletOwner.Player)
         {
             if (other.CompareTag("Enemy"))
             {
-                // 🔹 적 카운트 감소
-                GameManager.I?.OnEnemyKilled();
-
-                // 적 제거(프로젝트 규칙에 맞게)
-                Destroy(other.gameObject);
+                // ✅ 적을 Destroy하거나 OnEnemyKilled를 여기서 호출하면 안됨
+                //    (그럼 HP=2, 폭발, 폭발음, 드랍 로직이 전부 스킵됨)
                 Despawn();
+                return;
             }
         }
         else // Enemy bullet
         {
             if (other.CompareTag("Player"))
             {
+                // ✅ 플레이어 제거도 GameManager가 담당하도록 위임
                 if (GameManager.I != null) GameManager.I.OnPlayerDied();
-                Destroy(other.gameObject);
                 Despawn();
+                return;
             }
         }
     }

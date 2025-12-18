@@ -49,14 +49,20 @@ MonoBehaviour:
   stageMessageTime: 1.2
   playerPrefab: {fileID: 2008229436430780681, guid: 610a5923c5c833546a76b744842bdd09, type: 3}
   playerSpawnPoint: {fileID: 0}
-  formationSpawner: {fileID: 0}
   livesText: {fileID: 0}
   stageText: {fileID: 0}
   messageText: {fileID: 0}
+  scoreText: {fileID: 0}
+  scoreToClearStage: 10
   mainMenuSceneName: MainMenu
+  firstStageSceneName: Stage1
+  maxStage: 10
+  playerPrefabResourcePath: 
+  gameOverPanelResourcePath: GameOverPanel
+  continueLives: 3
   playerBulletMulStage1: 1
   playerBulletMulPerStage: 0
   playerBulletMulClamp: {x: 0.1, y: 3}
   enemyBulletSpeedStage1: 1
-  enemyBulletSpeedPerStage: 0.6
+  enemyBulletSpeedPerStage: 0
   enemyBulletSpeedClamp: {x: 0.5, y: 10}
