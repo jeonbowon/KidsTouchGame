@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -117,17 +117,35 @@ public class EnemyBullet : MonoBehaviour, IBullet
         }
     }
 
+    /// <summary>
+    /// 무적 플레이어에 맞았을 때 호출: 플레이어는 안죽고, 이 총알만 폭발 후 풀로 복귀
+    /// </summary>
+    public void DespawnWithEffectOnInvincibleHit()
+    {
+        SpawnHitEffect(hitEffectOnPlayer, transform.position, explosionScaleOnPlayerHit);
+        Despawn();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // 1) Player에 맞았을 때
         if (_owner == BulletOwner.Enemy && other.CompareTag("Player"))
         {
-            GameManager.I?.OnPlayerDied();
+            // ✅ 플레이어 죽음 처리는 PlayerHealth가 담당하도록 통일
+            var ph = other.GetComponent<PlayerHealth>();
+            if (ph != null && ph.IsInvincible)
+            {
+                // 무적이면: 큰 폭발만 보여주고 총알만 사라짐
+                SpawnHitEffect(hitEffectOnPlayer, transform.position, explosionScaleOnPlayerHit);
+                Despawn();
+                return;
+            }
 
-            // 플레이어 맞을 때는 큰 폭발 (연기 많은 쪽)
+            // 무적이 아니면: PlayerHealth.Die() 호출(중복 호출돼도 내부 dead 플래그로 안전)
+            if (ph != null)
+                ph.Die();
+
             SpawnHitEffect(hitEffectOnPlayer, transform.position, explosionScaleOnPlayerHit);
-
-            Destroy(other.gameObject);
             Despawn();
             return;
         }

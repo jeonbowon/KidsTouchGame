@@ -19,10 +19,10 @@ public class EnemyBonusMover : MonoBehaviour
     [Tooltip("true면 CurrentStage에 따라 이동 속도가 점점 빨라집니다.")]
     public bool scaleSpeedByStage = true;
 
-    [Tooltip("스테이지가 1 올라갈 때 최소 속도에 더해질 값")]
+    [Tooltip("스테이지가 1 오를 때마다 최소 속도에 더해질 값")]
     public float moveSpeedMinPerStage = 0.12f;
 
-    [Tooltip("스테이지가 1 올라갈 때 최대 속도에 더해질 값")]
+    [Tooltip("스테이지가 1 오를 때마다 최대 속도에 더해질 값")]
     public float moveSpeedMaxPerStage = 0.15f;
 
     [Tooltip("스테이지 스케일링 적용 시 속도 최소/최대 클램프")]
@@ -32,11 +32,11 @@ public class EnemyBonusMover : MonoBehaviour
     public float changeTargetTimeMin = 1.5f;
     public float changeTargetTimeMax = 3.0f;
 
-    [Header("카메라 안쪽 여유(클램핑 포함)")]
+    [Header("카메라 안쪽 여유(클램프 포함)")]
     public float cameraPadding = 0.5f;
 
     [Header("수명 설정")]
-    [Tooltip("이 시간이 지나면 자동으로 사라짐(초). 0 이하이면 무제한")]
+    [Tooltip("이 시간이 지나면 자동으로 사라짐(초). 0 이하면 무제한")]
     public float lifeTime = 15f;
 
     private Camera cam;
@@ -44,11 +44,13 @@ public class EnemyBonusMover : MonoBehaviour
     private float nextChangeTime;
     private float currentSpeed;
 
-    // 카메라 월드 좌표 경계
     private float minX, maxX, minY, maxY;
     private bool hasBounds = false;
 
     private float spawnTime;
+
+    // 수명 종료/기타 Destroy 경로에서도 스폰 카운트 누수 방지
+    private bool _reportedRemoveToGM = false;
 
     void Start()
     {
@@ -72,6 +74,7 @@ public class EnemyBonusMover : MonoBehaviour
         // 1) 수명 체크: lifeTime 이 지나면 자동으로 파괴
         if (lifeTime > 0f && Time.time - spawnTime >= lifeTime)
         {
+            ReportRemovedToGM();
             Destroy(gameObject);
             return;
         }
@@ -117,9 +120,6 @@ public class EnemyBonusMover : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 카메라의 월드 좌표 경계를 계산해 둔다.
-    /// </summary>
     private void CacheCameraBounds()
     {
         if (cam == null)
@@ -180,8 +180,22 @@ public class EnemyBonusMover : MonoBehaviour
         GetScaledSpeedRange(out float sMin, out float sMax);
         currentSpeed = Random.Range(sMin, sMax);
 
-        // 다음 목표 변경 시간 설정
         float t = Random.Range(changeTargetTimeMin, changeTargetTimeMax);
         nextChangeTime = Time.time + t;
+    }
+
+    private void OnDestroy()
+    {
+        // 어떤 경로로든 Destroy되면 카운트 누수 방지
+        ReportRemovedToGM();
+    }
+
+    private void ReportRemovedToGM()
+    {
+        if (_reportedRemoveToGM) return;
+        _reportedRemoveToGM = true;
+
+        if (GameManager.I != null)
+            GameManager.I.OnEnemyRemoved();
     }
 }

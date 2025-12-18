@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3263135425761424079}
   - component: {fileID: 4852370984687878013}
   m_Layer: 0
-  m_Name: ScoreItem
+  m_Name: ScoreItemDouble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -117,7 +117,7 @@ SpriteRenderer:
   m_SortingLayerID: -2014429223
   m_SortingLayer: 7
   m_SortingOrder: 1
-  m_Sprite: {fileID: -3338749442709606003, guid: a3fd705572cfac74db2f3b464260e508, type: 3}
+  m_Sprite: {fileID: -3312885378051177953, guid: 2df6bdb016bbe04448b482debff1a59a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreItem
   fallSpeed: 1.5
-  scoreValue: 10
+  scoreValue: 20
   destroyY: -6
   collectSfx: {fileID: 8300000, guid: 45ec6ec3d4b6e634e92c1a102b6de553, type: 3}
   sfxVolume: 2

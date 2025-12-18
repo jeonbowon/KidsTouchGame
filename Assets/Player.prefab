@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3554668685777627239}
   - component: {fileID: 4187013666763381630}
   - component: {fileID: 1270443375431708167}
-  - component: {fileID: 1573580793247839975}
   - component: {fileID: -6007922334837466443}
   - component: {fileID: 8917561454834374741}
   m_Layer: 0
@@ -157,19 +156,6 @@ MonoBehaviour:
   twinMode: 0
   bulletSpeedBonusMul: 1
   aimDir: {x: 0, y: 1}
---- !u!114 &1573580793247839975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008229436430780681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2de36f66a02b1bc488ebf9470c339e15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  explosionPrefab: {fileID: 7575617972279380594, guid: 7085f882c1bb986429839d8793ce3715, type: 3}
 --- !u!114 &-6007922334837466443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +172,9 @@ MonoBehaviour:
   lethalTags:
   - Enemy
   - EnemyBullet
+  invincibleHitExplosionPrefab: {fileID: 0}
+  blinkWhenInvincible: 1
+  blinkInterval: 0.08
 --- !u!114 &8917561454834374741
 MonoBehaviour:
   m_ObjectHideFlags: 0

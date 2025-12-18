@@ -186,6 +186,13 @@ MonoBehaviour:
   horizontalFrequency: 0.9
   useGalagaMove: 0
   hp: 1
+  useTwoPipHpUI: 1
+  hpUiShowTimeAfterHit: 1
+  hitFlashDuration: 0.18
+  hitFlashCount: 4
+  hitFlashColor: {r: 1, g: 1, b: 1, a: 1}
+  damageSmokePrefab: {fileID: 0}
+  applyPrefabLocalPosition: 1
   shooter: {fileID: 0}
   explosionPrefab: {fileID: 7575617972279380594, guid: 7085f882c1bb986429839d8793ce3715, type: 3}
   dieSfx: {fileID: 8300000, guid: 9606b99cacfb45f46b6b33d1c06c105e, type: 3}
@@ -203,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d8bceaa132d4d4f807e6036c7a6311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRandomMover
-  moveSpeedStage1: 1
+  moveSpeedStage1: 0.6
   moveSpeedPerStage: 0.2
   moveSpeedClamp: {x: 1, y: 8}
   horizontalSpeedStage1: 1.5

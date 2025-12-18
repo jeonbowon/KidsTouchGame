@@ -65,8 +65,9 @@ public class EnemyGalaga : MonoBehaviour
 
     private bool isDying = false;
 
-    // ─────────────────────────────────────────────
-    // Hit Flash / HP UI refs
+    // ✅ 어떤 경로로 Destroy되더라도 스폰 카운트가 반드시 내려가도록 하는 안전장치
+    private bool _reportedRemoveToGM = false;
+
     private SpriteRenderer _sr;
     private Color _origColor;
     private Coroutine _flashCo;
@@ -114,9 +115,6 @@ public class EnemyGalaga : MonoBehaviour
             shooter.EnableAutoFire(true);
 
         sinTime = Random.Range(0f, 100f);
-
-        // 시작 시 이미 HP가 1이면(디자인에 따라) 연기를 켜고 싶다면 아래를 켜도 됨
-        // if (_hpInt == 1) SpawnDamageSmoke();
     }
 
     private void Update()
@@ -129,10 +127,13 @@ public class EnemyGalaga : MonoBehaviour
         float xOffset = Mathf.Sin(sinTime) * horizontalAmplitude;
         transform.position += new Vector3(xOffset * dt, -moveSpeed * dt, 0);
 
+        // 화면 밖으로 빠져 "그냥 Destroy" 되는 경로도 카운트 누수 없이 처리
         if (transform.position.y < -6f)
+        {
+            ReportRemovedToGM();
             Destroy(gameObject);
+        }
 
-        // HP UI 위치 보정
         if (_hpRoot != null)
             PositionHpUI();
     }
@@ -140,8 +141,6 @@ public class EnemyGalaga : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (isDying) return;
-
-        // ✅ 총알 태그가 Bullet 이어야 함
         if (!other.CompareTag("Bullet")) return;
 
         // 총알 제거
@@ -151,10 +150,8 @@ public class EnemyGalaga : MonoBehaviour
         _hpInt -= 1;
         hp = _hpInt; // 외부 디버깅/표시용 동기화
 
-        // 피격 연출(깜빡임 + HP표시)
         PlayHitFeedback();
 
-        // ✅ 핵심: HP가 2→1 되는 최초 순간 연기 시작
         if (_hpInt == 1)
             SpawnDamageSmoke();
 
@@ -171,7 +168,6 @@ public class EnemyGalaga : MonoBehaviour
             _flashCo = StartCoroutine(Co_HitFlash());
         }
 
-        // 2) 두 칸 HP 표시(■■ -> ■□)
         if (useTwoPipHpUI && _maxHpInt >= 2 && _hpRoot != null)
         {
             UpdateTwoPipUI();
@@ -228,36 +224,57 @@ public class EnemyGalaga : MonoBehaviour
         if (shooter != null)
             shooter.StopAll();
 
-        // 폭발 이펙트
         if (explosionPrefab != null)
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
-        // 폭발 사운드
         if (dieSfx != null)
         {
-            if (SfxManager.I != null)
-            {
-                SfxManager.I.PlayExplosion(dieSfx, 1f);
-            }
-            else
-            {
-                AudioSource.PlayClipAtPoint(dieSfx, transform.position);
-            }
+            if (SfxManager.I != null) SfxManager.I.PlayExplosion(dieSfx, 1f);
+            else AudioSource.PlayClipAtPoint(dieSfx, transform.position);
         }
 
-        // 아이템 드랍
         if (itemPrefab != null && Random.value <= itemDropChance)
             Instantiate(itemPrefab, transform.position, Quaternion.identity);
 
-        // GameManager에 적 사망 보고
-        if (GameManager.I != null)
-            GameManager.I.OnEnemyKilled();
+        // 카운트는 반드시 내려야 함
+        ReportRemovedToGM();
 
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// 무적 충돌 등으로 "점수/드랍/사운드 없이" 적을 제거.
+    /// PlayerHealth에서 호출.
+    /// </summary>
+    public void DespawnNoScore()
+    {
+        if (isDying) return;
+        isDying = true;
+
+        if (shooter != null)
+            shooter.StopAll();
+
+        ReportRemovedToGM();
+        Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        // ✅ 어떤 경로로든 Destroy되면(무적 충돌 포함) 카운트 누수를 막기 위해 마지막으로 보정
+        ReportRemovedToGM();
+    }
+
+    private void ReportRemovedToGM()
+    {
+        if (_reportedRemoveToGM) return;
+        _reportedRemoveToGM = true;
+
+        if (GameManager.I != null)
+            GameManager.I.OnEnemyRemoved();
+    }
+
     // ─────────────────────────────────────────────
-    // Two-Pip HP UI (A안: ■■ / ■□ / □□)
+    // Two-Pip HP UI
 
     private void BuildTwoPipUI()
     {

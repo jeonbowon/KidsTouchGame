@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxLives = 3;
     [SerializeField] private float respawnDelay = 1.2f;
     [SerializeField] private float stageMessageTime = 1.2f;
+
+    [Header("Respawn Invincibility")]
+    [Tooltip("플레이어가 죽고 다시 스폰될 때, 이 시간(초) 동안 무적(충돌 시 플레이어는 안죽고 적/미사일만 폭파)")]
+    [SerializeField] private float respawnInvincibleTime = 1.5f;
 
     [Header("Prefabs/Refs")]
     [SerializeField] private GameObject playerPrefab;
@@ -88,7 +92,6 @@ public class GameManager : MonoBehaviour
         Debug.Log($"[GM] id={GetInstanceID()} stage={CurrentStage} stage1={enemyBulletSpeedStage1} perStage={enemyBulletSpeedPerStage} -> {r}");
         return r;
     }
-
 
     // ✅ Continue(+1) 광고는 이번 런에서 딱 1번만
     private bool bonusContinueUsed = false;
@@ -274,11 +277,20 @@ public class GameManager : MonoBehaviour
     }
 
     public void OnEnemySpawned() => aliveEnemyCount++;
-    public void OnEnemyKilled()
+
+    /// <summary>
+    /// 적이 어떤 이유로든(플레이어가 격파/무적 충돌로 파괴/화면 밖 이탈/수명 종료/씬 정리) 사라질 때 호출.
+    /// "스폰 카운트 누수"를 막기 위해 카운트는 항상 안전하게 감소시킨다.
+    /// </summary>
+    public void OnEnemyRemoved()
     {
-        if (!isStageRunning || isGameOver) return;
         aliveEnemyCount = Mathf.Max(0, aliveEnemyCount - 1);
     }
+
+    /// <summary>
+    /// (호환용) 기존 코드가 OnEnemyKilled()를 호출해도 동일하게 처리.
+    /// </summary>
+    public void OnEnemyKilled() => OnEnemyRemoved();
 
     public void AddScore(int amount)
     {
@@ -350,16 +362,17 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Co_RespawnPlayerWithMessage());
     }
 
+    // ✅ 중요: timeScale 영향을 받지 않도록 리스폰 대기/메시지는 Realtime 사용
     IEnumerator Co_RespawnPlayerWithMessage()
     {
         isRespawning = true;
 
         if (messageText != null)
-            yield return ShowMessageFor($"LIVES : {Lives}/{maxLives}", 1.1f);
+            yield return ShowMessageForRealtime($"LIVES : {Lives}/{maxLives}", 1.1f);
         else
-            yield return new WaitForSeconds(1.1f);
+            yield return new WaitForSecondsRealtime(1.1f);
 
-        yield return new WaitForSeconds(respawnDelay);
+        yield return new WaitForSecondsRealtime(respawnDelay);
 
         if (!isGameOver)
             SpawnPlayer();
@@ -382,6 +395,13 @@ public class GameManager : MonoBehaviour
 
         var go = Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
         Debug.Log($"[GameManager] Player 스폰: {go.name} @ {playerSpawnPoint.position}");
+
+        // ✅ 리스폰 즉사 방지: 스폰 직후 무적 부여
+        var ph = go.GetComponent<PlayerHealth>();
+        if (ph != null && respawnInvincibleTime > 0f)
+        {
+            ph.BeginInvincibility(respawnInvincibleTime);
+        }
     }
 
     IEnumerator Co_GameOver()
@@ -444,7 +464,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"[GAME] First GameOver: 선택됨 = {_choice}");
 
-		// Menu 선택 시: 전면광고 후 메뉴로 이동
+        // Menu 선택 시: 전면광고 후 메뉴로 이동
         if (_choice == GameOverChoice.Menu)
         {
             if (gameOverPanelInstance != null)
@@ -527,7 +547,7 @@ public class GameManager : MonoBehaviour
             if (gameOverPanelInstance != null)
                 gameOverPanelInstance.Hide();
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSecondsRealtime(0.05f);
             SpawnPlayer();
 
             Debug.Log($"[GAME] Continue 성공 → +{Lives} 부활 완료 (bonusContinueUsed=true)");
@@ -698,6 +718,22 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(msg);
             yield return new WaitForSeconds(time);
+        }
+    }
+
+    // ✅ timeScale=0이어도 표시/대기 가능
+    IEnumerator ShowMessageForRealtime(string msg, float time)
+    {
+        if (messageText != null)
+        {
+            messageText.text = msg;
+            yield return new WaitForSecondsRealtime(time);
+            messageText.text = "";
+        }
+        else
+        {
+            Debug.Log(msg);
+            yield return new WaitForSecondsRealtime(time);
         }
     }
 
