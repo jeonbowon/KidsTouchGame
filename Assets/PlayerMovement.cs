@@ -14,13 +14,12 @@ public class PlayerMovement : MonoBehaviour
     public float xPadding = 0.3f;
     public float yPadding = 0.3f;
 
-    [Header("터치 조작 영역(화면 하단)")]
-    [Tooltip("화면 아래 몇 %를 조작 영역으로 사용할지 (0.3 = 아래 30%)")]
-    [Range(0.1f, 0.6f)]
-    public float touchControlHeightRatio = 0.35f;
+    [Header("전체 화면 드래그(델타)")]
+    [Tooltip("드래그 델타를 이동 속도로 바꾸는 스케일(클수록 더 민감). 1.0~2.0 권장")]
+    public float touchSensitivity = 1.2f;
 
-    [Tooltip("터치 드래그 감도. 값이 작을수록 더 크게 문질러야 빨리 움직임")]
-    public float touchSensitivity = 1.0f;
+    [Tooltip("아주 미세한 손떨림/노이즈 컷 (픽셀 단위)")]
+    public float deadZonePixels = 1.0f;
 
     [Header("디버그")]
     [Tooltip("현재 프레임에서 쓰인 최종 입력 방향(정규화)")]
@@ -38,9 +37,9 @@ public class PlayerMovement : MonoBehaviour
     // 키보드 입력(New Input System)
     private Vector2 kbInput;
 
-    // 터치/마우스 조작 입력 (가상 조이스틱 역할)
-    private Vector2 touchMoveInput;   // -1~1 범위로 정규화된 방향 벡터
-    private int activeFingerId = -1;  // 이동에 사용 중인 손가락 ID (없으면 -1)
+    // 터치/마우스 드래그 델타 입력
+    private Vector2 pointerDeltaInput; // 화면 delta를 월드 이동 벡터로 변환한 값
+    private int activeFingerId = -1;   // 터치 추적용
 
     // 마지막 이동 방향 (총알 방향 기준)
     private Vector2 lastMoveDir = Vector2.up;
@@ -63,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
         p.y = Mathf.Clamp(p.y, minY, maxY);
         rb.position = p;
 
-        // 기본 방향은 위쪽
         lastMoveDir = Vector2.up;
     }
 
@@ -71,13 +69,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // 매 프레임 입력 초기화
         kbInput = Vector2.zero;
-        touchMoveInput = Vector2.zero;
+        pointerDeltaInput = Vector2.zero;
         currentInputDir = Vector2.zero;
 
         HandleKeyboardInput();
-        HandlePointerInput();   // 터치/마우스 조작 입력 처리
+        HandlePointerInput();   // ✅ 화면 전체에서 드래그 입력
     }
 
     void FixedUpdate()
@@ -86,34 +83,42 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 pos = rb.position;
 
-        // 최종 입력 벡터 (키보드 + 터치)
-        Vector2 input = Vector2.zero;
+        // 1) 터치/마우스 드래그 우선
+        Vector2 move = Vector2.zero;
 
-        // 모바일/터치가 있으면 우선 사용
-        if (touchMoveInput.sqrMagnitude > 0f)
+        if (pointerDeltaInput.sqrMagnitude > 0f)
         {
-            input = touchMoveInput;
+            move = pointerDeltaInput;
         }
         else if (kbInput.sqrMagnitude > 0f)
         {
-            input = kbInput;
+            // 키보드는 기존처럼 "방향 + moveSpeed"
+            var dir = kbInput.normalized;
+            currentInputDir = dir;
+            lastMoveDir = dir;
+
+            pos += dir * moveSpeed * Time.fixedDeltaTime;
+
+            pos.x = Mathf.Clamp(pos.x, minX, maxX);
+            pos.y = Mathf.Clamp(pos.y, minY, maxY);
+            rb.MovePosition(pos);
+            return;
         }
 
-        if (input.sqrMagnitude > 0f)
+        // 2) 드래그 델타 방식: "델타 → 월드 이동량" 이므로 moveSpeed와 별개로 처리
+        if (move.sqrMagnitude > 0f)
         {
-            // 정규화된 방향
-            input = input.normalized;
-            currentInputDir = input;
-            lastMoveDir = input; // 마지막 이동 방향 갱신
+            Vector2 dir = move.normalized;
+            currentInputDir = dir;
+            lastMoveDir = dir;
 
-            pos += input * moveSpeed * Time.fixedDeltaTime;
+            pos += move; // move는 이미 월드 이동량
         }
         else
         {
             currentInputDir = Vector2.zero;
         }
 
-        // 경계 안으로 제한
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
 
@@ -146,20 +151,20 @@ public class PlayerMovement : MonoBehaviour
             kbInput = kbInput.normalized;
     }
 
-    // ───────── 터치/마우스 처리: 화면 하단 전체 조작 패드(한손 전용) ─────────
+    // ───────── 터치/마우스 처리: ✅ 화면 전체 드래그 델타 이동 ─────────
     void HandlePointerInput()
     {
         if (cam == null || rb == null) return;
 
-        // 1) 터치 우선 (모바일)
+        // 1) 터치 우선
         var ts = Touchscreen.current;
         if (ts != null)
         {
             HandleTouchscreen(ts);
-            return; // 터치가 있으면 마우스는 무시
+            return;
         }
 
-        // 2) 마우스 (에디터/PC용 가상 터치 패드)
+        // 2) 마우스 (에디터/PC)
         var ms = Mouse.current;
         if (ms != null)
         {
@@ -169,9 +174,7 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleTouchscreen(Touchscreen ts)
     {
-        float controlHeight = Screen.height * touchControlHeightRatio;
-
-        // 이미 조작에 사용 중인 손가락이 있는 경우, 그 손가락을 계속 추적
+        // 이미 잡은 손가락이 있으면 계속 추적
         if (activeFingerId != -1)
         {
             TouchControl activeTouch = null;
@@ -186,77 +189,69 @@ public class PlayerMovement : MonoBehaviour
 
             if (activeTouch == null || !activeTouch.press.isPressed)
             {
-                // 손을 떼거나 더 이상 추적할 수 없으면 해제
                 activeFingerId = -1;
-                touchMoveInput = Vector2.zero;
+                pointerDeltaInput = Vector2.zero;
                 return;
             }
 
-            // 현재 프레임에서의 이동량(화면 좌표)
-            Vector2 delta = activeTouch.delta.ReadValue();
+            Vector2 deltaPx = activeTouch.delta.ReadValue();
 
-            // 너무 작은 떨림은 무시
-            if (delta.sqrMagnitude > 1f)
+            if (deltaPx.sqrMagnitude <= deadZonePixels * deadZonePixels)
             {
-                // 화면 좌표 delta를 방향으로 사용 (감도 보정)
-                touchMoveInput = delta * (touchSensitivity / 50f); // 50은 실험적으로 조절용
-            }
-            else
-            {
-                touchMoveInput = Vector2.zero;
+                pointerDeltaInput = Vector2.zero;
+                return;
             }
 
+            // 픽셀 델타 → 월드 이동량으로 변환
+            pointerDeltaInput = PixelDeltaToWorldMove(deltaPx);
             return;
         }
 
-        // activeFingerId가 없으면, 새로 "조작용 손가락"을 할당
+        // 새 터치 시작이면 그 손가락을 조작 손가락으로 할당 (✅ 화면 어디든)
         foreach (var t in ts.touches)
         {
             if (t.press.wasPressedThisFrame)
             {
-                Vector2 pos = t.position.ReadValue();
-
-                // 화면 아래쪽에서 시작한 터치만 조작용으로 사용 (폭 전체 사용: 한손 전용)
-                if (pos.y <= controlHeight)
-                {
-                    activeFingerId = t.touchId.ReadValue();
-                    touchMoveInput = Vector2.zero;
-                    break;
-                }
+                activeFingerId = t.touchId.ReadValue();
+                pointerDeltaInput = Vector2.zero;
+                break;
             }
         }
     }
 
     void HandleMouse(Mouse ms)
     {
-        float controlHeight = Screen.height * touchControlHeightRatio;
-
-        if (ms.leftButton.isPressed)
+        if (!ms.leftButton.isPressed)
         {
-            Vector2 pos = ms.position.ReadValue();
-
-            // 마우스도 화면 아래쪽 전체에서 조작 패드로 사용
-            if (pos.y <= controlHeight)
-            {
-                Vector2 delta = ms.delta.ReadValue();
-
-                if (delta.sqrMagnitude > 0.1f)
-                {
-                    touchMoveInput = delta * (touchSensitivity / 50f);
-                }
-                else
-                {
-                    touchMoveInput = Vector2.zero;
-                }
-            }
-            else
-            {
-                touchMoveInput = Vector2.zero;
-            }
+            pointerDeltaInput = Vector2.zero;
+            return;
         }
-        else
+
+        Vector2 deltaPx = ms.delta.ReadValue();
+        if (deltaPx.sqrMagnitude <= deadZonePixels * deadZonePixels)
         {
-            touchMoveInput = Vector2.zero;
+            pointerDeltaInput = Vector2.zero;
+            return;
         }
+
+        pointerDeltaInput = PixelDeltaToWorldMove(deltaPx);
+    }
+
+    Vector2 PixelDeltaToWorldMove(Vector2 deltaPx)
+    {
+        // 화면 픽셀 델타를, 현재 카메라 뷰 기준 월드 이동량으로 바꿉니다.
+        // 기준: 화면 전체 폭/높이가 월드에서 얼마인지
+        float worldHeight = cam.orthographicSize * 2f;
+        float worldWidth = worldHeight * cam.aspect;
+
+        float dxWorld = (deltaPx.x / Screen.width) * worldWidth;
+        float dyWorld = (deltaPx.y / Screen.height) * worldHeight;
+
+        // 감도 적용 + FixedUpdate에서 바로 더할 수 있게 fixedDeltaTime도 곱해 "프레임 독립" 처리
+        Vector2 worldMove = new Vector2(dxWorld, dyWorld) * touchSensitivity;
+
+        // 드래그 델타 방식은 손가락 이동 속도에 비례하므로,
+        // 너무 빠르게 느껴지면 touchSensitivity만 줄이면 됩니다.
+        return worldMove;
     }
 }

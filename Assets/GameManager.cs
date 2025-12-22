@@ -501,6 +501,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Continue 선택
+        Debug.Log($"[DEBUG] Before ShowRewarded: AdManager.I={(AdManager.I != null)} rewardedReady={(AdManager.I != null ? AdManager.I.IsRewardedReady.ToString() : "null")}");
         if (gameOverPanelInstance != null)
             gameOverPanelInstance.Show("SHOWING AD...\n(Rewarded)", showButtons: false);
 

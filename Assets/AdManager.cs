@@ -170,6 +170,7 @@ public class AdManager : MonoBehaviour
     // Rewarded: Continue용
     public void ShowRewarded(Action<bool> onDone, string reason = "Rewarded")
     {
+        Debug.Log($"[DEBUG] ShowRewarded enter: ready={_rewardedReady} rewardedNull={(_rewarded == null)} editor={Application.isEditor}");
         Debug.Log($"[ADS] ShowRewarded 요청 reason={reason} / ready={IsRewardedReady}");
 
 #if UNITY_EDITOR
