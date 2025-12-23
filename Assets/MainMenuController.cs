@@ -18,11 +18,10 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private Toggle toggleAutoFire;
 
     [Header("오디오")]
-    [SerializeField] private AudioSource bgmSource; // ★ 전용 AudioSource를 드래그로 연결
-    // 만약 태그로 찾고 싶다면: private const string BGM_TAG = "BGM";
+    [SerializeField] private AudioSource bgmSource;
 
     [Header("BGM")]
-    [SerializeField] private AudioClip menuClip;   // ★ 메인 메뉴에서 틀 음악
+    [SerializeField] private AudioClip menuClip;   // 메인 메뉴에서 틀 음악
 
     private const string KEY_BGM = "opt_bgm";
 
@@ -30,20 +29,11 @@ public class MainMenuController : MonoBehaviour
     {
         panelMain.SetActive(true);
         panelSettings.SetActive(false);
-        Time.timeScale = 1f;
 
-        // ★ 드래그 연결을 못했으면(널이면) 마지막 방어적으로 찾아보기
-        if (bgmSource == null)
-        {
-            // 1) 태그 방식 (추천) : BGM 오브젝트에 "BGM" 태그 부여 후 사용
-            // var go = GameObject.FindGameObjectWithTag(BGM_TAG);
-            // if (go) bgmSource = go.GetComponent<AudioSource>();
+        // 여기서 timeScale을 직접 만지지 않는다
+        // timeScale 제어는 GameManager만 담당한다
 
-            // 2) 최후의 수단: FindObjectOfType (권장하진 않음)
-            bgmSource = FindObjectOfType<AudioSource>();
-        }
-
-        // 저장된 볼륨 로드
+        // 볼륨 로드
         float bgm = PlayerPrefs.GetFloat(KEY_BGM, 0.8f);
 
         if (sliderBGM != null)
@@ -55,7 +45,7 @@ public class MainMenuController : MonoBehaviour
         if (bgmSource != null)
             bgmSource.volume = bgm;
 
-        // 메뉴 씬에 들어올 때 메뉴 BGM이 아니면 페이드 전환
+        // 메뉴 BGM 전환
         if (BGMManager.Instance != null && menuClip != null)
         {
             var cur = BGMManager.Instance.Source ? BGMManager.Instance.Source.clip : null;
@@ -69,15 +59,19 @@ public class MainMenuController : MonoBehaviour
         if (sliderBGM != null)
             sliderBGM.onValueChanged.RemoveListener(OnBgmVolumeChanged);
     }
-        
-    public void OnClickStart()
-    {        
-        if (GameManager.I != null)
-            GameManager.I.NewRun();
-        else
-            Debug.LogError("[MainMenuController] GameManager.I 가 null 입니다.");
-    }
 
+    public void OnClickStart()
+    {
+        if (GameManager.I != null)
+        {
+            // 게임 시작 시점에만 GameManager가 풀도록 위임
+            GameManager.I.NewRun();
+        }
+        else
+        {
+            Debug.LogError("[MainMenuController] GameManager.I 가 null 입니다.");
+        }
+    }
 
     public void OnClickSettings()
     {
@@ -87,7 +81,6 @@ public class MainMenuController : MonoBehaviour
 
     public void OnClickCloseSettings()
     {
-        // 닫을 때 현재값 저장/반영 (슬라이더 이벤트 안 거쳤을 수도 있으니)
         if (sliderBGM != null)
             OnBgmVolumeChanged(sliderBGM.value);
 

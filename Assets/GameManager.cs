@@ -1,9 +1,9 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; // CanvasScaler, GraphicRaycaster
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float stageMessageTime = 1.2f;
 
     [Header("Respawn Invincibility")]
-    [Tooltip("플레이어가 죽고 다시 스폰될 때, 이 시간(초) 동안 무적(충돌 시 플레이어는 안죽고 적/미사일만 폭파)")]
     [SerializeField] private float respawnInvincibleTime = 1.5f;
 
     [Header("Prefabs/Refs")]
@@ -46,8 +45,17 @@ public class GameManager : MonoBehaviour
     private GameOverPanel gameOverPanelInstance;
 
     [Header("Continue Reward")]
-    [Tooltip("Continue(보상광고) 성공 시 부활할 목숨 수. 요청사항: 3")]
     [SerializeField] private int continueLives = 3;
+
+    [Header("Ad Wait/Retry")]
+    [Tooltip("Rewarded 준비될 때까지 기다릴 최대 시간(초)")]
+    [SerializeField] private float rewardedWaitTimeout = 8.0f;
+
+    [Tooltip("Interstitial 준비될 때까지 기다릴 최대 시간(초)")]
+    [SerializeField] private float interstitialWaitTimeout = 4.0f;
+
+    [Tooltip("대기 UI 갱신 주기(초)")]
+    [SerializeField] private float waitTick = 0.5f;
 
     public int CurrentStage { get; private set; } = 1;
     public int Lives { get; private set; }
@@ -89,19 +97,21 @@ public class GameManager : MonoBehaviour
     {
         float s = enemyBulletSpeedStage1 + (CurrentStage - 1) * enemyBulletSpeedPerStage;
         float r = Mathf.Clamp(s, enemyBulletSpeedClamp.x, enemyBulletSpeedClamp.y);
-        Debug.Log($"[GM] id={GetInstanceID()} stage={CurrentStage} stage1={enemyBulletSpeedStage1} perStage={enemyBulletSpeedPerStage} -> {r}");
+        Debug.Log($"[GM] stage={CurrentStage} -> enemyBulletSpeed={r}");
         return r;
     }
 
-    // ✅ Continue(+1) 광고는 이번 런에서 딱 1번만
+    // Continue는 이번 런에서 1번만
     private bool bonusContinueUsed = false;
 
-    // ✅ GameOver 처리 중 중복 방지
+    // GameOver 처리 중 중복 방지
     private bool isHandlingGameOverFlow = false;
 
-    // ✅ 첫 GameOver에서 선택을 기다리기 위한 변수
     private enum GameOverChoice { None, Continue, Menu }
     private GameOverChoice _choice = GameOverChoice.None;
+
+    // 완전정지 보장용
+    private float _defaultFixedDeltaTime = 0.02f;
 
     void Awake()
     {
@@ -114,8 +124,10 @@ public class GameManager : MonoBehaviour
         I = this;
         DontDestroyOnLoad(gameObject);
 
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
+        _defaultFixedDeltaTime = Time.fixedDeltaTime;
+
+        ForcePause(false);
+
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 1;
 
@@ -130,8 +142,7 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         StopAllCoroutines();
-
-        Time.timeScale = 1f;
+        ForcePause(false);
 
         EnsureAdManagerExists();
 
@@ -139,6 +150,14 @@ public class GameManager : MonoBehaviour
         {
             RebindStageSceneObjects();
             EnsureGameOverPanel();
+
+            // 스테이지 진입 시 미리 로드
+            if (AdManager.I != null)
+            {
+                AdManager.I.RequestRewardedReload();
+                AdManager.I.RequestInterstitialReload();
+            }
+
             StartCoroutine(Co_StartStage(CurrentStage));
         }
         else
@@ -146,6 +165,22 @@ public class GameManager : MonoBehaviour
             isStageRunning = false;
             KillAllPlayers();
             DestroyGameOverPanelInstance();
+        }
+    }
+
+    private void ForcePause(bool paused)
+    {
+        if (paused)
+        {
+            Time.timeScale = 0f;
+            Time.fixedDeltaTime = 0f;          // 물리까지 확실히 멈춤
+            AudioListener.pause = true;        // 오디오도 멈춤(선택이지만 “완전정지” 체감에 좋음)
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = _defaultFixedDeltaTime;
+            AudioListener.pause = false;
         }
     }
 
@@ -219,6 +254,13 @@ public class GameManager : MonoBehaviour
         {
             RebindStageSceneObjects();
             EnsureGameOverPanel();
+
+            if (AdManager.I != null)
+            {
+                AdManager.I.RequestRewardedReload();
+                AdManager.I.RequestInterstitialReload();
+            }
+
             StartCoroutine(Co_StartStage(CurrentStage));
         }
     }
@@ -247,8 +289,7 @@ public class GameManager : MonoBehaviour
         UpdateStageUI();
         UpdateScoreUI();
 
-        Time.timeScale = 1f;
-
+        ForcePause(false);
         SceneManager.LoadScene(firstStageSceneName);
     }
 
@@ -277,19 +318,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void OnEnemySpawned() => aliveEnemyCount++;
-
-    /// <summary>
-    /// 적이 어떤 이유로든(플레이어가 격파/무적 충돌로 파괴/화면 밖 이탈/수명 종료/씬 정리) 사라질 때 호출.
-    /// "스폰 카운트 누수"를 막기 위해 카운트는 항상 안전하게 감소시킨다.
-    /// </summary>
-    public void OnEnemyRemoved()
-    {
-        aliveEnemyCount = Mathf.Max(0, aliveEnemyCount - 1);
-    }
-
-    /// <summary>
-    /// (호환용) 기존 코드가 OnEnemyKilled()를 호출해도 동일하게 처리.
-    /// </summary>
+    public void OnEnemyRemoved() => aliveEnemyCount = Mathf.Max(0, aliveEnemyCount - 1);
     public void OnEnemyKilled() => OnEnemyRemoved();
 
     public void AddScore(int amount)
@@ -333,7 +362,7 @@ public class GameManager : MonoBehaviour
         {
             yield return ShowMessageFor("ALL STAGES CLEAR!", 1.8f);
 
-            Time.timeScale = 1f;
+            ForcePause(false);
             Debug.Log("[GameManager] 모든 스테이지 클리어 → 메인메뉴 로드");
             SceneManager.LoadScene(mainMenuSceneName);
         }
@@ -354,7 +383,7 @@ public class GameManager : MonoBehaviour
 
         if (Lives <= 0)
         {
-            Debug.Log("[GameManager] Lives 0 → GameOver 코루틴 시작");
+            Debug.Log("[GameManager] Lives 0 → GameOver");
             StartCoroutine(Co_GameOver());
             return;
         }
@@ -362,7 +391,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Co_RespawnPlayerWithMessage());
     }
 
-    // ✅ 중요: timeScale 영향을 받지 않도록 리스폰 대기/메시지는 Realtime 사용
     IEnumerator Co_RespawnPlayerWithMessage()
     {
         isRespawning = true;
@@ -396,7 +424,6 @@ public class GameManager : MonoBehaviour
         var go = Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
         Debug.Log($"[GameManager] Player 스폰: {go.name} @ {playerSpawnPoint.position}");
 
-        // ✅ 리스폰 즉사 방지: 스폰 직후 무적 부여
         var ph = go.GetComponent<PlayerHealth>();
         if (ph != null && respawnInvincibleTime > 0f)
         {
@@ -416,12 +443,12 @@ public class GameManager : MonoBehaviour
         Debug.Log($"[GameManager] Co_GameOver 진입 (bonusContinueUsed={bonusContinueUsed})");
 
         KillAllPlayers();
-
         EnsureGameOverPanel();
 
-        Time.timeScale = 0f;
+        // ✅ 완전 정지
+        ForcePause(true);
 
-        // ✅ 1) 첫 GameOver: 선택 UI를 띄우고 기다린다 (자동 광고 금지)
+        // 첫 GameOver: 선택 UI + Continue 재시도(실패해도 메뉴로 튕기지 않음)
         if (!bonusContinueUsed)
         {
             if (!isHandlingGameOverFlow)
@@ -429,7 +456,7 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
-        // ✅ 2) 두번째 GameOver(보너스 사용 후): 선택 없이 광고 후 무조건 Menu
+        // 두번째 GameOver: 선택 없이 전면광고 시도 후 메뉴
         if (!isHandlingGameOverFlow)
             StartCoroutine(Co_SecondGameOverAdsThenMenuFlow());
 
@@ -437,110 +464,120 @@ public class GameManager : MonoBehaviour
     }
 
     // ─────────────────────────────────────────────────────────────
-    // ✅ 첫 GameOver: Continue/Menu 선택
+    // 첫 GameOver: Continue/Menu 선택
     private IEnumerator Co_FirstGameOverChoiceFlow()
     {
         isHandlingGameOverFlow = true;
-        _choice = GameOverChoice.None;
 
-        if (gameOverPanelInstance != null)
+        while (true)
         {
+            _choice = GameOverChoice.None;
+
+            if (gameOverPanelInstance == null)
+            {
+                Debug.LogWarning("[GameManager] GameOverPanel 없음 → 강제 메뉴");
+                ForcePause(false);
+                SceneManager.LoadScene(mainMenuSceneName);
+                isHandlingGameOverFlow = false;
+                yield break;
+            }
+
             gameOverPanelInstance.Show("GAME OVER\nCONTINUE or MENU?", showButtons: true);
-        }
-        else
-        {
-            Debug.LogWarning("[GameManager] GameOverPanel 인스턴스가 없습니다. → 강제 메뉴 이동");
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(mainMenuSceneName);
-            isHandlingGameOverFlow = false;
-            yield break;
-        }
+            gameOverPanelInstance.SetButtonsInteractable(true);
 
-        Debug.Log("[GAME] First GameOver: 선택 대기 시작");
+            while (_choice == GameOverChoice.None)
+                yield return null;
 
-        // 버튼 클릭을 기다림 (timeScale=0이어도 UI 입력은 됨)
-        while (_choice == GameOverChoice.None)
-            yield return null;
-
-        Debug.Log($"[GAME] First GameOver: 선택됨 = {_choice}");
-
-        // Menu 선택 시: 전면광고 후 메뉴로 이동
-        if (_choice == GameOverChoice.Menu)
-        {
-            if (gameOverPanelInstance != null)
-                gameOverPanelInstance.Show("SHOWING AD...\n(Interstitial)", showButtons: false);
-
-            yield return new WaitForSecondsRealtime(0.2f);
-
-            bool done = false;
-
-            Debug.Log($"[ADS] (First Menu) ShowInterstitial 요청 / InterstitialReady={(AdManager.I != null ? AdManager.I.IsInterstitialReady.ToString() : "null")}");
-
-            if (AdManager.I != null)
+            // MENU
+            if (_choice == GameOverChoice.Menu)
             {
-                AdManager.I.ShowInterstitial(ok =>
-                {
-                    done = true; // ok 여부와 상관없이(실패/미준비 포함) 메뉴로는 간다
-                }, "FirstMenuToMenu_Interstitial");
-            }
-            else
-            {
-                Debug.LogWarning("[ADS] AdManager 없음 → 광고 스킵 후 MainMenu 이동");
-                done = true;
+                yield return Co_MenuWithInterstitialWaitThenGoMenu();
+                isHandlingGameOverFlow = false;
+                yield break;
             }
 
-            while (!done) yield return null;
-
-            Time.timeScale = 1f;
-            DestroyGameOverPanelInstance();
-            Debug.Log("[GAME] Menu 선택 → (전면광고 후) MainMenu 로드");
-            SceneManager.LoadScene(mainMenuSceneName);
-
-            isHandlingGameOverFlow = false;
-            yield break;
+            // CONTINUE (실패하면 패널 유지 + 안내 + 버튼 다시 활성화, 게임 재개 금지)
+            yield return Co_TryContinueWithRewardedWait();
+            // 성공하면 코루틴 내부에서 isHandlingGameOverFlow=false 후 종료
         }
+    }
 
-        // Continue 선택
-        Debug.Log($"[DEBUG] Before ShowRewarded: AdManager.I={(AdManager.I != null)} rewardedReady={(AdManager.I != null ? AdManager.I.IsRewardedReady.ToString() : "null")}");
+    private IEnumerator Co_TryContinueWithRewardedWait()
+    {
         if (gameOverPanelInstance != null)
-            gameOverPanelInstance.Show("SHOWING AD...\n(Rewarded)", showButtons: false);
+        {
+            gameOverPanelInstance.SetInfo("LOADING AD...\n(Rewarded)");
+            gameOverPanelInstance.SetButtonsInteractable(false);
+        }
 
-        yield return new WaitForSecondsRealtime(0.2f);
+        if (AdManager.I == null)
+        {
+            Debug.LogWarning("[ADS] AdManager 없음 → Continue 불가(재시도 UI)");
+            if (gameOverPanelInstance != null)
+            {
+                gameOverPanelInstance.SetInfo("AD NOT AVAILABLE.\nTry again.");
+                gameOverPanelInstance.SetButtonsInteractable(true);
+            }
+            yield return new WaitForSecondsRealtime(0.2f);
+            yield break;
+        }
 
-        bool done2 = false;
+        AdManager.I.RequestRewardedReload();
+
+        float t = 0f;
+        float nextTick = 0f;
+
+        while (!AdManager.I.IsRewardedReady && t < rewardedWaitTimeout)
+        {
+            t += Time.unscaledDeltaTime;
+
+            if (gameOverPanelInstance != null && t >= nextTick)
+            {
+                float remain = Mathf.Max(0f, rewardedWaitTimeout - t);
+                gameOverPanelInstance.SetInfo($"LOADING AD...\n{remain:0.0}s");
+                nextTick = t + waitTick;
+            }
+
+            yield return null;
+        }
+
+        if (!AdManager.I.IsRewardedReady)
+        {
+            Debug.LogWarning("[ADS] Rewarded NOT READY (timeout) → 재시도(게임 재개 금지)");
+            if (gameOverPanelInstance != null)
+            {
+                gameOverPanelInstance.SetInfo("AD NOT READY.\nPlease try again.");
+                gameOverPanelInstance.SetButtonsInteractable(true);
+            }
+            yield return new WaitForSecondsRealtime(0.2f);
+            yield break;
+        }
+
+        if (gameOverPanelInstance != null)
+        {
+            gameOverPanelInstance.SetInfo("SHOWING AD...\n(Rewarded)");
+            gameOverPanelInstance.SetButtonsInteractable(false);
+        }
+
+        bool done = false;
         bool success = false;
 
-        Debug.Log($"[ADS] (First Continue) ShowRewarded 요청 / RewardedReady={(AdManager.I != null ? AdManager.I.IsRewardedReady.ToString() : "null")}");
-
-        if (AdManager.I != null)
+        AdManager.I.ShowRewarded(ok =>
         {
-            AdManager.I.ShowRewarded(ok =>
-            {
-                success = ok;
-                done2 = true;
-            }, "FirstContinue");
-        }
-        else
-        {
-            Debug.LogWarning("[ADS] AdManager 없음 → 광고 실패");
-            done2 = true;
-            success = false;
-        }
+            success = ok;
+            done = true;
+        }, "FirstContinue");
 
-        while (!done2) yield return null;
-
-        Debug.Log($"[ADS] (First Continue) 종료 success={success}");
+        while (!done) yield return null;
 
         if (success)
         {
             bonusContinueUsed = true;
 
-            // +1 → +3 부활
-            Lives = Mathf.Max(1, continueLives);   // continueLives가 0으로 들어와도 최소 1 보장
+            Lives = Mathf.Max(1, continueLives);
             UpdateLivesUI();
 
-            Time.timeScale = 1f;
-
+            // ✅ 성공한 경우에만 재개
             isGameOver = false;
             isStageRunning = true;
             isRespawning = false;
@@ -548,24 +585,85 @@ public class GameManager : MonoBehaviour
             if (gameOverPanelInstance != null)
                 gameOverPanelInstance.Hide();
 
+            ForcePause(false);
+
             yield return new WaitForSecondsRealtime(0.05f);
             SpawnPlayer();
 
-            Debug.Log($"[GAME] Continue 성공 → +{Lives} 부활 완료 (bonusContinueUsed=true)");
+            Debug.Log("[GAME] Continue 성공 → 부활 후 재개");
             isHandlingGameOverFlow = false;
             yield break;
         }
 
-        // 광고 실패면 메뉴로
-        Time.timeScale = 1f;
-        DestroyGameOverPanelInstance();
-        Debug.Log("[GAME] Continue 광고 실패 → MainMenu 로드");
-        SceneManager.LoadScene(mainMenuSceneName);
-        isHandlingGameOverFlow = false;
+        // ❌ 실패: 절대 재개하면 안 됨
+        Debug.LogWarning("[ADS] Rewarded 실패/미제공 → 패널 유지 + 재시도 (게임 재개 금지)");
+        if (gameOverPanelInstance != null)
+        {
+            gameOverPanelInstance.SetInfo("AD FAILED.\nPlease try again.");
+            gameOverPanelInstance.SetButtonsInteractable(true);
+        }
+        yield return new WaitForSecondsRealtime(0.2f);
+        yield break;
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // 두번째 GameOver: 선택 없이 광고 시도 후 무조건 메뉴
+    // MENU: Interstitial 준비될 때까지 기다렸다가 보여주고, 아니면 스킵하고 메뉴
+    private IEnumerator Co_MenuWithInterstitialWaitThenGoMenu()
+    {
+        if (gameOverPanelInstance != null)
+        {
+            gameOverPanelInstance.SetInfo("LOADING AD...\n(Interstitial)");
+            gameOverPanelInstance.SetButtonsInteractable(false);
+        }
+
+        if (AdManager.I != null)
+            AdManager.I.RequestInterstitialReload();
+
+        float t = 0f;
+        float nextTick = 0f;
+
+        while (AdManager.I != null && !AdManager.I.IsInterstitialReady && t < interstitialWaitTimeout)
+        {
+            t += Time.unscaledDeltaTime;
+
+            if (gameOverPanelInstance != null && t >= nextTick)
+            {
+                float remain = Mathf.Max(0f, interstitialWaitTimeout - t);
+                gameOverPanelInstance.SetInfo($"LOADING AD...\n{remain:0.0}s");
+                nextTick = t + waitTick;
+            }
+
+            yield return null;
+        }
+
+        bool showOk = false;
+
+        if (AdManager.I != null && AdManager.I.IsInterstitialReady)
+        {
+            if (gameOverPanelInstance != null)
+                gameOverPanelInstance.SetInfo("SHOWING AD...\n(Interstitial)");
+
+            bool done = false;
+            AdManager.I.ShowInterstitial(ok =>
+            {
+                showOk = ok;
+                done = true;
+            }, "FirstMenuToMenu_Interstitial");
+
+            while (!done) yield return null;
+        }
+        else
+        {
+            Debug.LogWarning("[ADS] Interstitial NOT READY → 광고 스킵하고 메뉴 이동");
+        }
+
+        ForcePause(false);
+        DestroyGameOverPanelInstance();
+
+        Debug.Log($"[GAME] Menu 이동 (interstitialShown={showOk})");
+        SceneManager.LoadScene(mainMenuSceneName);
+    }
+
+    // 두번째 GameOver: 선택 없이 광고 시도 후 메뉴
     private IEnumerator Co_SecondGameOverAdsThenMenuFlow()
     {
         isHandlingGameOverFlow = true;
@@ -573,30 +671,24 @@ public class GameManager : MonoBehaviour
         if (gameOverPanelInstance != null)
             gameOverPanelInstance.Show("GAME OVER", showButtons: false);
 
-        yield return new WaitForSecondsRealtime(0.2f);
-
-        bool done = false;
-
-        Debug.Log($"[ADS] (SecondDeath) ShowInterstitial 요청 / InterstitialReady={(AdManager.I != null ? AdManager.I.IsInterstitialReady.ToString() : "null")}");
-
         if (AdManager.I != null)
+            AdManager.I.RequestInterstitialReload();
+
+        float t = 0f;
+        while (AdManager.I != null && !AdManager.I.IsInterstitialReady && t < interstitialWaitTimeout)
         {
-            AdManager.I.ShowInterstitial(ok =>
-            {
-                done = true;
-            }, "SecondDeathToMenu_Interstitial");
-        }
-        else
-        {
-            Debug.LogWarning("[ADS] AdManager 없음 → 광고 스킵 후 MainMenu 이동");
-            done = true;
+            t += Time.unscaledDeltaTime;
+            yield return null;
         }
 
-        while (!done) yield return null;
+        if (AdManager.I != null && AdManager.I.IsInterstitialReady)
+        {
+            bool done = false;
+            AdManager.I.ShowInterstitial(_ => done = true, "SecondDeathToMenu_Interstitial");
+            while (!done) yield return null;
+        }
 
-        Debug.Log("[ADS] (SecondDeath) 종료 → MainMenu 이동");
-
-        Time.timeScale = 1f;
+        ForcePause(false);
         DestroyGameOverPanelInstance();
         SceneManager.LoadScene(mainMenuSceneName);
 
@@ -608,7 +700,7 @@ public class GameManager : MonoBehaviour
     private void OnPanelContinue()
     {
         if (!isGameOver) return;
-        if (bonusContinueUsed) return; // 두번째 이후엔 선택 자체가 없어야 함
+        if (bonusContinueUsed) return;
         Debug.Log("[UI] Continue 버튼 클릭");
         _choice = GameOverChoice.Continue;
     }
@@ -663,14 +755,13 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // ✅ 패널 버튼 이벤트 연결
         gameOverPanelInstance.OnContinueClicked -= OnPanelContinue;
         gameOverPanelInstance.OnMenuClicked -= OnPanelMenu;
         gameOverPanelInstance.OnContinueClicked += OnPanelContinue;
         gameOverPanelInstance.OnMenuClicked += OnPanelMenu;
 
         gameOverPanelInstance.Hide();
-        Debug.Log($"[GameManager] GameOverPanel 생성 완료 (parent canvas={canvas.name})");
+        Debug.Log($"[GameManager] GameOverPanel 생성 완료 (parent={canvas.name})");
     }
 
     private Canvas FindBestCanvasInScene()
@@ -684,7 +775,6 @@ public class GameManager : MonoBehaviour
             if (c == null) continue;
 
             int score = 0;
-
             if (c.renderMode != RenderMode.WorldSpace) score += 10;
             if (c.GetComponent<CanvasScaler>() != null) score += 50;
             if (c.GetComponent<GraphicRaycaster>() != null) score += 50;
@@ -722,7 +812,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ✅ timeScale=0이어도 표시/대기 가능
     IEnumerator ShowMessageForRealtime(string msg, float time)
     {
         if (messageText != null)

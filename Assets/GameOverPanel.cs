@@ -20,7 +20,6 @@ public class GameOverPanel : MonoBehaviour
     {
         AutoBindIfNeeded();
         WireOnce();
-
         if (root != null) root.SetActive(false);
     }
 
@@ -80,7 +79,7 @@ public class GameOverPanel : MonoBehaviour
 
     public void Show(string info, bool showButtons)
     {
-        if (infoText != null) infoText.text = info;
+        SetInfo(info);
 
         if (continueButton != null)
         {
@@ -99,5 +98,18 @@ public class GameOverPanel : MonoBehaviour
     public void Hide()
     {
         if (root != null) root.SetActive(false);
+    }
+
+    public void SetInfo(string info)
+    {
+        if (infoText != null) infoText.text = info;
+    }
+
+    public void SetButtonsInteractable(bool interactable)
+    {
+        if (continueButton != null && continueButton.gameObject.activeSelf)
+            continueButton.interactable = interactable;
+        if (menuButton != null && menuButton.gameObject.activeSelf)
+            menuButton.interactable = interactable;
     }
 }

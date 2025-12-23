@@ -35,12 +35,18 @@ public class AdManager : MonoBehaviour
     private RewardedAd _rewarded;
     private InterstitialAd _interstitial;
 
-    // ✅ Rewarded: Show 호출자가 기다리는 콜백 저장 (콜백 누락 방지)
+    // pending guard
     private Action<bool> _pendingRewardedDone;
+    private bool _pendingRewardedOpened;
     private bool _pendingRewardedEarned;
+    private bool _pendingRewardedClosed;
 
-    // ✅ Interstitial: Show 호출자가 기다리는 콜백 저장 (중복 구독 방지)
     private Action<bool> _pendingInterstitialDone;
+    private bool _pendingInterstitialOpened;
+    private bool _pendingInterstitialClosed;
+
+    private bool _rewardedLoading = false;
+    private bool _interstitialLoading = false;
 #endif
 
     private void Awake()
@@ -54,8 +60,7 @@ public class AdManager : MonoBehaviour
         I = this;
         DontDestroyOnLoad(gameObject);
 
-        Debug.Log($"[ADS] AdManager Awake / GOOGLE_MOBILE_ADS={(IsAdMobSdkPresent() ? "YES" : "NO")} / editor={Application.isEditor}");
-
+        Debug.Log($"[ADS] AdManager Awake / SDK={(IsAdMobSdkPresent() ? "YES" : "NO")} / editor={Application.isEditor}");
         Init();
     }
 
@@ -73,17 +78,37 @@ public class AdManager : MonoBehaviour
 #if GOOGLE_MOBILE_ADS
         Debug.Log($"[ADS] Init AdMob. appIdAndroid={(string.IsNullOrEmpty(androidAppId) ? "(empty)" : "set")}");
 
-        MobileAds.Initialize(initStatus =>
+        MobileAds.Initialize(_ =>
         {
             Debug.Log("[ADS] MobileAds.Initialize 완료");
             LoadRewarded();
             LoadInterstitial();
         });
 #else
-        Debug.LogWarning("[ADS] AdMob SDK( GoogleMobileAds )가 없습니다. 시뮬레이션/실패만 가능합니다.");
-        _rewardedReady = true;
-        _interstitialReady = true;
+        Debug.LogWarning("[ADS] AdMob SDK가 없습니다. 시뮬레이션/실패만 가능합니다.");
+        // ❗ SDK 없는데 Ready=true로 속이면, GameManager가 “광고 준비됨”으로 착각합니다.
+        _rewardedReady = false;
+        _interstitialReady = false;
 #endif
+    }
+
+    // 외부에서 “다시 로드해라”라고 부를 수 있게 제공
+    public void RequestRewardedReload()
+    {
+#if GOOGLE_MOBILE_ADS
+        if (_rewardedLoading) return;
+#endif
+        Debug.Log("[ADS] RequestRewardedReload()");
+        LoadRewarded();
+    }
+
+    public void RequestInterstitialReload()
+    {
+#if GOOGLE_MOBILE_ADS
+        if (_interstitialLoading) return;
+#endif
+        Debug.Log("[ADS] RequestInterstitialReload()");
+        LoadInterstitial();
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -92,11 +117,13 @@ public class AdManager : MonoBehaviour
     {
 #if GOOGLE_MOBILE_ADS
         _rewardedReady = false;
+        _rewardedLoading = true;
 
         string unitId = GetRewardedUnitId();
         if (string.IsNullOrEmpty(unitId))
         {
-            Debug.LogWarning("[ADS] Rewarded UnitId가 비어있습니다. (AdMob 콘솔에서 생성 후 입력 필요)");
+            Debug.LogWarning("[ADS] Rewarded UnitId가 비어있습니다.");
+            _rewardedLoading = false;
             return;
         }
 
@@ -105,6 +132,8 @@ public class AdManager : MonoBehaviour
         var request = new AdRequest();
         RewardedAd.Load(unitId, request, (RewardedAd ad, LoadAdError error) =>
         {
+            _rewardedLoading = false;
+
             if (error != null || ad == null)
             {
                 Debug.LogWarning($"[ADS] Rewarded FAILED to load: {error}");
@@ -112,7 +141,6 @@ public class AdManager : MonoBehaviour
                 return;
             }
 
-            // 기존 객체 정리
             try { _rewarded?.Destroy(); } catch { }
 
             _rewarded = ad;
@@ -120,23 +148,27 @@ public class AdManager : MonoBehaviour
 
             Debug.Log("[ADS] Rewarded LOADED");
 
-            // ✅ 이벤트 구독은 로드 성공 시 1번만
             _rewarded.OnAdFullScreenContentOpened += () =>
             {
-                Debug.Log("[ADS] Rewarded SHOWED (FullScreen Opened)");
+                Debug.Log("[ADS] Rewarded OPENED");
+                _pendingRewardedOpened = true;
             };
 
             _rewarded.OnAdFullScreenContentClosed += () =>
             {
                 Debug.Log("[ADS] Rewarded CLOSED");
+                _pendingRewardedClosed = true;
 
-                // ✅ 보상 못 받았는데 닫혔으면 콜백 false로 끝내야 게임이 멈추지 않음
+                // ✅ “진짜 성공” 조건: OPENED && EARNED && CLOSED
                 if (_pendingRewardedDone != null)
                 {
-                    bool ok = _pendingRewardedEarned;
+                    bool ok = _pendingRewardedOpened && _pendingRewardedEarned && _pendingRewardedClosed;
                     _pendingRewardedDone.Invoke(ok);
+
                     _pendingRewardedDone = null;
+                    _pendingRewardedOpened = false;
                     _pendingRewardedEarned = false;
+                    _pendingRewardedClosed = false;
                 }
 
                 _rewardedReady = false;
@@ -150,9 +182,13 @@ public class AdManager : MonoBehaviour
             {
                 Debug.LogWarning($"[ADS] Rewarded FAILED to show: {err}");
 
+                // 실패면 무조건 false
                 _pendingRewardedDone?.Invoke(false);
                 _pendingRewardedDone = null;
+
+                _pendingRewardedOpened = false;
                 _pendingRewardedEarned = false;
+                _pendingRewardedClosed = false;
 
                 _rewardedReady = false;
                 try { _rewarded?.Destroy(); } catch { }
@@ -162,15 +198,13 @@ public class AdManager : MonoBehaviour
             };
         });
 #else
-        _rewardedReady = true;
-        Debug.Log("[ADS] LoadRewarded (No SDK) -> Ready=true");
+        _rewardedReady = false;
+        Debug.Log("[ADS] LoadRewarded (No SDK) -> Ready=false");
 #endif
     }
 
-    // Rewarded: Continue용
     public void ShowRewarded(Action<bool> onDone, string reason = "Rewarded")
     {
-        Debug.Log($"[DEBUG] ShowRewarded enter: ready={_rewardedReady} rewardedNull={(_rewarded == null)} editor={Application.isEditor}");
         Debug.Log($"[ADS] ShowRewarded 요청 reason={reason} / ready={IsRewardedReady}");
 
 #if UNITY_EDITOR
@@ -183,6 +217,13 @@ public class AdManager : MonoBehaviour
 #endif
 
 #if GOOGLE_MOBILE_ADS
+        if (_pendingRewardedDone != null)
+        {
+            Debug.LogWarning($"[ADS] Rewarded already showing/pending. reject (reason={reason})");
+            onDone?.Invoke(false);
+            return;
+        }
+
         if (_rewarded == null || !_rewardedReady)
         {
             Debug.LogWarning($"[ADS] Rewarded NOT READY (reason={reason})");
@@ -191,19 +232,37 @@ public class AdManager : MonoBehaviour
             return;
         }
 
-        // ✅ 콜백 저장(닫힘/실패에서도 반드시 끝내기 위함)
         _pendingRewardedDone = onDone;
+        _pendingRewardedOpened = false;
         _pendingRewardedEarned = false;
+        _pendingRewardedClosed = false;
 
-        _rewarded.Show(reward =>
+        try
         {
-            Debug.Log($"[ADS] Reward Earned! type={reward.Type} amount={reward.Amount} (reason={reason})");
-            _pendingRewardedEarned = true;
+            _rewarded.Show(reward =>
+            {
+                Debug.Log($"[ADS] Reward Earned! type={reward.Type} amount={reward.Amount} (reason={reason})");
+                _pendingRewardedEarned = true;
 
-            // ✅ 보상을 받는 순간 true로 끝내고, 나머지는 Closed에서 정리/재로드
-            _pendingRewardedDone?.Invoke(true);
+                // ❗ 여기서 true 호출하면 “광고가 안 떴는데도 재개” 같은 오해를 만들 수 있습니다.
+                //    성공 판정은 반드시 CLOSED 시점에서 한 번만 합니다.
+            });
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"[ADS] Rewarded Show Exception: {e.Message}");
+            _pendingRewardedDone?.Invoke(false);
             _pendingRewardedDone = null;
-        });
+            _pendingRewardedOpened = false;
+            _pendingRewardedEarned = false;
+            _pendingRewardedClosed = false;
+
+            _rewardedReady = false;
+            try { _rewarded?.Destroy(); } catch { }
+            _rewarded = null;
+
+            LoadRewarded();
+        }
 #else
         if (simulateInDeviceIfNoSdk)
         {
@@ -224,11 +283,13 @@ public class AdManager : MonoBehaviour
     {
 #if GOOGLE_MOBILE_ADS
         _interstitialReady = false;
+        _interstitialLoading = true;
 
         string unitId = GetInterstitialUnitId();
         if (string.IsNullOrEmpty(unitId))
         {
-            Debug.LogWarning("[ADS] Interstitial UnitId가 비어있습니다. (AdMob 콘솔에서 생성 후 입력 필요)");
+            Debug.LogWarning("[ADS] Interstitial UnitId가 비어있습니다.");
+            _interstitialLoading = false;
             return;
         }
 
@@ -237,6 +298,8 @@ public class AdManager : MonoBehaviour
         var request = new AdRequest();
         InterstitialAd.Load(unitId, request, (InterstitialAd ad, LoadAdError error) =>
         {
+            _interstitialLoading = false;
+
             if (error != null || ad == null)
             {
                 Debug.LogWarning($"[ADS] Interstitial FAILED to load: {error}");
@@ -244,7 +307,6 @@ public class AdManager : MonoBehaviour
                 return;
             }
 
-            // 기존 객체 정리
             try { _interstitial?.Destroy(); } catch { }
 
             _interstitial = ad;
@@ -252,19 +314,27 @@ public class AdManager : MonoBehaviour
 
             Debug.Log("[ADS] Interstitial LOADED");
 
-            // ✅ 이벤트 구독은 로드 성공 시 1번만 (중복 구독 금지)
             _interstitial.OnAdFullScreenContentOpened += () =>
             {
-                Debug.Log("[ADS] Interstitial SHOWED (FullScreen Opened)");
+                Debug.Log("[ADS] Interstitial OPENED");
+                _pendingInterstitialOpened = true;
             };
 
             _interstitial.OnAdFullScreenContentClosed += () =>
             {
                 Debug.Log("[ADS] Interstitial CLOSED");
+                _pendingInterstitialClosed = true;
 
-                // ✅ ShowInterstitial이 기다리던 콜백이 있으면 여기서 끝낸다
-                _pendingInterstitialDone?.Invoke(true);
-                _pendingInterstitialDone = null;
+                if (_pendingInterstitialDone != null)
+                {
+                    // interstitial은 “열렸다가 닫힘”이면 표시된 것으로 봅니다.
+                    bool ok = _pendingInterstitialOpened && _pendingInterstitialClosed;
+                    _pendingInterstitialDone.Invoke(ok);
+
+                    _pendingInterstitialDone = null;
+                    _pendingInterstitialOpened = false;
+                    _pendingInterstitialClosed = false;
+                }
 
                 _interstitialReady = false;
                 try { _interstitial?.Destroy(); } catch { }
@@ -280,6 +350,9 @@ public class AdManager : MonoBehaviour
                 _pendingInterstitialDone?.Invoke(false);
                 _pendingInterstitialDone = null;
 
+                _pendingInterstitialOpened = false;
+                _pendingInterstitialClosed = false;
+
                 _interstitialReady = false;
                 try { _interstitial?.Destroy(); } catch { }
                 _interstitial = null;
@@ -288,12 +361,11 @@ public class AdManager : MonoBehaviour
             };
         });
 #else
-        _interstitialReady = true;
-        Debug.Log("[ADS] LoadInterstitial (No SDK) -> Ready=true");
+        _interstitialReady = false;
+        Debug.Log("[ADS] LoadInterstitial (No SDK) -> Ready=false");
 #endif
     }
 
-    // Interstitial: Menu 이동용 (✅ 닫힘/실패 시점에 콜백)
     public void ShowInterstitial(Action<bool> onDone, string reason = "Interstitial")
     {
         Debug.Log($"[ADS] ShowInterstitial 요청 reason={reason} / ready={IsInterstitialReady}");
@@ -308,6 +380,13 @@ public class AdManager : MonoBehaviour
 #endif
 
 #if GOOGLE_MOBILE_ADS
+        if (_pendingInterstitialDone != null)
+        {
+            Debug.LogWarning($"[ADS] Interstitial already showing/pending. reject (reason={reason})");
+            onDone?.Invoke(false);
+            return;
+        }
+
         if (_interstitial == null || !_interstitialReady)
         {
             Debug.LogWarning($"[ADS] Interstitial NOT READY (reason={reason})");
@@ -316,10 +395,28 @@ public class AdManager : MonoBehaviour
             return;
         }
 
-        // ✅ 콜백은 “저장만” 한다. (구독 추가 금지)
         _pendingInterstitialDone = onDone;
+        _pendingInterstitialOpened = false;
+        _pendingInterstitialClosed = false;
 
-        _interstitial.Show();
+        try
+        {
+            _interstitial.Show();
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"[ADS] Interstitial Show Exception: {e.Message}");
+            _pendingInterstitialDone?.Invoke(false);
+            _pendingInterstitialDone = null;
+            _pendingInterstitialOpened = false;
+            _pendingInterstitialClosed = false;
+
+            _interstitialReady = false;
+            try { _interstitial?.Destroy(); } catch { }
+            _interstitial = null;
+
+            LoadInterstitial();
+        }
 #else
         if (simulateInDeviceIfNoSdk)
         {

@@ -2546,7 +2546,7 @@ MonoBehaviour:
   androidAppId: ca-app-pub-3852398620139102~6276153711
   rewardedUnitIdAndroid: ca-app-pub-3852398620139102/2625695073
   interstitialUnitIdAndroid: ca-app-pub-3852398620139102/4140944964
-  simulateInEditor: 1
+  simulateInEditor: 0
   simulateInDeviceIfNoSdk: 0
   simulateDelay: 1
 --- !u!4 &978334178
