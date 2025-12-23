@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
             RebindStageSceneObjects();
             EnsureGameOverPanel();
 
-            // 스테이지 진입 시 미리 로드
+            // 스테이지 진입 시 미리 로드(AdManager가 Ready면 이제 절대 깨지지 않음)
             if (AdManager.I != null)
             {
                 AdManager.I.RequestRewardedReload();
@@ -173,8 +173,8 @@ public class GameManager : MonoBehaviour
         if (paused)
         {
             Time.timeScale = 0f;
-            Time.fixedDeltaTime = 0f;          // 물리까지 확실히 멈춤
-            AudioListener.pause = true;        // 오디오도 멈춤(선택이지만 “완전정지” 체감에 좋음)
+            Time.fixedDeltaTime = 0f;
+            AudioListener.pause = true;
         }
         else
         {
@@ -498,7 +498,6 @@ public class GameManager : MonoBehaviour
 
             // CONTINUE (실패하면 패널 유지 + 안내 + 버튼 다시 활성화, 게임 재개 금지)
             yield return Co_TryContinueWithRewardedWait();
-            // 성공하면 코루틴 내부에서 isHandlingGameOverFlow=false 후 종료
         }
     }
 
@@ -522,6 +521,7 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
+        // ✅ 이제 이 호출은 "있으면 유지, 없으면 로드"라서 READY를 절대 깨지 않음
         AdManager.I.RequestRewardedReload();
 
         float t = 0f;
@@ -577,7 +577,6 @@ public class GameManager : MonoBehaviour
             Lives = Mathf.Max(1, continueLives);
             UpdateLivesUI();
 
-            // ✅ 성공한 경우에만 재개
             isGameOver = false;
             isStageRunning = true;
             isRespawning = false;
@@ -595,7 +594,6 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
-        // ❌ 실패: 절대 재개하면 안 됨
         Debug.LogWarning("[ADS] Rewarded 실패/미제공 → 패널 유지 + 재시도 (게임 재개 금지)");
         if (gameOverPanelInstance != null)
         {
@@ -606,7 +604,6 @@ public class GameManager : MonoBehaviour
         yield break;
     }
 
-    // MENU: Interstitial 준비될 때까지 기다렸다가 보여주고, 아니면 스킵하고 메뉴
     private IEnumerator Co_MenuWithInterstitialWaitThenGoMenu()
     {
         if (gameOverPanelInstance != null)
@@ -663,7 +660,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
-    // 두번째 GameOver: 선택 없이 광고 시도 후 메뉴
     private IEnumerator Co_SecondGameOverAdsThenMenuFlow()
     {
         isHandlingGameOverFlow = true;
@@ -695,8 +691,6 @@ public class GameManager : MonoBehaviour
         isHandlingGameOverFlow = false;
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // GameOverPanel 버튼 콜백
     private void OnPanelContinue()
     {
         if (!isGameOver) return;
@@ -719,6 +713,32 @@ public class GameManager : MonoBehaviour
 
         if (gameOverPanelInstance != null)
             return;
+
+        var existing = FindObjectsOfType<GameOverPanel>(true);
+        if (existing != null && existing.Length > 0)
+        {
+            gameOverPanelInstance = existing[0];
+
+            if (existing.Length > 1)
+            {
+                for (int i = 1; i < existing.Length; i++)
+                {
+                    if (existing[i] != null && existing[i].gameObject != null)
+                        Destroy(existing[i].gameObject);
+                }
+                Debug.LogWarning($"[GameManager] GameOverPanel 중복 감지({existing.Length}) → 1개만 유지하고 제거했습니다.");
+            }
+
+            gameOverPanelInstance.OnContinueClicked -= OnPanelContinue;
+            gameOverPanelInstance.OnMenuClicked -= OnPanelMenu;
+            gameOverPanelInstance.OnContinueClicked += OnPanelContinue;
+            gameOverPanelInstance.OnMenuClicked += OnPanelMenu;
+
+            gameOverPanelInstance.Hide();
+
+            Debug.Log("[GameManager] 씬에 존재하는 GameOverPanel을 사용합니다.");
+            return;
+        }
 
         var canvas = FindBestCanvasInScene();
         if (canvas == null)

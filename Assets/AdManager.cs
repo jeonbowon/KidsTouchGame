@@ -92,22 +92,48 @@ public class AdManager : MonoBehaviour
 #endif
     }
 
-    // 외부에서 “다시 로드해라”라고 부를 수 있게 제공
+    // ─────────────────────────────────────────────────────────────
+    // ✅ 핵심 수정:
+    // “다시 로드해라”가 아니라 “없으면 로드해라(있으면 유지)”로 동작하게 바꿈.
+    //  - ready 인데도 LoadRewarded()를 호출하면 _rewardedReady=false로 리셋되어
+    //    Continue 클릭 시 3~6초 대기가 생기는 원인이 됨.
     public void RequestRewardedReload()
     {
 #if GOOGLE_MOBILE_ADS
-        if (_rewardedLoading) return;
+        // 이미 준비되어 있으면 절대 깨지 않는다.
+        if (_rewardedReady && _rewarded != null)
+        {
+            Debug.Log("[ADS] RequestRewardedReload() -> already READY, keep it (no reset)");
+            return;
+        }
+
+        // 로딩 중이면 중복 로드하지 않는다.
+        if (_rewardedLoading)
+        {
+            Debug.Log("[ADS] RequestRewardedReload() -> already LOADING, skip");
+            return;
+        }
 #endif
-        Debug.Log("[ADS] RequestRewardedReload()");
+        Debug.Log("[ADS] RequestRewardedReload() -> ensure load");
         LoadRewarded();
     }
 
     public void RequestInterstitialReload()
     {
 #if GOOGLE_MOBILE_ADS
-        if (_interstitialLoading) return;
+        if (_interstitialReady && _interstitial != null)
+        {
+            Debug.Log("[ADS] RequestInterstitialReload() -> already READY, keep it (no reset)");
+            return;
+        }
+
+        if (_interstitialLoading)
+        {
+            Debug.Log("[ADS] RequestInterstitialReload() -> already LOADING, skip");
+            return;
+        }
 #endif
-        Debug.Log("[ADS] RequestInterstitialReload()");
+        Debug.Log("[ADS] RequestInterstitialReload() -> ensure load");
         LoadInterstitial();
     }
 
@@ -228,7 +254,7 @@ public class AdManager : MonoBehaviour
         {
             Debug.LogWarning($"[ADS] Rewarded NOT READY (reason={reason})");
             onDone?.Invoke(false);
-            LoadRewarded();
+            RequestRewardedReload(); // ✅ ensure load (no reset if ready)
             return;
         }
 
@@ -243,9 +269,6 @@ public class AdManager : MonoBehaviour
             {
                 Debug.Log($"[ADS] Reward Earned! type={reward.Type} amount={reward.Amount} (reason={reason})");
                 _pendingRewardedEarned = true;
-
-                // ❗ 여기서 true 호출하면 “광고가 안 떴는데도 재개” 같은 오해를 만들 수 있습니다.
-                //    성공 판정은 반드시 CLOSED 시점에서 한 번만 합니다.
             });
         }
         catch (Exception e)
@@ -327,7 +350,6 @@ public class AdManager : MonoBehaviour
 
                 if (_pendingInterstitialDone != null)
                 {
-                    // interstitial은 “열렸다가 닫힘”이면 표시된 것으로 봅니다.
                     bool ok = _pendingInterstitialOpened && _pendingInterstitialClosed;
                     _pendingInterstitialDone.Invoke(ok);
 
@@ -391,7 +413,7 @@ public class AdManager : MonoBehaviour
         {
             Debug.LogWarning($"[ADS] Interstitial NOT READY (reason={reason})");
             onDone?.Invoke(false);
-            LoadInterstitial();
+            RequestInterstitialReload(); // ✅ ensure load (no reset if ready)
             return;
         }
 
