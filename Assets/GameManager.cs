@@ -521,7 +521,6 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
-        // ✅ 이제 이 호출은 "있으면 유지, 없으면 로드"라서 READY를 절대 깨지 않음
         AdManager.I.RequestRewardedReload();
 
         float t = 0f;
@@ -529,6 +528,10 @@ public class GameManager : MonoBehaviour
 
         while (!AdManager.I.IsRewardedReady && t < rewardedWaitTimeout)
         {
+            // ✅ 로딩이 끝났고 실패가 확정이면 즉시 종료 (No fill에서 8초 낭비 제거)
+            if (!AdManager.I.IsRewardedLoading && AdManager.I.RewardedLoadFailed)
+                break;
+
             t += Time.unscaledDeltaTime;
 
             if (gameOverPanelInstance != null && t >= nextTick)
@@ -543,9 +546,12 @@ public class GameManager : MonoBehaviour
 
         if (!AdManager.I.IsRewardedReady)
         {
-            Debug.LogWarning("[ADS] Rewarded NOT READY (timeout) → 재시도(게임 재개 금지)");
+            string err = AdManager.I.LastRewardedLoadError;
+            Debug.LogWarning($"[ADS] Rewarded NOT READY → 재시도(게임 재개 금지) / err={err}");
+
             if (gameOverPanelInstance != null)
             {
+                // 너무 길면 UI 지저분해지니 짧게
                 gameOverPanelInstance.SetInfo("AD NOT READY.\nPlease try again.");
                 gameOverPanelInstance.SetButtonsInteractable(true);
             }
@@ -620,6 +626,10 @@ public class GameManager : MonoBehaviour
 
         while (AdManager.I != null && !AdManager.I.IsInterstitialReady && t < interstitialWaitTimeout)
         {
+            // ✅ 로딩 끝 + 실패 확정이면 즉시 종료
+            if (!AdManager.I.IsInterstitialLoading && AdManager.I.InterstitialLoadFailed)
+                break;
+
             t += Time.unscaledDeltaTime;
 
             if (gameOverPanelInstance != null && t >= nextTick)
@@ -673,6 +683,9 @@ public class GameManager : MonoBehaviour
         float t = 0f;
         while (AdManager.I != null && !AdManager.I.IsInterstitialReady && t < interstitialWaitTimeout)
         {
+            if (!AdManager.I.IsInterstitialLoading && AdManager.I.InterstitialLoadFailed)
+                break;
+
             t += Time.unscaledDeltaTime;
             yield return null;
         }

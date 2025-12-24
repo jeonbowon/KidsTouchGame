@@ -102,6 +102,9 @@ public class GameOverPanel : MonoBehaviour
 
     public void SetInfo(string info)
     {
+        // 핵심: SetInfo만 호출돼도 패널이 꺼져 있으면 켜서 “안 보이는” 상황 제거
+        if (root != null && !root.activeSelf) root.SetActive(true);
+
         if (infoText != null) infoText.text = info;
     }
 

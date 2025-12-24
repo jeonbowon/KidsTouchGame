@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   explosionPrefab: {fileID: 7575617972279380594, guid: 7085f882c1bb986429839d8793ce3715, type: 3}
+  playerExplodeSfx: {fileID: 8300000, guid: e996411c4c9b47348a50425cdebb5ffb, type: 3}
   lethalTags:
   - Enemy
   - EnemyBullet

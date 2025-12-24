@@ -24,6 +24,16 @@ public class EnemyBullet : MonoBehaviour, IBullet
     [SerializeField, Range(0f, 1f)]
     private float hitSfxVolume = 1.0f;   // 로컬 볼륨(상대값)
 
+    [Header("사운드 스팸 방지(권장)")]
+    [Tooltip("같은 프레임에 hitSfx가 너무 많이 나면 귀가 피곤해집니다. 기본 3개까지만 허용.")]
+    [SerializeField] private bool limitHitSfxPerFrame = true;
+
+    [SerializeField, Range(1, 10)]
+    private int maxHitSfxPerFrame = 3;
+
+    private static int _lastSfxFrame = -1;
+    private static int _sfxCountThisFrame = 0;
+
     // 진행 방향 (아래가 기본)
     private Vector2 _dir = Vector2.down;
     private bool _spawned;
@@ -44,11 +54,8 @@ public class EnemyBullet : MonoBehaviour, IBullet
 
     public void SetDirection(Vector2 d)
     {
-        // 방향 벡터 정규화, 기본은 아래
         _dir = (d.sqrMagnitude > 1e-6f) ? d.normalized : Vector2.down;
 
-        // ★ 스프라이트가 "아래(↓)"를 기본 방향으로 그려져 있다고 가정
-        // dir = (0,-1) 이면 각도 0도, 그대로 보이게 +90 보정
         float ang = Mathf.Atan2(_dir.y, _dir.x) * Mathf.Rad2Deg + 90f;
         transform.rotation = Quaternion.Euler(0, 0, ang);
     }
@@ -91,6 +98,22 @@ public class EnemyBullet : MonoBehaviour, IBullet
         transform.Translate(_dir * speed * Time.deltaTime, Space.World);
     }
 
+    private bool CanPlayHitSfxThisFrame()
+    {
+        if (!limitHitSfxPerFrame) return true;
+
+        int f = Time.frameCount;
+        if (_lastSfxFrame != f)
+        {
+            _lastSfxFrame = f;
+            _sfxCountThisFrame = 0;
+        }
+
+        if (_sfxCountThisFrame >= maxHitSfxPerFrame) return false;
+        _sfxCountThisFrame++;
+        return true;
+    }
+
     /// <summary>
     /// 폭발 이펙트 + 사운드 생성. prefab/scaleFactor 로 제어.
     /// </summary>
@@ -102,16 +125,14 @@ public class EnemyBullet : MonoBehaviour, IBullet
             fx.transform.localScale *= scaleFactor;
         }
 
-        if (hitSfx != null)
+        if (hitSfx != null && CanPlayHitSfxThisFrame())
         {
             if (SfxManager.I != null)
             {
-                // 폭발 전용 볼륨 계수를 사용
                 SfxManager.I.PlayExplosion(hitSfx, hitSfxVolume);
             }
             else
             {
-                // 매니저가 없을 경우를 대비한 백업
                 AudioSource.PlayClipAtPoint(hitSfx, pos, hitSfxVolume);
             }
         }

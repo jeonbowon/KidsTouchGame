@@ -28,8 +28,26 @@ public class AdManager : MonoBehaviour
     public bool IsRewardedReady => _rewardedReady;
     public bool IsInterstitialReady => _interstitialReady;
 
+    // ✅ 로딩/실패 상태 공개 (GameManager가 “실패했는데도 기다리는” 문제를 막기 위함)
+    public bool IsRewardedLoading => _rewardedLoadingPublic;
+    public bool RewardedLoadFailed => _rewardedLoadFailed;
+    public string LastRewardedLoadError => _lastRewardedLoadError;
+
+    public bool IsInterstitialLoading => _interstitialLoadingPublic;
+    public bool InterstitialLoadFailed => _interstitialLoadFailed;
+    public string LastInterstitialLoadError => _lastInterstitialLoadError;
+
     private bool _rewardedReady = false;
     private bool _interstitialReady = false;
+
+    // 로딩/실패 상태(컴파일 조건과 무관하게 존재해야 GameManager가 항상 참조 가능)
+    private bool _rewardedLoadingPublic = false;
+    private bool _rewardedLoadFailed = false;
+    private string _lastRewardedLoadError = "";
+
+    private bool _interstitialLoadingPublic = false;
+    private bool _interstitialLoadFailed = false;
+    private string _lastInterstitialLoadError = "";
 
 #if GOOGLE_MOBILE_ADS
     private RewardedAd _rewarded;
@@ -86,28 +104,28 @@ public class AdManager : MonoBehaviour
         });
 #else
         Debug.LogWarning("[ADS] AdMob SDK가 없습니다. 시뮬레이션/실패만 가능합니다.");
-        // ❗ SDK 없는데 Ready=true로 속이면, GameManager가 “광고 준비됨”으로 착각합니다.
         _rewardedReady = false;
         _interstitialReady = false;
+
+        _rewardedLoadingPublic = false;
+        _rewardedLoadFailed = true;
+        _lastRewardedLoadError = "No SDK";
+
+        _interstitialLoadingPublic = false;
+        _interstitialLoadFailed = true;
+        _lastInterstitialLoadError = "No SDK";
 #endif
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // ✅ 핵심 수정:
-    // “다시 로드해라”가 아니라 “없으면 로드해라(있으면 유지)”로 동작하게 바꿈.
-    //  - ready 인데도 LoadRewarded()를 호출하면 _rewardedReady=false로 리셋되어
-    //    Continue 클릭 시 3~6초 대기가 생기는 원인이 됨.
     public void RequestRewardedReload()
     {
 #if GOOGLE_MOBILE_ADS
-        // 이미 준비되어 있으면 절대 깨지 않는다.
         if (_rewardedReady && _rewarded != null)
         {
             Debug.Log("[ADS] RequestRewardedReload() -> already READY, keep it (no reset)");
             return;
         }
 
-        // 로딩 중이면 중복 로드하지 않는다.
         if (_rewardedLoading)
         {
             Debug.Log("[ADS] RequestRewardedReload() -> already LOADING, skip");
@@ -145,11 +163,20 @@ public class AdManager : MonoBehaviour
         _rewardedReady = false;
         _rewardedLoading = true;
 
+        // ✅ 공개 상태도 같이 갱신
+        _rewardedLoadingPublic = true;
+        _rewardedLoadFailed = false;
+        _lastRewardedLoadError = "";
+
         string unitId = GetRewardedUnitId();
         if (string.IsNullOrEmpty(unitId))
         {
             Debug.LogWarning("[ADS] Rewarded UnitId가 비어있습니다.");
             _rewardedLoading = false;
+
+            _rewardedLoadingPublic = false;
+            _rewardedLoadFailed = true;
+            _lastRewardedLoadError = "Empty Rewarded UnitId";
             return;
         }
 
@@ -159,11 +186,15 @@ public class AdManager : MonoBehaviour
         RewardedAd.Load(unitId, request, (RewardedAd ad, LoadAdError error) =>
         {
             _rewardedLoading = false;
+            _rewardedLoadingPublic = false;
 
             if (error != null || ad == null)
             {
                 Debug.LogWarning($"[ADS] Rewarded FAILED to load: {error}");
                 _rewardedReady = false;
+
+                _rewardedLoadFailed = true;
+                _lastRewardedLoadError = (error != null) ? error.ToString() : "ad==null";
                 return;
             }
 
@@ -171,6 +202,9 @@ public class AdManager : MonoBehaviour
 
             _rewarded = ad;
             _rewardedReady = true;
+
+            _rewardedLoadFailed = false;
+            _lastRewardedLoadError = "";
 
             Debug.Log("[ADS] Rewarded LOADED");
 
@@ -185,7 +219,6 @@ public class AdManager : MonoBehaviour
                 Debug.Log("[ADS] Rewarded CLOSED");
                 _pendingRewardedClosed = true;
 
-                // ✅ “진짜 성공” 조건: OPENED && EARNED && CLOSED
                 if (_pendingRewardedDone != null)
                 {
                     bool ok = _pendingRewardedOpened && _pendingRewardedEarned && _pendingRewardedClosed;
@@ -208,7 +241,6 @@ public class AdManager : MonoBehaviour
             {
                 Debug.LogWarning($"[ADS] Rewarded FAILED to show: {err}");
 
-                // 실패면 무조건 false
                 _pendingRewardedDone?.Invoke(false);
                 _pendingRewardedDone = null;
 
@@ -225,6 +257,9 @@ public class AdManager : MonoBehaviour
         });
 #else
         _rewardedReady = false;
+        _rewardedLoadingPublic = false;
+        _rewardedLoadFailed = true;
+        _lastRewardedLoadError = "No SDK";
         Debug.Log("[ADS] LoadRewarded (No SDK) -> Ready=false");
 #endif
     }
@@ -254,7 +289,7 @@ public class AdManager : MonoBehaviour
         {
             Debug.LogWarning($"[ADS] Rewarded NOT READY (reason={reason})");
             onDone?.Invoke(false);
-            RequestRewardedReload(); // ✅ ensure load (no reset if ready)
+            RequestRewardedReload();
             return;
         }
 
@@ -308,11 +343,19 @@ public class AdManager : MonoBehaviour
         _interstitialReady = false;
         _interstitialLoading = true;
 
+        _interstitialLoadingPublic = true;
+        _interstitialLoadFailed = false;
+        _lastInterstitialLoadError = "";
+
         string unitId = GetInterstitialUnitId();
         if (string.IsNullOrEmpty(unitId))
         {
             Debug.LogWarning("[ADS] Interstitial UnitId가 비어있습니다.");
             _interstitialLoading = false;
+
+            _interstitialLoadingPublic = false;
+            _interstitialLoadFailed = true;
+            _lastInterstitialLoadError = "Empty Interstitial UnitId";
             return;
         }
 
@@ -322,11 +365,15 @@ public class AdManager : MonoBehaviour
         InterstitialAd.Load(unitId, request, (InterstitialAd ad, LoadAdError error) =>
         {
             _interstitialLoading = false;
+            _interstitialLoadingPublic = false;
 
             if (error != null || ad == null)
             {
                 Debug.LogWarning($"[ADS] Interstitial FAILED to load: {error}");
                 _interstitialReady = false;
+
+                _interstitialLoadFailed = true;
+                _lastInterstitialLoadError = (error != null) ? error.ToString() : "ad==null";
                 return;
             }
 
@@ -334,6 +381,9 @@ public class AdManager : MonoBehaviour
 
             _interstitial = ad;
             _interstitialReady = true;
+
+            _interstitialLoadFailed = false;
+            _lastInterstitialLoadError = "";
 
             Debug.Log("[ADS] Interstitial LOADED");
 
@@ -362,7 +412,7 @@ public class AdManager : MonoBehaviour
                 try { _interstitial?.Destroy(); } catch { }
                 _interstitial = null;
 
-                LoadInterstitial(); // 다음을 위해 재로드
+                LoadInterstitial();
             };
 
             _interstitial.OnAdFullScreenContentFailed += (AdError err) =>
@@ -384,6 +434,9 @@ public class AdManager : MonoBehaviour
         });
 #else
         _interstitialReady = false;
+        _interstitialLoadingPublic = false;
+        _interstitialLoadFailed = true;
+        _lastInterstitialLoadError = "No SDK";
         Debug.Log("[ADS] LoadInterstitial (No SDK) -> Ready=false");
 #endif
     }
@@ -413,7 +466,7 @@ public class AdManager : MonoBehaviour
         {
             Debug.LogWarning($"[ADS] Interstitial NOT READY (reason={reason})");
             onDone?.Invoke(false);
-            RequestInterstitialReload(); // ✅ ensure load (no reset if ready)
+            RequestInterstitialReload();
             return;
         }
 

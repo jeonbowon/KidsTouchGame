@@ -5,26 +5,24 @@ using UnityEngine;
 public class EnemyGalaga : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float baseSpeed = 2f;        // 스테이지 1 기본 속도
-    public float speedPerStage = 0.3f;  // 스테이지 증가 시 속도 증가량
-    public float horizontalAmplitude = 1.2f; // 좌우 진폭
-    public float horizontalFrequency = 1f;   // 좌우 속도
+    public float baseSpeed = 2f;
+    public float speedPerStage = 0.3f;
+    public float horizontalAmplitude = 1.2f;
+    public float horizontalFrequency = 1f;
 
     [Tooltip("true 이면 Galaga 패턴으로 위에서 아래로 + 좌우 흔들리며 이동")]
-    public bool useGalagaMove = true;   // ★ 랜덤 이동 적/보너스 적에서는 false 로 설정
+    public bool useGalagaMove = true;
 
     private float moveSpeed;
     private float sinTime = 0f;
 
     [Header("HP")]
-    public float hp = 1f;               // ★ 탱커는 프리팹에서 2로 설정
+    public float hp = 1f;
 
-    // 내부적으로는 정수 HP로 운영 (A안: 2칸 표시는 정수 기반이 가장 깔끔)
     private int _maxHpInt = 1;
     private int _hpInt = 1;
 
     [Header("Hit Feedback (A안)")]
-    [Tooltip("HP가 2 이상일 때만 두 칸 표시(■■/■□/□□)를 사용")]
     [SerializeField] private bool useTwoPipHpUI = true;
 
     [Tooltip("맞았을 때 HP 표시를 몇 초 보여줄지 (0이면 계속 표시)")]
@@ -53,19 +51,40 @@ public class EnemyGalaga : MonoBehaviour
 
     [Header("FX")]
     [SerializeField] private GameObject explosionPrefab;
+
+    [Header("Die SFX (일반/보너스 분리)")]
+    [Tooltip("체크하면 보너스 적으로 취급(보너스 전용 폭발음/볼륨 사용 가능)")]
+    [SerializeField] private bool isBonusEnemy = false;
+
+    [Tooltip("일반 적 폭발음(선택)")]
     [SerializeField] private AudioClip dieSfx;
+
+    [Tooltip("보너스 적 폭발음(선택). 비어있으면 dieSfx 사용")]
+    [SerializeField] private AudioClip bonusDieSfx;
+
+    [SerializeField, Range(0f, 1f)]
+    private float dieSfxVolume = 1f;
+
+    [SerializeField, Range(0f, 1f)]
+    private float bonusDieSfxVolume = 1f;
+
+    [Header("사운드 스팸 방지(권장)")]
+    [Tooltip("같은 프레임에 적이 여러 마리 터질 수 있어 폭발음이 과해집니다. 기본 3개까지만 허용.")]
+    [SerializeField] private bool limitDieSfxPerFrame = true;
+
+    [SerializeField, Range(1, 10)]
+    private int maxDieSfxPerFrame = 3;
+
+    private static int _lastDieSfxFrame = -1;
+    private static int _dieSfxCountThisFrame = 0;
 
     [Header("Item Drop")]
     [Tooltip("적이 파괴될 때 떨어뜨릴 아이템 프리팹 (ScoreItem 등)")]
     [SerializeField] private GameObject itemPrefab;
-
-    [Tooltip("아이템 드랍 확률 (1이면 항상 드랍)")]
     [Range(0f, 1f)]
     [SerializeField] private float itemDropChance = 1f;
 
     private bool isDying = false;
-
-    // ✅ 어떤 경로로 Destroy되더라도 스폰 카운트가 반드시 내려가도록 하는 안전장치
     private bool _reportedRemoveToGM = false;
 
     private SpriteRenderer _sr;
@@ -76,7 +95,7 @@ public class EnemyGalaga : MonoBehaviour
     private SpriteRenderer _pip1;
     private SpriteRenderer _pip2;
     private Coroutine _hpHideCo;
-    private static Sprite _whiteSprite; // 1x1 흰색 스프라이트 (런타임 생성)
+    private static Sprite _whiteSprite;
 
     private void Awake()
     {
@@ -207,13 +226,42 @@ public class EnemyGalaga : MonoBehaviour
     private void SpawnDamageSmoke()
     {
         if (damageSmokePrefab == null) return;
-        if (_damageSmokeInstance != null) return; // 중복 방지
+        if (_damageSmokeInstance != null) return;
 
         _damageSmokeInstance = Instantiate(damageSmokePrefab, transform);
         if (applyPrefabLocalPosition)
             _damageSmokeInstance.transform.localPosition = damageSmokePrefab.transform.localPosition;
         else
             _damageSmokeInstance.transform.localPosition = Vector3.zero;
+    }
+
+    private bool CanPlayDieSfxThisFrame()
+    {
+        if (!limitDieSfxPerFrame) return true;
+
+        int f = Time.frameCount;
+        if (_lastDieSfxFrame != f)
+        {
+            _lastDieSfxFrame = f;
+            _dieSfxCountThisFrame = 0;
+        }
+
+        if (_dieSfxCountThisFrame >= maxDieSfxPerFrame) return false;
+        _dieSfxCountThisFrame++;
+        return true;
+    }
+
+    private void PlayDieSfx()
+    {
+        AudioClip clip = isBonusEnemy ? (bonusDieSfx != null ? bonusDieSfx : dieSfx) : dieSfx;
+        if (clip == null) return;
+
+        float vol = isBonusEnemy ? bonusDieSfxVolume : dieSfxVolume;
+
+        if (!CanPlayDieSfxThisFrame()) return;
+
+        if (SfxManager.I != null) SfxManager.I.PlayExplosion(clip, vol);
+        else AudioSource.PlayClipAtPoint(clip, transform.position, vol);
     }
 
     private void Die()
@@ -227,24 +275,18 @@ public class EnemyGalaga : MonoBehaviour
         if (explosionPrefab != null)
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
-        if (dieSfx != null)
-        {
-            if (SfxManager.I != null) SfxManager.I.PlayExplosion(dieSfx, 1f);
-            else AudioSource.PlayClipAtPoint(dieSfx, transform.position);
-        }
+        // ✅ 일반 적/보너스 적 폭발음
+        PlayDieSfx();
 
         if (itemPrefab != null && Random.value <= itemDropChance)
             Instantiate(itemPrefab, transform.position, Quaternion.identity);
 
-        // 카운트는 반드시 내려야 함
         ReportRemovedToGM();
-
         Destroy(gameObject);
     }
 
     /// <summary>
     /// 무적 충돌 등으로 "점수/드랍/사운드 없이" 적을 제거.
-    /// PlayerHealth에서 호출.
     /// </summary>
     public void DespawnNoScore()
     {
@@ -260,7 +302,6 @@ public class EnemyGalaga : MonoBehaviour
 
     private void OnDestroy()
     {
-        // ✅ 어떤 경로로든 Destroy되면(무적 충돌 포함) 카운트 누수를 막기 위해 마지막으로 보정
         ReportRemovedToGM();
     }
 
@@ -305,7 +346,7 @@ public class EnemyGalaga : MonoBehaviour
         var sr = go.AddComponent<SpriteRenderer>();
         sr.sprite = _whiteSprite;
         sr.sortingLayerID = (_sr != null) ? _sr.sortingLayerID : 0;
-        sr.sortingOrder = (_sr != null) ? (_sr.sortingOrder + 10) : 10; // 본체 위로
+        sr.sortingOrder = (_sr != null) ? (_sr.sortingOrder + 10) : 10;
         return sr;
     }
 
@@ -313,7 +354,6 @@ public class EnemyGalaga : MonoBehaviour
     {
         if (_pip1 == null || _pip2 == null) return;
 
-        // A안은 2칸만 표시(클램프)
         int filled = Mathf.Clamp(_hpInt, 0, 2);
 
         Color filledCol = new Color(1f, 0.25f, 0.25f, 1f);

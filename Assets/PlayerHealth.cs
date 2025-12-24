@@ -6,6 +6,10 @@ public class PlayerHealth : MonoBehaviour
     [Header("Effect")]
     public GameObject explosionPrefab;
 
+    [Header("SFX")]
+    [Tooltip("플레이어가 죽을 때(폭발) 재생할 사운드")]
+    [SerializeField] private AudioClip playerExplodeSfx;
+
     [Header("Hit 설정")]
     public string[] lethalTags = { "Enemy", "EnemyBullet" }; // 필요하면 태그 추가
 
@@ -75,10 +79,7 @@ public class PlayerHealth : MonoBehaviour
         if (fx != null)
             Instantiate(fx, other.transform.position, Quaternion.identity);
 
-        // 핵심: 무적 충돌은 Destroy(...)로 바로 지우면
-        // Enemy 내부의 Die() 경로를 타지 않아 카운트/정리 로직이 누락될 수 있음.
-        // - EnemyGalaga는 점수/아이템 없이 제거하는 전용 함수로 처리
-        // - 그 외는 Destroy하더라도 각 Enemy의 OnDestroy에서 카운트 보정하도록(이번 수정에서) 안전장치 추가
+        // EnemyGalaga는 점수/아이템 없이 제거하는 전용 함수로 처리
         var galaga = other.GetComponent<EnemyGalaga>();
         if (galaga != null)
         {
@@ -148,14 +149,19 @@ public class PlayerHealth : MonoBehaviour
 
         dead = true;
 
+        // 1) 소리 먼저 (Player 폭발 사운드)
+        if (SfxManager.I != null && playerExplodeSfx != null)
+            SfxManager.I.PlayExplosion(playerExplodeSfx, 1f);
+
+        // 2) 이펙트
         if (explosionPrefab != null)
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
-        // 먼저 GameManager에 보고 (리스폰 코루틴이 확실히 돌게)
+        // 3) GameManager에 보고
         if (GameManager.I != null)
             GameManager.I.OnPlayerDied();
 
-        // 그 다음 제거
+        // 4) 제거
         Destroy(gameObject);
     }
 }
