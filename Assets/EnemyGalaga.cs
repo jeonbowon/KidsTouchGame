@@ -52,21 +52,12 @@ public class EnemyGalaga : MonoBehaviour
     [Header("FX")]
     [SerializeField] private GameObject explosionPrefab;
 
-    [Header("Die SFX (일반/보너스 분리)")]
-    [Tooltip("체크하면 보너스 적으로 취급(보너스 전용 폭발음/볼륨 사용 가능)")]
-    [SerializeField] private bool isBonusEnemy = false;
-
-    [Tooltip("일반 적 폭발음(선택)")]
+    [Header("Die SFX (단일 폭발음)")]
+    [Tooltip("이 적이 죽을 때 재생할 폭발음(프리팹마다 다르게 지정 가능)")]
     [SerializeField] private AudioClip dieSfx;
-
-    [Tooltip("보너스 적 폭발음(선택). 비어있으면 dieSfx 사용")]
-    [SerializeField] private AudioClip bonusDieSfx;
 
     [SerializeField, Range(0f, 1f)]
     private float dieSfxVolume = 1f;
-
-    [SerializeField, Range(0f, 1f)]
-    private float bonusDieSfxVolume = 1f;
 
     [Header("사운드 스팸 방지(권장)")]
     [Tooltip("같은 프레임에 적이 여러 마리 터질 수 있어 폭발음이 과해집니다. 기본 3개까지만 허용.")]
@@ -253,15 +244,11 @@ public class EnemyGalaga : MonoBehaviour
 
     private void PlayDieSfx()
     {
-        AudioClip clip = isBonusEnemy ? (bonusDieSfx != null ? bonusDieSfx : dieSfx) : dieSfx;
-        if (clip == null) return;
-
-        float vol = isBonusEnemy ? bonusDieSfxVolume : dieSfxVolume;
-
+        if (dieSfx == null) return;
         if (!CanPlayDieSfxThisFrame()) return;
 
-        if (SfxManager.I != null) SfxManager.I.PlayExplosion(clip, vol);
-        else AudioSource.PlayClipAtPoint(clip, transform.position, vol);
+        if (SfxManager.I != null) SfxManager.I.PlayExplosion(dieSfx, dieSfxVolume);
+        else AudioSource.PlayClipAtPoint(dieSfx, transform.position, dieSfxVolume);
     }
 
     private void Die()
@@ -275,7 +262,7 @@ public class EnemyGalaga : MonoBehaviour
         if (explosionPrefab != null)
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
-        // ✅ 일반 적/보너스 적 폭발음
+        // 단일 폭발음(프리팹별로 dieSfx만 바꿔서 사용)
         PlayDieSfx();
 
         if (itemPrefab != null && Random.value <= itemDropChance)

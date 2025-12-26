@@ -4,6 +4,7 @@ using UnityEngine;
 
 #if GOOGLE_MOBILE_ADS
 using GoogleMobileAds.Api;
+using System.Collections.Generic; // ✅ 테스트 기기 ID 리스트
 #endif
 
 public class AdManager : MonoBehaviour
@@ -25,10 +26,38 @@ public class AdManager : MonoBehaviour
     [SerializeField] private bool simulateInDeviceIfNoSdk = false;
     [SerializeField] private float simulateDelay = 1.0f;
 
+    // ─────────────────────────────────────────────────────────────
+    // ✅ (핵심 추가) DevBuild/Editor에서는 "구글 공식 테스트 유닛ID"로 강제 전환 옵션
+    //
+    // 왜 필요하냐?
+    // - 대표님 로그는 Code=3 / No fill 이 반복됩니다.
+    // - TestDevice 등록만으론 "항상 광고가 뜨는 것"을 보장하지 못합니다.
+    // - 그래서 DevBuild에서는 "무조건 나오는 공식 테스트 유닛ID"로 파이프라인을 확정합니다.
+    //
+    // 안전장치:
+    // - Release 빌드(Debug.isDebugBuild=false)에서는 자동으로 실유닛ID로만 동작합니다.
+    [Header("Dev/Test Safety (Recommended)")]
+    [Tooltip("Editor 또는 Development Build에서는 구글 공식 테스트 유닛ID로 강제합니다(가장 확실). Release 빌드는 자동으로 실유닛ID 사용.")]
+    [SerializeField] private bool forceGoogleTestAdUnitsInDevBuild = true;
+
+    // ✅ 구글 공식 테스트 유닛ID (Android)
+    // - Rewarded : ca-app-pub-3940256099942544/5224354917
+    // - Interstitial : ca-app-pub-3940256099942544/1033173712
+    // (배너 등도 있지만 현재 프로젝트는 Rewarded/Interstitial만)
+    private const string TEST_REWARDED_ANDROID = "ca-app-pub-3940256099942544/5224354917";
+    private const string TEST_INTERSTITIAL_ANDROID = "ca-app-pub-3940256099942544/1033173712";
+
+    // ─────────────────────────────────────────────────────────────
+    // ✅ (추가) 테스트 기기 등록 옵션
+    // - 이건 "테스트 광고로 표시"를 유도하는 장치 (유닛ID는 그대로)
+    // - 하지만 대표님처럼 No fill 이면 이것만으로는 광고가 항상 뜬다고 보장 못함
+    [Header("Test Devices (Editor/DevBuild ONLY)")]
+    [Tooltip("테스트 기기 ID(AdMob이 출력해주는 Test Device Id). 여러 대면 Size 늘려서 추가하세요.")]
+    [SerializeField] private string[] testDeviceIds = new string[0];
+
     public bool IsRewardedReady => _rewardedReady;
     public bool IsInterstitialReady => _interstitialReady;
 
-    // ✅ 로딩/실패 상태 공개 (GameManager가 “실패했는데도 기다리는” 문제를 막기 위함)
     public bool IsRewardedLoading => _rewardedLoadingPublic;
     public bool RewardedLoadFailed => _rewardedLoadFailed;
     public string LastRewardedLoadError => _lastRewardedLoadError;
@@ -40,7 +69,6 @@ public class AdManager : MonoBehaviour
     private bool _rewardedReady = false;
     private bool _interstitialReady = false;
 
-    // 로딩/실패 상태(컴파일 조건과 무관하게 존재해야 GameManager가 항상 참조 가능)
     private bool _rewardedLoadingPublic = false;
     private bool _rewardedLoadFailed = false;
     private string _lastRewardedLoadError = "";
@@ -53,7 +81,6 @@ public class AdManager : MonoBehaviour
     private RewardedAd _rewarded;
     private InterstitialAd _interstitial;
 
-    // pending guard
     private Action<bool> _pendingRewardedDone;
     private bool _pendingRewardedOpened;
     private bool _pendingRewardedEarned;
@@ -78,7 +105,7 @@ public class AdManager : MonoBehaviour
         I = this;
         DontDestroyOnLoad(gameObject);
 
-        Debug.Log($"[ADS] AdManager Awake / SDK={(IsAdMobSdkPresent() ? "YES" : "NO")} / editor={Application.isEditor}");
+        Debug.Log($"[ADS] AdManager Awake / SDK={(IsAdMobSdkPresent() ? "YES" : "NO")} / editor={Application.isEditor} devBuild={Debug.isDebugBuild}");
         Init();
     }
 
@@ -95,6 +122,9 @@ public class AdManager : MonoBehaviour
     {
 #if GOOGLE_MOBILE_ADS
         Debug.Log($"[ADS] Init AdMob. appIdAndroid={(string.IsNullOrEmpty(androidAppId) ? "(empty)" : "set")}");
+
+        // ✅ 테스트 기기 등록은 Initialize 이전에(요청 설정이므로)
+        ConfigureTestDevices_EditorOrDevBuildOnly();
 
         MobileAds.Initialize(_ =>
         {
@@ -114,6 +144,51 @@ public class AdManager : MonoBehaviour
         _interstitialLoadingPublic = false;
         _interstitialLoadFailed = true;
         _lastInterstitialLoadError = "No SDK";
+#endif
+    }
+
+    private void ConfigureTestDevices_EditorOrDevBuildOnly()
+    {
+#if GOOGLE_MOBILE_ADS
+        bool isEditor = Application.isEditor;
+        bool isDevBuild = Debug.isDebugBuild;
+
+        // ✅ Release 빌드에서는 테스트 기기 등록 자체를 적용하지 않음
+        if (!isEditor && !isDevBuild)
+        {
+            Debug.Log("[ADS] TestDevice config SKIP (Release build)");
+            return;
+        }
+
+        if (testDeviceIds == null || testDeviceIds.Length == 0)
+        {
+            Debug.Log($"[ADS] TestDevice config SKIP (no ids) / editor={isEditor} devBuild={isDevBuild}");
+            return;
+        }
+
+        var list = new List<string>();
+        foreach (var id in testDeviceIds)
+        {
+            if (!string.IsNullOrWhiteSpace(id))
+                list.Add(id.Trim());
+        }
+
+        if (list.Count == 0)
+        {
+            Debug.Log($"[ADS] TestDevice config SKIP (ids invalid) / editor={isEditor} devBuild={isDevBuild}");
+            return;
+        }
+
+        // ✅ 대표님이 Builder()로 하다가 컴파일 에러가 났던 이유:
+        // Unity 플러그인 버전에 따라 RequestConfiguration.Builder 타입이 없을 수 있습니다.
+        // 아래처럼 "TestDeviceIds 프로퍼티"로 세팅하는 방식이 호환성이 좋습니다.
+        var config = new RequestConfiguration
+        {
+            TestDeviceIds = list
+        };
+
+        MobileAds.SetRequestConfiguration(config);
+        Debug.Log($"[ADS] Test devices REGISTERED / count={list.Count} / editor={isEditor} devBuild={isDevBuild}");
 #endif
     }
 
@@ -163,7 +238,6 @@ public class AdManager : MonoBehaviour
         _rewardedReady = false;
         _rewardedLoading = true;
 
-        // ✅ 공개 상태도 같이 갱신
         _rewardedLoadingPublic = true;
         _rewardedLoadFailed = false;
         _lastRewardedLoadError = "";
@@ -234,7 +308,7 @@ public class AdManager : MonoBehaviour
                 try { _rewarded?.Destroy(); } catch { }
                 _rewarded = null;
 
-                LoadRewarded(); // 다음을 위해 재로드
+                LoadRewarded();
             };
 
             _rewarded.OnAdFullScreenContentFailed += (AdError err) =>
@@ -506,17 +580,27 @@ public class AdManager : MonoBehaviour
 #endif
     }
 
-    // ─────────────────────────────────────────────────────────────
-    private IEnumerator Co_Simulate(Action<bool> onDone, bool result, string reason)
+    private IEnumerator Co_Simulate(Action<bool> onDone, bool success, string reason)
     {
         yield return new WaitForSecondsRealtime(simulateDelay);
-        Debug.Log($"[ADS] Simulate Done (reason={reason}) result={result}");
-        onDone?.Invoke(result);
+        Debug.Log($"[ADS] Simulate DONE success={success} (reason={reason})");
+        onDone?.Invoke(success);
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // ✅ (핵심 수정) DevBuild/Editor에서는 테스트 유닛ID로 강제 전환
     private string GetRewardedUnitId()
     {
 #if UNITY_ANDROID
+        bool isTestContext = (Application.isEditor || Debug.isDebugBuild);
+
+        // ✅ DevBuild/Editor이면 무조건 "공식 테스트 유닛" 사용(가장 확실)
+        if (forceGoogleTestAdUnitsInDevBuild && isTestContext)
+        {
+            return TEST_REWARDED_ANDROID;
+        }
+
+        // ✅ Release(또는 강제 OFF)면 대표님 실유닛 사용
         return rewardedUnitIdAndroid;
 #else
         return rewardedUnitIdAndroid;
@@ -526,6 +610,13 @@ public class AdManager : MonoBehaviour
     private string GetInterstitialUnitId()
     {
 #if UNITY_ANDROID
+        bool isTestContext = (Application.isEditor || Debug.isDebugBuild);
+
+        if (forceGoogleTestAdUnitsInDevBuild && isTestContext)
+        {
+            return TEST_INTERSTITIAL_ANDROID;
+        }
+
         return interstitialUnitIdAndroid;
 #else
         return interstitialUnitIdAndroid;

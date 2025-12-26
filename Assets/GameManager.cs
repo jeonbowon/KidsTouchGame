@@ -110,6 +110,9 @@ public class GameManager : MonoBehaviour
     private enum GameOverChoice { None, Continue, Menu }
     private GameOverChoice _choice = GameOverChoice.None;
 
+    // ✅ Continue 성공 여부(바깥 while 탈출용)
+    private bool _continueSucceededThisFlow = false;
+
     // 완전정지 보장용
     private float _defaultFixedDeltaTime = 0.02f;
 
@@ -244,6 +247,7 @@ public class GameManager : MonoBehaviour
         bonusContinueUsed = false;
         isHandlingGameOverFlow = false;
         _choice = GameOverChoice.None;
+        _continueSucceededThisFlow = false;
 
         UpdateLivesUI();
         UpdateStageUI();
@@ -284,6 +288,7 @@ public class GameManager : MonoBehaviour
         bonusContinueUsed = false;
         isHandlingGameOverFlow = false;
         _choice = GameOverChoice.None;
+        _continueSucceededThisFlow = false;
 
         UpdateLivesUI();
         UpdateStageUI();
@@ -310,6 +315,7 @@ public class GameManager : MonoBehaviour
         isRespawning = false;
         isHandlingGameOverFlow = false;
         _choice = GameOverChoice.None;
+        _continueSucceededThisFlow = false;
 
         if (gameOverPanelInstance != null)
             gameOverPanelInstance.Hide();
@@ -468,9 +474,17 @@ public class GameManager : MonoBehaviour
     private IEnumerator Co_FirstGameOverChoiceFlow()
     {
         isHandlingGameOverFlow = true;
+        _continueSucceededThisFlow = false;
 
         while (true)
         {
+            // ✅ Continue 성공으로 게임이 재개됐으면 즉시 이 코루틴을 종료
+            if (!isGameOver || _continueSucceededThisFlow)
+            {
+                isHandlingGameOverFlow = false;
+                yield break;
+            }
+
             _choice = GameOverChoice.None;
 
             if (gameOverPanelInstance == null)
@@ -486,7 +500,15 @@ public class GameManager : MonoBehaviour
             gameOverPanelInstance.SetButtonsInteractable(true);
 
             while (_choice == GameOverChoice.None)
+            {
+                // ✅ 중간에 Continue 성공으로 상태가 바뀌면 바로 탈출
+                if (!isGameOver || _continueSucceededThisFlow)
+                {
+                    isHandlingGameOverFlow = false;
+                    yield break;
+                }
                 yield return null;
+            }
 
             // MENU
             if (_choice == GameOverChoice.Menu)
@@ -498,6 +520,13 @@ public class GameManager : MonoBehaviour
 
             // CONTINUE (실패하면 패널 유지 + 안내 + 버튼 다시 활성화, 게임 재개 금지)
             yield return Co_TryContinueWithRewardedWait();
+
+            // ✅ Continue 성공이면 여기서 종료 (다음 while 반복으로 Show 재호출 방지)
+            if (!isGameOver || _continueSucceededThisFlow)
+            {
+                isHandlingGameOverFlow = false;
+                yield break;
+            }
         }
     }
 
@@ -528,7 +557,6 @@ public class GameManager : MonoBehaviour
 
         while (!AdManager.I.IsRewardedReady && t < rewardedWaitTimeout)
         {
-            // ✅ 로딩이 끝났고 실패가 확정이면 즉시 종료 (No fill에서 8초 낭비 제거)
             if (!AdManager.I.IsRewardedLoading && AdManager.I.RewardedLoadFailed)
                 break;
 
@@ -551,7 +579,6 @@ public class GameManager : MonoBehaviour
 
             if (gameOverPanelInstance != null)
             {
-                // 너무 길면 UI 지저분해지니 짧게
                 gameOverPanelInstance.SetInfo("AD NOT READY.\nPlease try again.");
                 gameOverPanelInstance.SetButtonsInteractable(true);
             }
@@ -587,6 +614,8 @@ public class GameManager : MonoBehaviour
             isStageRunning = true;
             isRespawning = false;
 
+            _continueSucceededThisFlow = true; // ✅ 바깥 while 종료 트리거
+
             if (gameOverPanelInstance != null)
                 gameOverPanelInstance.Hide();
 
@@ -596,7 +625,6 @@ public class GameManager : MonoBehaviour
             SpawnPlayer();
 
             Debug.Log("[GAME] Continue 성공 → 부활 후 재개");
-            isHandlingGameOverFlow = false;
             yield break;
         }
 
@@ -626,7 +654,6 @@ public class GameManager : MonoBehaviour
 
         while (AdManager.I != null && !AdManager.I.IsInterstitialReady && t < interstitialWaitTimeout)
         {
-            // ✅ 로딩 끝 + 실패 확정이면 즉시 종료
             if (!AdManager.I.IsInterstitialLoading && AdManager.I.InterstitialLoadFailed)
                 break;
 

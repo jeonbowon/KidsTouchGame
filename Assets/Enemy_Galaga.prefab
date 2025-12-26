@@ -195,7 +195,13 @@ MonoBehaviour:
   applyPrefabLocalPosition: 1
   shooter: {fileID: 0}
   explosionPrefab: {fileID: 7575617972279380594, guid: 7085f882c1bb986429839d8793ce3715, type: 3}
-  dieSfx: {fileID: 8300000, guid: 9606b99cacfb45f46b6b33d1c06c105e, type: 3}
+  isBonusEnemy: 0
+  dieSfx: {fileID: 8300000, guid: 252f88a9542e3e8428d2c6684ea1ac1f, type: 3}
+  bonusDieSfx: {fileID: 0}
+  dieSfxVolume: 1
+  bonusDieSfxVolume: 1
+  limitDieSfxPerFrame: 1
+  maxDieSfxPerFrame: 3
   itemPrefab: {fileID: 9194623500998723778, guid: e5d72a1bd20a21243ab8e2a6df26b9df, type: 3}
   itemDropChance: 1
 --- !u!114 &4054344598964335641

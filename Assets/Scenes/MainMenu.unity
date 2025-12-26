@@ -2549,6 +2549,8 @@ MonoBehaviour:
   simulateInEditor: 0
   simulateInDeviceIfNoSdk: 0
   simulateDelay: 1
+  testDeviceIds:
+  - 068BAF6C8FFF759C0C93AA1BEA2401EC
 --- !u!4 &978334178
 Transform:
   m_ObjectHideFlags: 0
