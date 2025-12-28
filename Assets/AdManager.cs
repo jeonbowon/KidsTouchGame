@@ -11,6 +11,16 @@ public class AdManager : MonoBehaviour
 {
     public static AdManager I { get; private set; }
 
+    // ✅ Unity API(Debug.isDebugBuild 등)는 "메인 스레드"에서만 안전합니다.
+    // MobileAds.Initialize 콜백은 메인 스레드가 아닐 수 있어, 값을 Awake에서 캐시해 둡니다.
+    private bool _isEditor;
+    private bool _isDevBuild;
+    private bool _isTestContext;
+
+#if GOOGLE_MOBILE_ADS
+    private volatile bool _pendingInitComplete; // Initialize 콜백에서만 true로 세팅 (스레드 세이프 용도)
+#endif
+
     [Header("AdMob IDs (Android)")]
     [Tooltip("ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy (App ID)")]
     [SerializeField] private string androidAppId = "";
@@ -27,33 +37,47 @@ public class AdManager : MonoBehaviour
     [SerializeField] private float simulateDelay = 1.0f;
 
     // ─────────────────────────────────────────────────────────────
-    // ✅ (핵심 추가) DevBuild/Editor에서는 "구글 공식 테스트 유닛ID"로 강제 전환 옵션
-    //
-    // 왜 필요하냐?
-    // - 대표님 로그는 Code=3 / No fill 이 반복됩니다.
-    // - TestDevice 등록만으론 "항상 광고가 뜨는 것"을 보장하지 못합니다.
-    // - 그래서 DevBuild에서는 "무조건 나오는 공식 테스트 유닛ID"로 파이프라인을 확정합니다.
-    //
-    // 안전장치:
-    // - Release 빌드(Debug.isDebugBuild=false)에서는 자동으로 실유닛ID로만 동작합니다.
+    // ✅ (핵심) DevBuild/Editor에서는 "구글 공식 테스트 유닛ID"로 강제 전환 옵션
     [Header("Dev/Test Safety (Recommended)")]
     [Tooltip("Editor 또는 Development Build에서는 구글 공식 테스트 유닛ID로 강제합니다(가장 확실). Release 빌드는 자동으로 실유닛ID 사용.")]
     [SerializeField] private bool forceGoogleTestAdUnitsInDevBuild = true;
 
     // ✅ 구글 공식 테스트 유닛ID (Android)
-    // - Rewarded : ca-app-pub-3940256099942544/5224354917
-    // - Interstitial : ca-app-pub-3940256099942544/1033173712
-    // (배너 등도 있지만 현재 프로젝트는 Rewarded/Interstitial만)
     private const string TEST_REWARDED_ANDROID = "ca-app-pub-3940256099942544/5224354917";
     private const string TEST_INTERSTITIAL_ANDROID = "ca-app-pub-3940256099942544/1033173712";
 
-    // ─────────────────────────────────────────────────────────────
-    // ✅ (추가) 테스트 기기 등록 옵션
-    // - 이건 "테스트 광고로 표시"를 유도하는 장치 (유닛ID는 그대로)
-    // - 하지만 대표님처럼 No fill 이면 이것만으로는 광고가 항상 뜬다고 보장 못함
+#if GOOGLE_MOBILE_ADS
     [Header("Test Devices (Editor/DevBuild ONLY)")]
     [Tooltip("테스트 기기 ID(AdMob이 출력해주는 Test Device Id). 여러 대면 Size 늘려서 추가하세요.")]
     [SerializeField] private string[] testDeviceIds = new string[0];
+
+    private RewardedAd _rewarded;
+    private InterstitialAd _interstitial;
+
+    private bool _rewardedReady;
+    private bool _interstitialReady;
+
+    private bool _rewardedLoading;
+    private bool _interstitialLoading;
+
+    private bool _rewardedLoadingPublic;
+    private bool _interstitialLoadingPublic;
+
+    private bool _rewardedLoadFailed;
+    private bool _interstitialLoadFailed;
+
+    private string _lastRewardedLoadError = "";
+    private string _lastInterstitialLoadError = "";
+
+    private Action<bool> _pendingRewardedDone;
+    private bool _pendingRewardedOpened;
+    private bool _pendingRewardedEarned;
+    private bool _pendingRewardedClosed;
+
+    private Action<bool> _pendingInterstitialDone;
+    private bool _pendingInterstitialOpened;
+    private bool _pendingInterstitialClosed;
+#endif
 
     public bool IsRewardedReady => _rewardedReady;
     public bool IsInterstitialReady => _interstitialReady;
@@ -66,34 +90,6 @@ public class AdManager : MonoBehaviour
     public bool InterstitialLoadFailed => _interstitialLoadFailed;
     public string LastInterstitialLoadError => _lastInterstitialLoadError;
 
-    private bool _rewardedReady = false;
-    private bool _interstitialReady = false;
-
-    private bool _rewardedLoadingPublic = false;
-    private bool _rewardedLoadFailed = false;
-    private string _lastRewardedLoadError = "";
-
-    private bool _interstitialLoadingPublic = false;
-    private bool _interstitialLoadFailed = false;
-    private string _lastInterstitialLoadError = "";
-
-#if GOOGLE_MOBILE_ADS
-    private RewardedAd _rewarded;
-    private InterstitialAd _interstitial;
-
-    private Action<bool> _pendingRewardedDone;
-    private bool _pendingRewardedOpened;
-    private bool _pendingRewardedEarned;
-    private bool _pendingRewardedClosed;
-
-    private Action<bool> _pendingInterstitialDone;
-    private bool _pendingInterstitialOpened;
-    private bool _pendingInterstitialClosed;
-
-    private bool _rewardedLoading = false;
-    private bool _interstitialLoading = false;
-#endif
-
     private void Awake()
     {
         if (I != null && I != this)
@@ -105,8 +101,28 @@ public class AdManager : MonoBehaviour
         I = this;
         DontDestroyOnLoad(gameObject);
 
-        Debug.Log($"[ADS] AdManager Awake / SDK={(IsAdMobSdkPresent() ? "YES" : "NO")} / editor={Application.isEditor} devBuild={Debug.isDebugBuild}");
+        // ✅ 메인 스레드에서 캐시
+        _isEditor = Application.isEditor;
+        _isDevBuild = Debug.isDebugBuild;
+        _isTestContext = (_isEditor || _isDevBuild);
+
+        Debug.Log($"[ADS] AdManager Awake / SDK={(IsAdMobSdkPresent() ? "YES" : "NO")} / editor={_isEditor} devBuild={_isDevBuild}");
         Init();
+    }
+
+    private void Update()
+    {
+#if GOOGLE_MOBILE_ADS
+        // ✅ Initialize 콜백이 메인 스레드가 아니어도,
+        // 실제 로드(LoadRewarded/LoadInterstitial)는 여기서 메인 스레드로 실행됩니다.
+        if (_pendingInitComplete)
+        {
+            _pendingInitComplete = false;
+            Debug.Log("[ADS] MobileAds.Initialize 완료 (main thread) -> LoadRewarded/LoadInterstitial");
+            LoadRewarded();
+            LoadInterstitial();
+        }
+#endif
     }
 
     private bool IsAdMobSdkPresent()
@@ -128,9 +144,9 @@ public class AdManager : MonoBehaviour
 
         MobileAds.Initialize(_ =>
         {
-            Debug.Log("[ADS] MobileAds.Initialize 완료");
-            LoadRewarded();
-            LoadInterstitial();
+            // ⚠ 콜백 스레드는 메인 스레드가 아닐 수 있습니다.
+            // 여기서는 플래그만 세팅하고, Update()에서 메인 스레드로 로드를 수행합니다.
+            _pendingInitComplete = true;
         });
 #else
         Debug.LogWarning("[ADS] AdMob SDK가 없습니다. 시뮬레이션/실패만 가능합니다.");
@@ -150,8 +166,8 @@ public class AdManager : MonoBehaviour
     private void ConfigureTestDevices_EditorOrDevBuildOnly()
     {
 #if GOOGLE_MOBILE_ADS
-        bool isEditor = Application.isEditor;
-        bool isDevBuild = Debug.isDebugBuild;
+        bool isEditor = _isEditor;
+        bool isDevBuild = _isDevBuild;
 
         // ✅ Release 빌드에서는 테스트 기기 등록 자체를 적용하지 않음
         if (!isEditor && !isDevBuild)
@@ -179,7 +195,6 @@ public class AdManager : MonoBehaviour
             return;
         }
 
-        // ✅ 대표님이 Builder()로 하다가 컴파일 에러가 났던 이유:
         // Unity 플러그인 버전에 따라 RequestConfiguration.Builder 타입이 없을 수 있습니다.
         // 아래처럼 "TestDeviceIds 프로퍼티"로 세팅하는 방식이 호환성이 좋습니다.
         var config = new RequestConfiguration
@@ -314,27 +329,8 @@ public class AdManager : MonoBehaviour
             _rewarded.OnAdFullScreenContentFailed += (AdError err) =>
             {
                 Debug.LogWarning($"[ADS] Rewarded FAILED to show: {err}");
-
-                _pendingRewardedDone?.Invoke(false);
-                _pendingRewardedDone = null;
-
-                _pendingRewardedOpened = false;
-                _pendingRewardedEarned = false;
-                _pendingRewardedClosed = false;
-
-                _rewardedReady = false;
-                try { _rewarded?.Destroy(); } catch { }
-                _rewarded = null;
-
-                LoadRewarded();
             };
         });
-#else
-        _rewardedReady = false;
-        _rewardedLoadingPublic = false;
-        _rewardedLoadFailed = true;
-        _lastRewardedLoadError = "No SDK";
-        Debug.Log("[ADS] LoadRewarded (No SDK) -> Ready=false");
 #endif
     }
 
@@ -352,16 +348,9 @@ public class AdManager : MonoBehaviour
 #endif
 
 #if GOOGLE_MOBILE_ADS
-        if (_pendingRewardedDone != null)
-        {
-            Debug.LogWarning($"[ADS] Rewarded already showing/pending. reject (reason={reason})");
-            onDone?.Invoke(false);
-            return;
-        }
-
         if (_rewarded == null || !_rewardedReady)
         {
-            Debug.LogWarning($"[ADS] Rewarded NOT READY (reason={reason})");
+            Debug.LogWarning($"[ADS] Rewarded NOT READY -> FAIL (reason={reason}) / lastErr={_lastRewardedLoadError}");
             onDone?.Invoke(false);
             RequestRewardedReload();
             return;
@@ -374,21 +363,17 @@ public class AdManager : MonoBehaviour
 
         try
         {
-            _rewarded.Show(reward =>
+            _rewarded.Show((Reward reward) =>
             {
-                Debug.Log($"[ADS] Reward Earned! type={reward.Type} amount={reward.Amount} (reason={reason})");
+                Debug.Log($"[ADS] Rewarded EARNED type={reward.Type} amount={reward.Amount}");
                 _pendingRewardedEarned = true;
             });
         }
         catch (Exception e)
         {
-            Debug.LogWarning($"[ADS] Rewarded Show Exception: {e.Message}");
+            Debug.LogWarning($"[ADS] Rewarded Show Exception: {e}");
             _pendingRewardedDone?.Invoke(false);
             _pendingRewardedDone = null;
-            _pendingRewardedOpened = false;
-            _pendingRewardedEarned = false;
-            _pendingRewardedClosed = false;
-
             _rewardedReady = false;
             try { _rewarded?.Destroy(); } catch { }
             _rewarded = null;
@@ -398,7 +383,7 @@ public class AdManager : MonoBehaviour
 #else
         if (simulateInDeviceIfNoSdk)
         {
-            Debug.Log($"[ADS] Device Simulate Rewarded -> {simulateDelay}s 후 성공 처리 (reason={reason})");
+            Debug.Log($"[ADS] No SDK -> Simulate Rewarded {simulateDelay}s (reason={reason})");
             StartCoroutine(Co_Simulate(onDone, true, reason));
         }
         else
@@ -492,26 +477,8 @@ public class AdManager : MonoBehaviour
             _interstitial.OnAdFullScreenContentFailed += (AdError err) =>
             {
                 Debug.LogWarning($"[ADS] Interstitial FAILED to show: {err}");
-
-                _pendingInterstitialDone?.Invoke(false);
-                _pendingInterstitialDone = null;
-
-                _pendingInterstitialOpened = false;
-                _pendingInterstitialClosed = false;
-
-                _interstitialReady = false;
-                try { _interstitial?.Destroy(); } catch { }
-                _interstitial = null;
-
-                LoadInterstitial();
             };
         });
-#else
-        _interstitialReady = false;
-        _interstitialLoadingPublic = false;
-        _interstitialLoadFailed = true;
-        _lastInterstitialLoadError = "No SDK";
-        Debug.Log("[ADS] LoadInterstitial (No SDK) -> Ready=false");
 #endif
     }
 
@@ -529,16 +496,9 @@ public class AdManager : MonoBehaviour
 #endif
 
 #if GOOGLE_MOBILE_ADS
-        if (_pendingInterstitialDone != null)
-        {
-            Debug.LogWarning($"[ADS] Interstitial already showing/pending. reject (reason={reason})");
-            onDone?.Invoke(false);
-            return;
-        }
-
         if (_interstitial == null || !_interstitialReady)
         {
-            Debug.LogWarning($"[ADS] Interstitial NOT READY (reason={reason})");
+            Debug.LogWarning($"[ADS] Interstitial NOT READY -> FAIL (reason={reason}) / lastErr={_lastInterstitialLoadError}");
             onDone?.Invoke(false);
             RequestInterstitialReload();
             return;
@@ -554,11 +514,9 @@ public class AdManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogWarning($"[ADS] Interstitial Show Exception: {e.Message}");
+            Debug.LogWarning($"[ADS] Interstitial Show Exception: {e}");
             _pendingInterstitialDone?.Invoke(false);
             _pendingInterstitialDone = null;
-            _pendingInterstitialOpened = false;
-            _pendingInterstitialClosed = false;
 
             _interstitialReady = false;
             try { _interstitial?.Destroy(); } catch { }
@@ -569,7 +527,7 @@ public class AdManager : MonoBehaviour
 #else
         if (simulateInDeviceIfNoSdk)
         {
-            Debug.Log($"[ADS] Device Simulate Interstitial -> {simulateDelay}s 후 성공 처리 (reason={reason})");
+            Debug.Log($"[ADS] No SDK -> Simulate Interstitial {simulateDelay}s (reason={reason})");
             StartCoroutine(Co_Simulate(onDone, true, reason));
         }
         else
@@ -592,15 +550,11 @@ public class AdManager : MonoBehaviour
     private string GetRewardedUnitId()
     {
 #if UNITY_ANDROID
-        bool isTestContext = (Application.isEditor || Debug.isDebugBuild);
+        bool isTestContext = _isTestContext;
 
-        // ✅ DevBuild/Editor이면 무조건 "공식 테스트 유닛" 사용(가장 확실)
         if (forceGoogleTestAdUnitsInDevBuild && isTestContext)
-        {
             return TEST_REWARDED_ANDROID;
-        }
 
-        // ✅ Release(또는 강제 OFF)면 대표님 실유닛 사용
         return rewardedUnitIdAndroid;
 #else
         return rewardedUnitIdAndroid;
@@ -610,12 +564,10 @@ public class AdManager : MonoBehaviour
     private string GetInterstitialUnitId()
     {
 #if UNITY_ANDROID
-        bool isTestContext = (Application.isEditor || Debug.isDebugBuild);
+        bool isTestContext = _isTestContext;
 
         if (forceGoogleTestAdUnitsInDevBuild && isTestContext)
-        {
             return TEST_INTERSTITIAL_ANDROID;
-        }
 
         return interstitialUnitIdAndroid;
 #else
