@@ -175,6 +175,6 @@ MonoBehaviour:
   explosionScaleOnPlayerHit: 5
   explosionScaleOnBulletHit: 0.5
   hitSfx: {fileID: 8300000, guid: f65d90e370d0e5e4992e8430bc41819f, type: 3}
-  hitSfxVolume: 0.2
+  hitSfxVolume: 0.1
   limitHitSfxPerFrame: 1
   maxHitSfxPerFrame: 3

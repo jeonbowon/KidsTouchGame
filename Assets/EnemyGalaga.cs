@@ -287,6 +287,27 @@ public class EnemyGalaga : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// 플레이어와의 충돌 등으로 적도 같이 터져야 할 때:
+    /// "점수/드랍 없이" 제거하되, 폭발 이펙트 + Die SFX는 재생.
+    /// </summary>
+    public void DespawnWithFxAndSfxNoReward()
+    {
+        if (isDying) return;
+        isDying = true;
+
+        if (shooter != null)
+            shooter.StopAll();
+
+        if (explosionPrefab != null)
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
+        PlayDieSfx();
+
+        ReportRemovedToGM();
+        Destroy(gameObject);
+    }
+
     private void OnDestroy()
     {
         ReportRemovedToGM();

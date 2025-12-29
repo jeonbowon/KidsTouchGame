@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private AudioClip playerExplodeSfx;
 
     [Header("Hit 설정")]
-    public string[] lethalTags = { "Enemy", "EnemyBullet" }; // 필요하면 태그 추가
+    public string[] lethalTags = { "Enemy", "EnemyBullet" };
 
     [Header("Invincibility")]
     [Tooltip("무적 중 충돌했을 때 상대를 폭발시킬 프리팹(비우면 explosionPrefab 사용)")]
@@ -21,6 +21,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private bool blinkWhenInvincible = true;
 
     [SerializeField] private float blinkInterval = 0.08f;
+
+    [SerializeField, Range(0.5f, 5f)]
+    private float playerExplodeVolume = 2.5f;
+
 
     public bool IsInvincible => _invincible && !dead;
 
@@ -58,7 +62,24 @@ public class PlayerHealth : MonoBehaviour
         {
             if (other.CompareTag(t))
             {
-                Die(); // 무적 아님이 보장된 상태
+                // Enemy와 충돌로 죽는 경우: 적도 같이 터뜨리되(점수/드랍 없음), 소리는 나게
+                if (other.CompareTag("Enemy"))
+                {
+                    var galaga = other.GetComponent<EnemyGalaga>();
+                    if (galaga != null)
+                    {
+                        galaga.DespawnWithFxAndSfxNoReward();
+                    }
+                    else
+                    {
+                        // EnemyGalaga가 아닌 적이면, 최소한 이펙트라도
+                        if (explosionPrefab != null)
+                            Instantiate(explosionPrefab, other.transform.position, Quaternion.identity);
+                        Destroy(other.gameObject);
+                    }
+                }
+
+                Die();
                 return;
             }
         }
@@ -79,11 +100,12 @@ public class PlayerHealth : MonoBehaviour
         if (fx != null)
             Instantiate(fx, other.transform.position, Quaternion.identity);
 
-        // EnemyGalaga는 점수/아이템 없이 제거하는 전용 함수로 처리
+        // EnemyGalaga는 점수/아이템 없이 제거하는 전용 함수로 처리(무적 충돌은 조용히 제거 유지)
+		// 무적 충돌에서도 적 폭발음이 필요하면: 조용히 제거(DespawnNoScore)가 아니라 FX+SFX 포함 제거를 호출해야 합니다.
         var galaga = other.GetComponent<EnemyGalaga>();
         if (galaga != null)
         {
-            galaga.DespawnNoScore();
+            galaga.DespawnWithFxAndSfxNoReward(); // 여기 한 줄이 핵심
             return;
         }
 
@@ -151,7 +173,7 @@ public class PlayerHealth : MonoBehaviour
 
         // 1) 소리 먼저 (Player 폭발 사운드)
         if (SfxManager.I != null && playerExplodeSfx != null)
-            SfxManager.I.PlayExplosion(playerExplodeSfx, 1f);
+            SfxManager.I.PlayExplosion(playerExplodeSfx, playerExplodeVolume);
 
         // 2) 이펙트
         if (explosionPrefab != null)
