@@ -25,7 +25,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField, Range(0.5f, 5f)]
     private float playerExplodeVolume = 2.5f;
 
-
     public bool IsInvincible => _invincible && !dead;
 
     private bool dead = false;
@@ -105,7 +104,7 @@ public class PlayerHealth : MonoBehaviour
         var galaga = other.GetComponent<EnemyGalaga>();
         if (galaga != null)
         {
-            galaga.DespawnWithFxAndSfxNoReward(); // 여기 한 줄이 핵심
+            galaga.DespawnWithFxAndSfxNoReward();
             return;
         }
 
@@ -185,5 +184,12 @@ public class PlayerHealth : MonoBehaviour
 
         // 4) 제거
         Destroy(gameObject);
+    }
+
+    // 코스메틱(사운드팩)에서 호출하기 위한 주입 함수
+    public void SetPlayerExplodeSfx(AudioClip clip)
+    {
+        if (clip == null) return;
+        playerExplodeSfx = clip;
     }
 }

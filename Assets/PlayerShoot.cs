@@ -146,4 +146,11 @@ public class PlayerShoot : MonoBehaviour
         bulletSpeedBonusMul = Mathf.Max(1f, mul);
         bulletSpeedBonusEndTime = Time.time + duration;
     }
+
+    // ────────────── 코스메틱 적용 API (추가) ──────────────
+    public void SetBulletPrefab(Bullet newPrefab)
+    {
+        if (newPrefab == null) return;
+        bulletPrefab = newPrefab;
+    }
 }

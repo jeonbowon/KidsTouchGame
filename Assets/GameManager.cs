@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Score / Stage Clear")]
     [SerializeField] private int scoreToClearStage = 100;
+
+    [Header("Store Reward (Soft Currency)")]
+    [Tooltip("스테이지 클리어 시 상점 코인 보상")]
+    [SerializeField] private int stageClearStoreCoins = 30;
 
     [Header("Scenes")]
     [SerializeField] private string mainMenuSceneName = "MainMenu";
@@ -348,6 +352,12 @@ public class GameManager : MonoBehaviour
         isStageClearing = true;
         isStageRunning = false;
 
+        // 상점 코인 보상 (스테이지 종료 시 확실하게 지급)
+        if (stageClearStoreCoins > 0)
+        {
+            CosmeticSaveManager.AddCoins(stageClearStoreCoins);
+        }
+
         KillAllEnemiesAndBullets_Fallback();
 
         yield return ShowMessageFor("STAGE CLEAR", 1.5f);
@@ -429,6 +439,10 @@ public class GameManager : MonoBehaviour
 
         var go = Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
         Debug.Log($"[GameManager] Player 스폰: {go.name} @ {playerSpawnPoint.position}");
+
+        // 장착 스킨 적용
+        var applier = go.GetComponent<PlayerCosmeticApplier>();
+        if (applier != null) applier.ApplyEquipped();
 
         var ph = go.GetComponent<PlayerHealth>();
         if (ph != null && respawnInvincibleTime > 0f)

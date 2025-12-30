@@ -8,6 +8,10 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject panelMain;
     [SerializeField] private GameObject panelSettings;
 
+    [Header("Store 패널(추가)")]
+    [SerializeField] private GameObject panelStore;
+    [SerializeField] private StoreController storeController; // panelStore 안에 붙여도 됨
+
     [Header("씬 이름")]
     [SerializeField] private string gameSceneName = "Stage1";
 
@@ -30,8 +34,7 @@ public class MainMenuController : MonoBehaviour
         panelMain.SetActive(true);
         panelSettings.SetActive(false);
 
-        // 여기서 timeScale을 직접 만지지 않는다
-        // timeScale 제어는 GameManager만 담당한다
+        if (panelStore != null) panelStore.SetActive(false);
 
         // 볼륨 로드
         float bgm = PlayerPrefs.GetFloat(KEY_BGM, 0.8f);
@@ -64,7 +67,6 @@ public class MainMenuController : MonoBehaviour
     {
         if (GameManager.I != null)
         {
-            // 게임 시작 시점에만 GameManager가 풀도록 위임
             GameManager.I.NewRun();
         }
         else
@@ -77,6 +79,7 @@ public class MainMenuController : MonoBehaviour
     {
         panelMain.SetActive(false);
         panelSettings.SetActive(true);
+        if (panelStore != null) panelStore.SetActive(false);
     }
 
     public void OnClickCloseSettings()
@@ -85,6 +88,28 @@ public class MainMenuController : MonoBehaviour
             OnBgmVolumeChanged(sliderBGM.value);
 
         panelSettings.SetActive(false);
+        panelMain.SetActive(true);
+    }
+
+    // Store 열기
+    public void OnClickStore()
+    {
+        if (panelStore == null) return;
+
+        panelMain.SetActive(false);
+        panelSettings.SetActive(false);
+        panelStore.SetActive(true);
+
+        if (storeController != null)
+            storeController.RefreshAll();
+    }
+
+    // Store 닫기
+    public void OnClickCloseStore()
+    {
+        if (panelStore == null) return;
+
+        panelStore.SetActive(false);
         panelMain.SetActive(true);
     }
 
