@@ -11,6 +11,9 @@ public class CosmeticItem : ScriptableObject
     [Header("Price (Soft Currency)")]
     public int priceCoins = 100;
 
+    [Header("UI")]
+    public Sprite icon; // 카드에 보여줄 아이콘(없으면 shipSprite 사용)
+
     [Header("Ship Skin")]
     public Sprite shipSprite;
 }

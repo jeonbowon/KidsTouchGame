@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class StoreController : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class StoreController : MonoBehaviour
     [Header("Category")]
     [SerializeField] private CosmeticCategory category = CosmeticCategory.ShipSkin;
 
-    [Header("Preview Player (선택) - 메인메뉴에 Player 프리팹 프리뷰를 띄우는 경우 연결")]
+    [Header("Preview Player (선택)")]
     [SerializeField] private PlayerCosmeticApplier previewApplier;
 
     private readonly List<StoreItemCard> _spawned = new List<StoreItemCard>();
@@ -27,6 +26,13 @@ public class StoreController : MonoBehaviour
         if (database == null && !string.IsNullOrEmpty(dbResourcePath))
             database = Resources.Load<CosmeticDatabase>(dbResourcePath);
 
+        RefreshAll();
+    }
+
+    // 카테고리 탭 버튼에서 바로 호출 가능
+    public void SetCategory(int cat)
+    {
+        category = (CosmeticCategory)cat;
         RefreshAll();
     }
 
