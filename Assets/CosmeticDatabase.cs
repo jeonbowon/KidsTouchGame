@@ -9,9 +9,15 @@ public class CosmeticDatabase : ScriptableObject
 
     private Dictionary<string, CosmeticItem> _map;
 
+    private void OnEnable()
+    {
+        BuildIndex();
+    }
+
     public void BuildIndex()
     {
         _map = new Dictionary<string, CosmeticItem>(StringComparer.Ordinal);
+
         foreach (var it in items)
         {
             if (it == null) continue;
@@ -29,7 +35,10 @@ public class CosmeticDatabase : ScriptableObject
     public CosmeticItem GetById(string id)
     {
         if (string.IsNullOrWhiteSpace(id)) return null;
-        if (_map == null) BuildIndex();
+
+        if (_map == null || _map.Count == 0)
+            BuildIndex();
+
         _map.TryGetValue(id, out var it);
         return it;
     }
