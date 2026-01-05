@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9333334, g: 0.909804, b: 0.6666667, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -945,6 +945,14 @@ MonoBehaviour:
   priceText: {fileID: 2811479659383006862}
   stateText: {fileID: 2292553681914405512}
   actionButton: {fileID: 2928304561884845255}
+  backgroundImage: {fileID: 5834766805816395232}
+  equippedBadge: {fileID: 0}
+  colorLocked: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  colorOwned: {r: 0.4980392, g: 1, b: 0, a: 1}
+  colorEquipped: {r: 0.254902, g: 0.4117647, b: 0.882353, a: 1}
+  dimIconWhenLocked: 1
+  iconLockedColor: {r: 1, g: 0.7529413, b: 0.7960785, a: 1}
+  iconNormalColor: {r: 0.9333334, g: 0.909804, b: 0.6666667, a: 1}
 --- !u!114 &644235207749099065
 MonoBehaviour:
   m_ObjectHideFlags: 0

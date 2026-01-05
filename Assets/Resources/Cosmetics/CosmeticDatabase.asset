@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CosmeticDatabase
   items:
   - {fileID: 11400000, guid: 075827bb2d135bd4bb6631908af52b06, type: 2}
+  - {fileID: 11400000, guid: f38ba8aa5289ab04d831de6fd97d2eb7, type: 2}
+  - {fileID: 11400000, guid: f0fd31da7deaaea4a896ada421b9d81a, type: 2}

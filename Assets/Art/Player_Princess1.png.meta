@@ -129,10 +129,10 @@ TextureImporter:
       name: Player_Princess1_0
       rect:
         serializedVersion: 2
-        x: 153
-        y: 24
-        width: 717
-        height: 901
+        x: 30
+        y: 5
+        width: 145
+        height: 180
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

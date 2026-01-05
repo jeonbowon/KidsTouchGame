@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 687609260409760165}
   - component: {fileID: 2286784231919369161}
   - component: {fileID: 3263135425761424079}
-  - component: {fileID: 4852370984687878013}
+  - component: {fileID: -8316322602452018590}
   m_Layer: 0
-  m_Name: ScoreItem
+  m_Name: CoinItemDouble 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -117,7 +117,7 @@ SpriteRenderer:
   m_SortingLayerID: -2014429223
   m_SortingLayer: 7
   m_SortingOrder: 1
-  m_Sprite: {fileID: 6904219460542411274, guid: 17cb20214e5ad5d47b3555300f4c902b, type: 3}
+  m_Sprite: {fileID: -3312885378051177953, guid: 2df6bdb016bbe04448b482debff1a59a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,7 +128,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4852370984687878013
+--- !u!114 &-8316322602452018590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,11 +137,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9194623500998723778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90d2c3dd1e31b6e43b57444ed64259da, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d4e635e6464a7f4fa48f5a40219adea, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScoreItem
+  m_EditorClassIdentifier: Assembly-CSharp::CoinItemDouble
   fallSpeed: 1.5
-  scoreValue: 10
+  baseCoinValue: 200
   destroyY: -6
   collectSfx: {fileID: 8300000, guid: 45ec6ec3d4b6e634e92c1a102b6de553, type: 3}
-  sfxVolume: 1
+  sfxVolume: 2

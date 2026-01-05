@@ -129,10 +129,10 @@ TextureImporter:
       name: Player_Gecko_0
       rect:
         serializedVersion: 2
-        x: 71
-        y: 71
-        width: 888
-        height: 859
+        x: 13
+        y: 13
+        width: 179
+        height: 174
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

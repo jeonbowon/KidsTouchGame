@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1270443375431708167}
   - component: {fileID: -6007922334837466443}
   - component: {fileID: 8917561454834374741}
+  - component: {fileID: -7803213920218634901}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -191,6 +192,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPowerUp
   defaultTwinDuration: 0
   twinShipVisual: {fileID: 4831303113917012571}
+--- !u!114 &-7803213920218634901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008229436430780681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fcf7666b0912244aa160d2a1d5b01c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCosmeticApplier
+  database: {fileID: 11400000, guid: d33662cb5004393408b28cfa5e3350ab, type: 2}
+  targetRenderer: {fileID: 0}
+  dbResourcePath: Cosmetics/CosmeticDatabase
 --- !u!1 &2018354284809321167
 GameObject:
   m_ObjectHideFlags: 0

@@ -69,11 +69,24 @@ public class EnemyGalaga : MonoBehaviour
     private static int _lastDieSfxFrame = -1;
     private static int _dieSfxCountThisFrame = 0;
 
-    [Header("Item Drop")]
-    [Tooltip("적이 파괴될 때 떨어뜨릴 아이템 프리팹 (ScoreItem 등)")]
-    [SerializeField] private GameObject itemPrefab;
+    // 여기부터가 핵심 변경: Score 드랍 / Coin 드랍 분리
+    [Header("Item Drop - Score & Coin (분리 드랍)")]
+    [Tooltip("점수 아이템 프리팹(예: ScoreItem)")]
+    [SerializeField] private GameObject scoreItemPrefab;
+
     [Range(0f, 1f)]
-    [SerializeField] private float itemDropChance = 1f;
+    [Tooltip("점수 아이템 드랍 확률")]
+    [SerializeField] private float scoreDropChance = 1f;
+
+    [Tooltip("코인 아이템 프리팹(예: CoinItem 컴포넌트가 붙어있는 프리팹)")]
+    [SerializeField] private GameObject coinItemPrefab;
+
+    [Range(0f, 1f)]
+    [Tooltip("코인 아이템 드랍 확률")]
+    [SerializeField] private float coinDropChance = 0.3f;
+
+    [Tooltip("Score/Coin이 동시에 드랍되면 겹치기 쉬워서, 살짝 흩뿌리는 오프셋")]
+    [SerializeField] private float dropScatter = 0.2f;
 
     private bool isDying = false;
     private bool _reportedRemoveToGM = false;
@@ -265,11 +278,30 @@ public class EnemyGalaga : MonoBehaviour
         // 단일 폭발음(프리팹별로 dieSfx만 바꿔서 사용)
         PlayDieSfx();
 
-        if (itemPrefab != null && Random.value <= itemDropChance)
-            Instantiate(itemPrefab, transform.position, Quaternion.identity);
+        // 점수/코인 드랍 (분리, 독립확률, 동시드랍 가능)
+        TryDropRewards();
 
         ReportRemovedToGM();
         Destroy(gameObject);
+    }
+
+    private void TryDropRewards()
+    {
+        Vector3 basePos = transform.position;
+
+        // Score
+        if (scoreItemPrefab != null && Random.value <= scoreDropChance)
+        {
+            Vector3 p = basePos + new Vector3(Random.Range(-dropScatter, dropScatter), Random.Range(-dropScatter, dropScatter), 0f);
+            Instantiate(scoreItemPrefab, p, Quaternion.identity);
+        }
+
+        // Coin
+        if (coinItemPrefab != null && Random.value <= coinDropChance)
+        {
+            Vector3 p = basePos + new Vector3(Random.Range(-dropScatter, dropScatter), Random.Range(-dropScatter, dropScatter), 0f);
+            Instantiate(coinItemPrefab, p, Quaternion.identity);
+        }
     }
 
     /// <summary>

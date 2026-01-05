@@ -129,10 +129,10 @@ TextureImporter:
       name: Player_Expensive_0
       rect:
         serializedVersion: 2
-        x: 183
-        y: 79
-        width: 655
-        height: 845
+        x: 36
+        y: 16
+        width: 132
+        height: 169
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

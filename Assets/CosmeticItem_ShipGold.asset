@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 477d48cd4fe509b49a76cec25cda6912, type: 3}
   m_Name: CosmeticItem_ShipGold
   m_EditorClassIdentifier: Assembly-CSharp::CosmeticItem
-  id: 
-  displayName: New Item
+  id: ship_gold
+  displayName: Gold Ship
   category: 0
-  priceCoins: 100
-  shipSprite: {fileID: 0}
+  priceCoins: 150
+  icon: {fileID: 0}
+  shipSprite: {fileID: 8971577736552552029, guid: ef29a39e47b35de49943bcb6fe5720ef, type: 3}

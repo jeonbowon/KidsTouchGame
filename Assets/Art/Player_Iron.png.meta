@@ -129,10 +129,10 @@ TextureImporter:
       name: Player_Iron_0
       rect:
         serializedVersion: 2
-        x: 184
-        y: 10
-        width: 657
-        height: 959
+        x: 36
+        y: 2
+        width: 133
+        height: 191
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

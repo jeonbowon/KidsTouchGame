@@ -195,15 +195,15 @@ MonoBehaviour:
   applyPrefabLocalPosition: 1
   shooter: {fileID: 0}
   explosionPrefab: {fileID: 7575617972279380594, guid: 5abd5184149185240a2762219cd4deb6, type: 3}
-  isBonusEnemy: 1
   dieSfx: {fileID: 8300000, guid: d763a7a8f934fb94c81f9c1ab87e6b7e, type: 3}
-  bonusDieSfx: {fileID: 0}
   dieSfxVolume: 1
-  bonusDieSfxVolume: 1
   limitDieSfxPerFrame: 1
   maxDieSfxPerFrame: 3
-  itemPrefab: {fileID: 9194623500998723778, guid: cafec84f14223124c8155f0850383d60, type: 3}
-  itemDropChance: 1
+  scoreItemPrefab: {fileID: 9194623500998723778, guid: cafec84f14223124c8155f0850383d60, type: 3}
+  scoreDropChance: 1
+  coinItemPrefab: {fileID: 9194623500998723778, guid: e7cbe7ff69f04f34cbb927ffbfb8ec8d, type: 3}
+  coinDropChance: 0.2
+  dropScatter: 0.8
 --- !u!114 &-763470678471803395
 MonoBehaviour:
   m_ObjectHideFlags: 0
