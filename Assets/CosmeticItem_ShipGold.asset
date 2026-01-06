@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: CosmeticItem_ShipGold
   m_EditorClassIdentifier: Assembly-CSharp::CosmeticItem
   id: ship_gold
-  displayName: Gold Ship
+  displayName: "Gold Ship (\uD669\uAE08 \uC6B0\uC8FC\uC120)"
   category: 0
+  unlockOnStageClear: 3
   priceCoins: 150
   icon: {fileID: 0}
   shipSprite: {fileID: 8971577736552552029, guid: ef29a39e47b35de49943bcb6fe5720ef, type: 3}

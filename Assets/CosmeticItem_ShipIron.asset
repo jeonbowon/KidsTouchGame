@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 477d48cd4fe509b49a76cec25cda6912, type: 3}
-  m_Name: CosmeticItem_ShipBlue
+  m_Name: CosmeticItem_ShipIron
   m_EditorClassIdentifier: Assembly-CSharp::CosmeticItem
-  id: ship_blue
-  displayName: "Blue Ship (\uD30C\uB791 \uC6B0\uC8FC\uC120)"
+  id: ship_Iron
+  displayName: "Iron Ship (\uC544\uC774\uC5B8 \uC6B0\uC8FC\uC120)"
   category: 0
-  unlockOnStageClear: 1
-  priceCoins: 200
+  unlockOnStageClear: 4
+  priceCoins: 800
   icon: {fileID: 0}
-  shipSprite: {fileID: 6331609056727667426, guid: c47f6430be8609747bc2dfb0f8152729, type: 3}
+  shipSprite: {fileID: -8645567505888364197, guid: efb71ebf3a9d039459a1856e80f3dd15, type: 3}

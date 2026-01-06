@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -6,10 +6,13 @@ public class CosmeticSaveData
 {
     public int coins = 0;
 
-    // ±¸¸ÅÇÑ ¾ÆÀÌÅÛ id ¸ñ·Ï
+    // âœ… Stage í´ë¦¬ì–´ ë“±ìœ¼ë¡œ 'êµ¬ë§¤ ê°€ëŠ¥(Unlocked)' í•´ì§„ ì•„ì´í…œ id ëª©ë¡
+    public List<string> unlockedIds = new List<string>();
+
+    // âœ… ì‹¤ì œë¡œ êµ¬ë§¤í•œ(Owned) ì•„ì´í…œ id ëª©ë¡
     public List<string> ownedIds = new List<string>();
 
-    // Ä«Å×°í¸®º° ÀåÂø id (¿¹: ShipSkin -> "ship_blue_01")
+    // ì¥ì°© id (ì˜ˆ: ShipSkin -> "ship_blue_01")
     public List<CategoryEquipPair> equipped = new List<CategoryEquipPair>();
 
     [Serializable]
@@ -19,17 +22,32 @@ public class CosmeticSaveData
         public string itemId;
     }
 
-    public bool IsOwned(string id)
+    public bool IsOwned(string id) => ownedIds != null && ownedIds.Contains(id);
+
+    public void AddOwned(string id)
     {
-        return ownedIds != null && ownedIds.Contains(id);
+        if (string.IsNullOrEmpty(id)) return;
+        if (ownedIds == null) ownedIds = new List<string>();
+        if (!ownedIds.Contains(id)) ownedIds.Add(id);
+    }
+
+    public bool IsUnlocked(string id) => unlockedIds != null && unlockedIds.Contains(id);
+
+    public void AddUnlocked(string id)
+    {
+        if (string.IsNullOrEmpty(id)) return;
+        if (unlockedIds == null) unlockedIds = new List<string>();
+        if (!unlockedIds.Contains(id)) unlockedIds.Add(id);
     }
 
     public string GetEquipped(CosmeticCategory cat)
     {
         if (equipped == null) return null;
+
         for (int i = 0; i < equipped.Count; i++)
         {
-            if (equipped[i].category == cat) return equipped[i].itemId;
+            if (equipped[i].category == cat)
+                return equipped[i].itemId;
         }
         return null;
     }

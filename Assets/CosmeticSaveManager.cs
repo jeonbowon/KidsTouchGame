@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class CosmeticSaveManager
@@ -28,8 +29,11 @@ public static class CosmeticSaveManager
 
             var d = JsonUtility.FromJson<CosmeticSaveData>(json);
             if (d == null) d = new CosmeticSaveData();
-            if (d.ownedIds == null) d.ownedIds = new System.Collections.Generic.List<string>();
-            if (d.equipped == null) d.equipped = new System.Collections.Generic.List<CosmeticSaveData.CategoryEquipPair>();
+
+            if (d.unlockedIds == null) d.unlockedIds = new List<string>();
+            if (d.ownedIds == null) d.ownedIds = new List<string>();
+            if (d.equipped == null) d.equipped = new List<CosmeticSaveData.CategoryEquipPair>();
+
             return d;
         }
         catch
@@ -55,7 +59,7 @@ public static class CosmeticSaveManager
         if (amount <= 0) return;
         Data.coins += amount;
         Save(Data);
-        Debug.Log($"[CosmeticSave] +coins {amount} => {Data.coins}");
+        Debug.Log($"[CosmeticSave] coins += {amount} -> {Data.coins}");
     }
 
     public static bool TrySpendCoins(int cost)
@@ -65,18 +69,36 @@ public static class CosmeticSaveManager
 
         Data.coins -= cost;
         Save(Data);
-        Debug.Log($"[CosmeticSave] -coins {cost} => {Data.coins}");
+        Debug.Log($"[CosmeticSave] coins -= {cost} -> {Data.coins}");
         return true;
+    }
+
+    // -----------------------------
+    // Unlock (구매 가능) / Owned (구매 완료)
+    // -----------------------------
+    public static bool IsUnlocked(string id) => Data.IsUnlocked(id);
+
+    public static void GrantUnlocked(string id)
+    {
+        if (string.IsNullOrEmpty(id)) return;
+
+        if (!Data.IsUnlocked(id))
+        {
+            Data.AddUnlocked(id);
+            Save(Data);
+            Debug.Log($"[CosmeticSave] unlocked += {id}");
+        }
     }
 
     public static bool IsOwned(string id) => Data.IsOwned(id);
 
     public static void GrantOwned(string id)
     {
-        if (string.IsNullOrWhiteSpace(id)) return;
-        if (!Data.ownedIds.Contains(id))
+        if (string.IsNullOrEmpty(id)) return;
+
+        if (!Data.IsOwned(id))
         {
-            Data.ownedIds.Add(id);
+            Data.AddOwned(id);
             Save(Data);
             Debug.Log($"[CosmeticSave] owned += {id}");
         }

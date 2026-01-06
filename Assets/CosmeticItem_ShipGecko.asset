@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 477d48cd4fe509b49a76cec25cda6912, type: 3}
-  m_Name: CosmeticItem_ShipBlue
+  m_Name: CosmeticItem_ShipGecko
   m_EditorClassIdentifier: Assembly-CSharp::CosmeticItem
-  id: ship_blue
-  displayName: "Blue Ship (\uD30C\uB791 \uC6B0\uC8FC\uC120)"
+  id: ship_gecko
+  displayName: "Gecko Ship (\uAC8C\uCF54 \uB3C4\uB9C8\uBC40)"
   category: 0
-  unlockOnStageClear: 1
-  priceCoins: 200
+  unlockOnStageClear: 2
+  priceCoins: 500
   icon: {fileID: 0}
-  shipSprite: {fileID: 6331609056727667426, guid: c47f6430be8609747bc2dfb0f8152729, type: 3}
+  shipSprite: {fileID: 464319968731239810, guid: d302bd156f392544cb234e50c836b56d, type: 3}

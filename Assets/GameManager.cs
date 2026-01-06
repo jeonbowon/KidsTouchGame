@@ -1,5 +1,6 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,6 +34,21 @@ public class GameManager : MonoBehaviour
     [Header("Store Reward (Soft Currency)")]
     [Tooltip("스테이지 클리어 시 상점 코인 보상")]
     [SerializeField] private int stageClearStoreCoins = 30;
+
+    [Header("Cosmetics (Stage unlock)")]
+    [SerializeField] private string cosmeticDbResourcePath = "Cosmetics/CosmeticDatabase";
+    [Tooltip("스테이지 클리어 시 해금된 아이템을 보여줄 메시지/팝업 시간(초)")]
+    [SerializeField] private float unlockMessageTime = 1.2f;
+
+    [Tooltip("없으면 Resources에서 자동 로드: UI/CosmeticUnlockPopup")]
+    [SerializeField] private string unlockPopupResourcePath = "UI/CosmeticUnlockPopup";
+    [SerializeField] private CosmeticUnlockPopup unlockPopupInScene;
+
+    [Header("Unlock SFX (Optional)")]
+    [SerializeField] private AudioSource uiAudioSource;
+    [SerializeField] private AudioClip unlockSfx;
+
+    private CosmeticDatabase _cosmeticDbCache;
 
     [Header("Scenes")]
     [SerializeField] private string mainMenuSceneName = "MainMenu";
@@ -139,6 +155,10 @@ public class GameManager : MonoBehaviour
         QualitySettings.vSyncCount = 1;
 
         EnsureAdManagerExists();
+
+        // ✅ Cosmetics: DB/Popup 캐시 준비
+        EnsureCosmeticDb();
+        EnsureUnlockPopup();
     }
 
     void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
@@ -152,6 +172,10 @@ public class GameManager : MonoBehaviour
         ForcePause(false);
 
         EnsureAdManagerExists();
+
+        // 씬 로드마다 popup이 파괴될 수 있으니 재확인
+        EnsureCosmeticDb();
+        EnsureUnlockPopup();
 
         if (IsStageScene(scene.name))
         {
@@ -258,6 +282,9 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
         if (messageText != null) messageText.text = "";
 
+        EnsureCosmeticDb();
+        EnsureUnlockPopup();
+
         if (IsStageScene(SceneManager.GetActiveScene().name))
         {
             RebindStageSceneObjects();
@@ -361,6 +388,14 @@ public class GameManager : MonoBehaviour
         KillAllEnemiesAndBullets_Fallback();
 
         yield return ShowMessageFor("STAGE CLEAR", 1.5f);
+
+        // ✅ 여기부터 추가: Stage 클리어 보상(해금) = Unlocked만 열기 + 연출
+        var newlyUnlocked = GrantStageUnlocksAndGetNew(CurrentStage);
+        if (newlyUnlocked != null && newlyUnlocked.Count > 0)
+        {
+            yield return Co_PlayUnlockPresentation(newlyUnlocked);
+        }
+        // ✅ 여기까지 추가
 
         if (CurrentStage < maxStage)
         {
@@ -950,5 +985,86 @@ public class GameManager : MonoBehaviour
     public void ShowSpeedUpMessage(float time = 1.0f)
     {
         StartCoroutine(ShowMessageFor("SPEED UP!", time));
+    }
+
+    // ============================================================
+    // ✅ Cosmetics Unlock (Stage Clear) - 추가된 영역
+    // ============================================================
+
+    private void EnsureCosmeticDb()
+    {
+        if (_cosmeticDbCache != null) return;
+        if (string.IsNullOrEmpty(cosmeticDbResourcePath)) return;
+
+        _cosmeticDbCache = Resources.Load<CosmeticDatabase>(cosmeticDbResourcePath);
+        if (_cosmeticDbCache == null)
+            Debug.LogWarning($"[GameManager] CosmeticDatabase 로드 실패: Resources/{cosmeticDbResourcePath}");
+    }
+
+    private void EnsureUnlockPopup()
+    {
+        if (unlockPopupInScene != null) return;
+        if (string.IsNullOrEmpty(unlockPopupResourcePath)) return;
+
+        var prefab = Resources.Load<CosmeticUnlockPopup>(unlockPopupResourcePath);
+        if (prefab != null)
+        {
+            unlockPopupInScene = Instantiate(prefab);
+            DontDestroyOnLoad(unlockPopupInScene.gameObject);
+        }
+    }
+
+    private List<CosmeticItem> GrantStageUnlocksAndGetNew(int clearedStage)
+    {
+        EnsureCosmeticDb();
+        var newly = new List<CosmeticItem>();
+        if (_cosmeticDbCache == null) return newly;
+
+        var list = _cosmeticDbCache.GetUnlocksForStageClear(clearedStage);
+        if (list == null || list.Count == 0) return newly;
+
+        foreach (var it in list)
+        {
+            if (it == null) continue;
+            if (string.IsNullOrEmpty(it.id)) continue;
+
+            // unlockOnStageClear <= 0 은 기본 Unlocked
+            if (it.unlockOnStageClear <= 0) continue;
+
+            // 이미 Unlocked/Owned면 새로 해금된 게 아님
+            if (CosmeticSaveManager.IsUnlocked(it.id) || CosmeticSaveManager.IsOwned(it.id))
+                continue;
+
+            CosmeticSaveManager.GrantUnlocked(it.id);
+            newly.Add(it);
+        }
+
+        return newly;
+    }
+
+    private IEnumerator Co_PlayUnlockPresentation(List<CosmeticItem> newlyUnlocked)
+    {
+        if (newlyUnlocked == null || newlyUnlocked.Count == 0) yield break;
+
+        EnsureUnlockPopup();
+
+        foreach (var it in newlyUnlocked)
+        {
+            if (it == null) continue;
+
+            if (uiAudioSource != null && unlockSfx != null)
+                uiAudioSource.PlayOneShot(unlockSfx);
+
+            if (unlockPopupInScene != null)
+            {
+                yield return unlockPopupInScene.Play(it, unlockMessageTime);
+            }
+            else
+            {
+                // 팝업 프리팹이 없으면 MessageText로라도 보상 느낌 메시지
+                string name = string.IsNullOrWhiteSpace(it.displayName) ? it.id : it.displayName;
+                yield return ShowMessageFor($"NEW SKIN UNLOCKED!\n{name}", unlockMessageTime);
+            }
+        }
     }
 }

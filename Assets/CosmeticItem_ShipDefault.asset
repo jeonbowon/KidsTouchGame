@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CosmeticItem_ShipDefault
   m_EditorClassIdentifier: Assembly-CSharp::CosmeticItem
   id: ship_default
-  displayName: Default Ship
+  displayName: "Default Ship (\uAE30\uBCF8)"
   category: 0
   priceCoins: 100
   icon: {fileID: 0}
-  shipSprite: {fileID: -8062168135032588057, guid: 14ffcaab52f3ca5429547bdf74d82b33, type: 3}
+  shipSprite: {fileID: 8614226576741003810, guid: 3c06fa1aadc7f914ea2c177fa48d3f10, type: 3}

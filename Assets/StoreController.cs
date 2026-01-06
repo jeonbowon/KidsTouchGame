@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -16,7 +16,7 @@ public class StoreController : MonoBehaviour
     [Header("Category")]
     [SerializeField] private CosmeticCategory category = CosmeticCategory.ShipSkin;
 
-    [Header("Preview Player (º±≈√)")]
+    [Header("Preview Player (Optional)")]
     [SerializeField] private PlayerCosmeticApplier previewApplier;
 
     private readonly List<StoreItemCard> _spawned = new List<StoreItemCard>();
@@ -29,15 +29,9 @@ public class StoreController : MonoBehaviour
         RefreshAll();
     }
 
-    /// <summary>
-    /// πˆ∆∞ OnClickø°º≠ ø¨∞·: Ship/Bullet/Effect ≈« ∫Ø∞ÊøÎ
-    /// </summary>
     public void SetCategory(int catValue)
     {
-        var next = (CosmeticCategory)catValue;
-        if (category == next) return;
-        category = next;
-        RefreshAll();
+        SetCategory((CosmeticCategory)catValue);
     }
 
     public void SetCategory(CosmeticCategory cat)
@@ -47,7 +41,6 @@ public class StoreController : MonoBehaviour
         RefreshAll();
     }
 
-    // MainMenuController µÓ ¥Ÿ∏• Ω∫≈©∏≥∆Æ∞° »£√‚«“ ºˆ ¿÷µµ∑œ public
     public void RefreshAll()
     {
         RefreshCoinsUI();
@@ -60,38 +53,42 @@ public class StoreController : MonoBehaviour
             coinsText.text = $"COINS: {CosmeticSaveManager.GetCoins()}";
     }
 
+    private bool IsUnlockedNow(CosmeticItem item)
+    {
+        if (item == null) return false;
+        if (item.unlockOnStageClear <= 0) return true;
+        return CosmeticSaveManager.IsUnlocked(item.id) || CosmeticSaveManager.IsOwned(item.id);
+    }
+
     private void BuildList()
     {
         if (database == null || contentRoot == null || cardPrefab == null) return;
 
-        // ±‚¡∏ ƒ´µÂ ¡¶∞≈
         for (int i = 0; i < _spawned.Count; i++)
-        {
-            if (_spawned[i] != null)
-                Destroy(_spawned[i].gameObject);
-        }
+            if (_spawned[i] != null) Destroy(_spawned[i].gameObject);
         _spawned.Clear();
 
-        // DBø°º≠ ƒ´≈◊∞Ì∏Æ ∏Ò∑œ ∞°¡Æø¿±‚
         List<CosmeticItem> list = database.GetByCategory(category);
         if (list == null) return;
 
-        // ¡§∑ƒ: 1) ¿Â¬¯¡ﬂ 2) º“¿Ø 3) πÃº“¿Ø / ±◊ ¥Ÿ¿Ω ∞°∞› / ¿Ã∏ß
+        // Ï†ïÎ†¨: Ïû•Ï∞© -> ÏÜåÏú† -> Unlocked -> Locked
         list.Sort((a, b) =>
         {
             if (a == null && b == null) return 0;
             if (a == null) return 1;
             if (b == null) return -1;
 
-            bool aEquipped = CosmeticSaveManager.GetEquipped(a.category) == a.id;
-            bool bEquipped = CosmeticSaveManager.GetEquipped(b.category) == b.id;
+            bool aEq = CosmeticSaveManager.GetEquipped(a.category) == a.id;
+            bool bEq = CosmeticSaveManager.GetEquipped(b.category) == b.id;
+            if (aEq != bEq) return aEq ? -1 : 1;
 
-            if (aEquipped != bEquipped) return aEquipped ? -1 : 1;
+            bool aOw = CosmeticSaveManager.IsOwned(a.id);
+            bool bOw = CosmeticSaveManager.IsOwned(b.id);
+            if (aOw != bOw) return aOw ? -1 : 1;
 
-            bool aOwned = CosmeticSaveManager.IsOwned(a.id);
-            bool bOwned = CosmeticSaveManager.IsOwned(b.id);
-
-            if (aOwned != bOwned) return aOwned ? -1 : 1;
+            bool aUn = IsUnlockedNow(a);
+            bool bUn = IsUnlockedNow(b);
+            if (aUn != bUn) return aUn ? -1 : 1;
 
             int price = a.priceCoins.CompareTo(b.priceCoins);
             if (price != 0) return price;
@@ -99,7 +96,6 @@ public class StoreController : MonoBehaviour
             return string.Compare(a.displayName, b.displayName, System.StringComparison.Ordinal);
         });
 
-        // ƒ´µÂ ª˝º∫
         foreach (var item in list)
         {
             if (item == null) continue;
@@ -114,34 +110,36 @@ public class StoreController : MonoBehaviour
     {
         if (item == null) return;
 
+        bool unlocked = IsUnlockedNow(item);
         bool owned = CosmeticSaveManager.IsOwned(item.id);
 
-        // πÃº“¿Ø∏È ƒ⁄¿Œ¿∏∑Œ "±∏∏≈"
+        // ‚ùå LockedÎ©¥ ÏïÑÎ¨¥ Í≤ÉÎèÑ Î™ª Ìï® (StageÏóêÏÑú Î®ºÏ†Ä Unlocked ÎêòÏñ¥Ïïº Ìï®)
+        if (!unlocked && !owned)
+        {
+            Debug.Log($"[STORE] LOCKED: id={item.id}, unlockOnStageClear={item.unlockOnStageClear}");
+            return;
+        }
+
+        // ÎØ∏ÏÜåÏú†Î©¥ BUY(ÏΩîÏù∏ Ï∞®Í∞ê) -> Owned
         if (!owned)
         {
             int price = Mathf.Max(0, item.priceCoins);
-
-            if (price > 0)
+            if (price > 0 && !CosmeticSaveManager.TrySpendCoins(price))
             {
-                // SpendCoins ¥ÎΩ≈ TrySpendCoins ªÁøÎ («¡∑Œ¡ß∆Æø° Ω«¡¶ ¡∏¿Á«œ¥¬ ∏ﬁº≠µÂ)
-                if (!CosmeticSaveManager.TrySpendCoins(price))
-                {
-                    int coins = CosmeticSaveManager.GetCoins();
-                    Debug.Log($"[STORE] ƒ⁄¿Œ ∫Œ¡∑: ∫∏¿Ø={coins}, ∞°∞›={price}, id={item.id}");
-                    return;
-                }
+                Debug.Log($"[STORE] ÏΩîÏù∏ Î∂ÄÏ°±: have={CosmeticSaveManager.GetCoins()}, cost={price}, id={item.id}");
+                return;
             }
 
             CosmeticSaveManager.GrantOwned(item.id);
+            owned = true;
         }
 
-        // ¿Â¬¯(º±≈√)
-        CosmeticSaveManager.Equip(item.category, item.id);
+        // ÏÜåÏú†Ìïú Í≤ÉÎßå Ïû•Ï∞©
+        if (owned)
+            CosmeticSaveManager.Equip(item.category, item.id);
 
-        // UI ∞ªΩ≈
         RefreshAll();
 
-        // «¡∏Æ∫‰ π›øµ
         if (previewApplier != null)
             previewApplier.ApplyEquipped();
     }

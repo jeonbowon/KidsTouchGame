@@ -53,4 +53,19 @@ public class CosmeticDatabase : ScriptableObject
         }
         return list;
     }
+
+    /// <summary>
+    /// stageClearIndex 스테이지를 클리어했을 때 Unlocked(구매 가능)로 열릴 아이템들
+    /// unlockOnStageClear == stageClearIndex
+    /// </summary>
+    public List<CosmeticItem> GetUnlocksForStageClear(int stageClearIndex)
+    {
+        var list = new List<CosmeticItem>();
+        foreach (var it in items)
+        {
+            if (it == null) continue;
+            if (it.unlockOnStageClear == stageClearIndex) list.Add(it);
+        }
+        return list;
+    }
 }
