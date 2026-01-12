@@ -15,7 +15,7 @@ MonoBehaviour:
   id: ship_justice
   displayName: "Justice Ship (\uC800\uC2A4\uD2F0\uC2A4)"
   category: 0
-  unlockOnStageClear: 5
-  priceCoins: 500
+  unlockOnStageClear: 2
+  priceCoins: 1000
   icon: {fileID: 0}
   shipSprite: {fileID: -8062168135032588057, guid: 14ffcaab52f3ca5429547bdf74d82b33, type: 3}

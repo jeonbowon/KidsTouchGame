@@ -15,6 +15,7 @@ MonoBehaviour:
   id: ship_expensive
   displayName: "Expensive Ship (\uACE0\uAE09 \uC804\uD568)"
   category: 0
+  unlockOnStageClear: 2
   priceCoins: 1000
   icon: {fileID: 0}
   shipSprite: {fileID: -8669506235288626734, guid: 0cba9aba469987347b906863a65c6234, type: 3}

@@ -15,7 +15,7 @@ MonoBehaviour:
   id: ship_pink
   displayName: "Pink Ship (\uD551\uD06C \uC6B0\uC8FC\uC120)"
   category: 0
-  unlockOnStageClear: 6
-  priceCoins: 500
+  unlockOnStageClear: 3
+  priceCoins: 800
   icon: {fileID: 0}
   shipSprite: {fileID: 6293106202935123733, guid: 370de43102227d845ab66d6f684db46f, type: 3}

@@ -15,7 +15,7 @@ MonoBehaviour:
   id: ship_gecko
   displayName: "Gecko Ship (\uAC8C\uCF54 \uB3C4\uB9C8\uBC40)"
   category: 0
-  unlockOnStageClear: 2
-  priceCoins: 500
+  unlockOnStageClear: 3
+  priceCoins: 2000
   icon: {fileID: 0}
   shipSprite: {fileID: 464319968731239810, guid: d302bd156f392544cb234e50c836b56d, type: 3}

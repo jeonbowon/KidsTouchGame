@@ -16,6 +16,6 @@ MonoBehaviour:
   displayName: "Butterfly Ship (\uB098\uBE44 \uC6B0\uC8FC\uC120)"
   category: 0
   unlockOnStageClear: 1
-  priceCoins: 300
+  priceCoins: 600
   icon: {fileID: 0}
   shipSprite: {fileID: 2272229662046244358, guid: f1e00e3ca65a2ab49a5c2c6c382a94c6, type: 3}

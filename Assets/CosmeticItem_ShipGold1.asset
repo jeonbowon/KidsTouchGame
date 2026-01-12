@@ -16,6 +16,6 @@ MonoBehaviour:
   displayName: "Gold Ship (\uACE8\uB4DC \uC6B0\uC8FC\uC120)"
   category: 0
   unlockOnStageClear: 3
-  priceCoins: 700
+  priceCoins: 800
   icon: {fileID: 0}
   shipSprite: {fileID: -1461861760628686737, guid: 4b51373d3e5a61247810f5932883053e, type: 3}

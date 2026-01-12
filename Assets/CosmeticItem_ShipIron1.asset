@@ -15,7 +15,7 @@ MonoBehaviour:
   id: ship_Iron1
   displayName: "Iron Ship (\uC544\uC774\uC5B8 \uC6B0\uC8FC\uC120 1)"
   category: 0
-  unlockOnStageClear: 4
-  priceCoins: 900
+  unlockOnStageClear: 6
+  priceCoins: 3000
   icon: {fileID: 0}
   shipSprite: {fileID: -6431169080849739679, guid: 1a08728a8d525a844aa770346eae660d, type: 3}

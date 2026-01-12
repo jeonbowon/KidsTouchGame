@@ -988,7 +988,7 @@ public class GameManager : MonoBehaviour
     }
 
     // ============================================================
-    // ✅ Cosmetics Unlock (Stage Clear) - 추가된 영역
+       //  Cosmetics Unlock (Stage Clear) - 추가된 영역
     // ============================================================
 
     private void EnsureCosmeticDb()
@@ -1003,16 +1003,36 @@ public class GameManager : MonoBehaviour
 
     private void EnsureUnlockPopup()
     {
-        if (unlockPopupInScene != null) return;
         if (string.IsNullOrEmpty(unlockPopupResourcePath)) return;
+        if (!IsStageScene(SceneManager.GetActiveScene().name)) return;
 
-        var prefab = Resources.Load<CosmeticUnlockPopup>(unlockPopupResourcePath);
-        if (prefab != null)
+        var canvas = FindBestCanvasInScene();
+        if (canvas == null)
         {
-            unlockPopupInScene = Instantiate(prefab);
-            DontDestroyOnLoad(unlockPopupInScene.gameObject);
+            Debug.LogError("[GameManager] UnlockPopup용 Canvas를 찾지 못했습니다.");
+            return;
         }
+
+        // 이미 있으면: 현재 Canvas 밑으로 재부착
+        if (unlockPopupInScene != null)
+        {
+            if (unlockPopupInScene.transform.parent != canvas.transform)
+                unlockPopupInScene.transform.SetParent(canvas.transform, false);
+            return;
+        }
+
+        // 없으면: 로드해서 생성
+        var prefab = Resources.Load<CosmeticUnlockPopup>(unlockPopupResourcePath);
+        if (prefab == null)
+        {
+            Debug.LogError($"[GameManager] UnlockPopup prefab 로드 실패: Resources/{unlockPopupResourcePath}");
+            return;
+        }
+
+        unlockPopupInScene = Instantiate(prefab, canvas.transform);
+        DontDestroyOnLoad(unlockPopupInScene.gameObject);
     }
+
 
     private List<CosmeticItem> GrantStageUnlocksAndGetNew(int clearedStage)
     {

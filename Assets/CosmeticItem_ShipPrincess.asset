@@ -15,7 +15,7 @@ MonoBehaviour:
   id: ship_princess
   displayName: "Princess Ship (\uACF5\uC8FC \uC6B0\uC8FC\uC120)"
   category: 0
-  unlockOnStageClear: 10
-  priceCoins: 1000
+  unlockOnStageClear: 4
+  priceCoins: 1500
   icon: {fileID: 0}
   shipSprite: {fileID: 3836682463264587047, guid: 53ac89ba61826bf489dd0440a8fbb3df, type: 3}

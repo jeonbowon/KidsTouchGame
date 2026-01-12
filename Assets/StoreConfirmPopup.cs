@@ -35,7 +35,7 @@ public class StoreConfirmPopup : MonoBehaviour
         if (titleText != null) titleText.text = "구매 확인";
         if (messageText != null)
             messageText.text =
-                $"\"{itemName}\" 을(를) 구매하시겠습니까?\n\n" +
+                $"\"{itemName}\" 을(를) 구매하시겠습니까?\n" +
                 $"가격: {price} COINS\n" +
                 $"보유: {haveCoins} COINS\n" +
                 $"구매 후: {Mathf.Max(0, haveCoins - price)} COINS";

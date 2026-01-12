@@ -16,6 +16,6 @@ MonoBehaviour:
   displayName: "Blue Ship (\uD30C\uB791 \uC6B0\uC8FC\uC120)"
   category: 0
   unlockOnStageClear: 1
-  priceCoins: 200
+  priceCoins: 500
   icon: {fileID: 0}
   shipSprite: {fileID: 6331609056727667426, guid: c47f6430be8609747bc2dfb0f8152729, type: 3}
