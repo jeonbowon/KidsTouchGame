@@ -156,6 +156,7 @@ MonoBehaviour:
   allowKeyboard: 1
   twinMode: 0
   bulletSpeedBonusMul: 1
+  maxAimHalfAngle: 70
   aimDir: {x: 0, y: 1}
 --- !u!114 &-6007922334837466443
 MonoBehaviour:

@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text messageText;
     [SerializeField] private TMP_Text scoreText;
 
+    // 코인 표시용 텍스트
+    [SerializeField] private TMP_Text coinText;
     [Header("Score / Stage Clear")]
     [SerializeField] private int scoreToClearStage = 100;
 
@@ -240,6 +242,7 @@ public class GameManager : MonoBehaviour
         if (stageText == null) stageText = SafeFindTMP("StageText");
         if (messageText == null) messageText = SafeFindTMP("MessageText");
         if (scoreText == null) scoreText = SafeFindTMP("ScoreText");
+        if (coinText == null) coinText = SafeFindTMP("CoinText");
 
         if (playerPrefab == null && !string.IsNullOrEmpty(playerPrefabResourcePath))
         {
@@ -253,6 +256,8 @@ public class GameManager : MonoBehaviour
         UpdateLivesUI();
         UpdateStageUI();
         UpdateScoreUI();
+        UpdateCoinUI();
+        UpdateCoinUI();
     }
 
     private TMP_Text SafeFindTMP(string name)
@@ -280,6 +285,7 @@ public class GameManager : MonoBehaviour
         UpdateLivesUI();
         UpdateStageUI();
         UpdateScoreUI();
+        UpdateCoinUI();
         if (messageText != null) messageText.text = "";
 
         EnsureCosmeticDb();
@@ -383,6 +389,7 @@ public class GameManager : MonoBehaviour
         if (stageClearStoreCoins > 0)
         {
             CosmeticSaveManager.AddCoins(stageClearStoreCoins);
+            UpdateCoinUI();
         }
 
         KillAllEnemiesAndBullets_Fallback();
@@ -952,6 +959,13 @@ public class GameManager : MonoBehaviour
     {
         if (scoreText != null)
             scoreText.text = $"SCORE: {score} / {scoreToClearStage}";
+    }
+
+    // 코인 UI 갱신
+    void UpdateCoinUI()
+    {
+        if (coinText != null)
+            coinText.text = $"COIN: {CosmeticSaveManager.GetCoins()}";
     }
 
     private void KillAllPlayers()

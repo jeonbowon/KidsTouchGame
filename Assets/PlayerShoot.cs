@@ -29,6 +29,11 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private float bulletSpeedBonusMul = 1f;
     private float bulletSpeedBonusEndTime = 0f;
 
+    [Header("발사 각도 제한(중요)")]
+    [Tooltip("앞(Vector2.up) 기준 허용 반각도. 90이면 기존과 동일(좌/우 90도). 값을 줄이면 더 '전방'으로만 나갑니다.")]
+    [Range(0f, 90f)]
+    public float maxAimHalfAngle = 90f;
+
     [Header("디버그")]
     public Vector2 aimDir = Vector2.up;
 
@@ -85,7 +90,9 @@ public class PlayerShoot : MonoBehaviour
             Vector2 forward = Vector2.up;
             float angle = Vector2.Angle(dir, forward);
 
-            if (angle > 90f)
+            // 기존: 90도를 기준으로 뒤쪽은 무조건 앞으로
+            // 개선: maxAimHalfAngle(Inspector) 기준으로 더 좁힐 수 있게
+            if (angle > maxAimHalfAngle)
                 aimDir = forward;
             else
                 aimDir = dir.normalized;
@@ -138,9 +145,6 @@ public class PlayerShoot : MonoBehaviour
 
     public bool IsBulletSpeedBonusActive => Time.time < bulletSpeedBonusEndTime;
 
-    /// <summary>
-    /// 외부(아이템/게임매니저)에서 호출: 일정 시간 동안 총알 속도 배율 적용
-    /// </summary>
     public void ActivateBulletSpeedBonus(float mul, float duration)
     {
         bulletSpeedBonusMul = Mathf.Max(1f, mul);
