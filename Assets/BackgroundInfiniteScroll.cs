@@ -12,34 +12,25 @@ public class BackgroundInfiniteScroll : MonoBehaviour
     [SerializeField] private float padding = 1.02f;    // 가장자리 여유
 
     private float spriteHeight; // 스케일 반영된 실제 월드 높이
+    private Camera _cam;
+    private bool _ready;
 
     void Start()
     {
-        if (!bgA || !bgB) { Debug.LogError("[BG] Assign bgA/bgB."); return; }
-        var cam = Camera.main;
-        if (!cam) return;
-
-        // 두 스프라이트를 현재 카메라 화면에 빈틈 없이 맞춤 (세로 기준, 가로도 자동)
-        FitToCamera(bgA, cam);
-        FitToCamera(bgB, cam);
-
-        // 실제 월드 높이(스케일 반영된 bounds)
-        spriteHeight = bgA.bounds.size.y;
-
-        // 위치 재배치: A를 가운데, B를 그 위로 정확히 붙임
-        bgA.transform.position = new Vector3(0f, 0f, 0f);
-        bgB.transform.position = bgA.transform.position + Vector3.up * spriteHeight;
+        _cam = Camera.main;
+        RebuildAndReset();
     }
 
     void Update()
     {
+        if (!_ready) return;
+
         float dir = scrollDown ? -1f : 1f;
-        Vector3 delta = Vector3.up * dir * scrollSpeed * Time.deltaTime; // up * (-) = 아래로
+        Vector3 delta = Vector3.up * dir * scrollSpeed * Time.deltaTime;
 
         bgA.transform.position += delta;
         bgB.transform.position += delta;
 
-        // 화면 아래로 완전히 내려간 배경을 위로 재배치 (아래로 흐르는 경우)
         if (scrollDown)
         {
             if (bgA.transform.position.y <= -spriteHeight)
@@ -47,7 +38,7 @@ public class BackgroundInfiniteScroll : MonoBehaviour
             if (bgB.transform.position.y <= -spriteHeight)
                 bgB.transform.position += Vector3.up * spriteHeight * 2f;
         }
-        else // 위로 흐르는 경우
+        else
         {
             if (bgA.transform.position.y >= spriteHeight)
                 bgA.transform.position += Vector3.down * spriteHeight * 2f;
@@ -55,11 +46,61 @@ public class BackgroundInfiniteScroll : MonoBehaviour
                 bgB.transform.position += Vector3.down * spriteHeight * 2f;
         }
 
-        // 항상 화면 위쪽에 있는 것이 bgB가 되도록(가독성, 선택사항)
+        // 항상 화면 위쪽에 있는 것이 bgB가 되도록(선택사항)
         if (bgA.transform.position.y > bgB.transform.position.y)
         {
             var t = bgA; bgA = bgB; bgB = t;
         }
+    }
+
+    // =========================
+    // 런타임 제어용 API
+    // =========================
+
+    public void SetSprites(Sprite sprite)
+    {
+        if (!bgA || !bgB) return;
+        bgA.sprite = sprite;
+        bgB.sprite = sprite;
+        RebuildAndReset();
+    }
+
+    public void SetSpeed(float speed) => scrollSpeed = speed;
+    public void SetScrollDown(bool down) => scrollDown = down;
+
+    public void RebuildAndReset()
+    {
+        if (!bgA || !bgB)
+        {
+            Debug.LogError($"[BG] Assign bgA/bgB. ({name})");
+            _ready = false;
+            return;
+        }
+
+        if (_cam == null) _cam = Camera.main;
+        if (_cam == null)
+        {
+            _ready = false;
+            return;
+        }
+
+        if (bgA.sprite == null || bgB.sprite == null)
+        {
+            // 스프라이트가 없으면 업데이트 중지
+            _ready = false;
+            return;
+        }
+
+        FitToCamera(bgA, _cam);
+        FitToCamera(bgB, _cam);
+
+        spriteHeight = bgA.bounds.size.y;
+
+        // 위치 재배치
+        bgA.transform.position = new Vector3(0f, 0f, 0f);
+        bgB.transform.position = bgA.transform.position + Vector3.up * spriteHeight;
+
+        _ready = true;
     }
 
     private void FitToCamera(SpriteRenderer sr, Camera cam)

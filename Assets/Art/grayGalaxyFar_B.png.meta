@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f7a04e0f142a4c44087476aac5548714
+guid: f04277c10f0d5a4479d75e8295f10662
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4985268122709148014
-    second: greySpace_A_0
+      213: -6027456734512395660
+    second: grayGalaxyFar_B_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,6 +97,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -113,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: greySpace_A_0
+      name: grayGalaxyFar_B_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 1024
-        height: 1024
+        height: 1536
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e61482cc1fa3f2540800000000000000
-      internalID: 4985268122709148014
+      spriteID: 47a4a58e80c2a5ca0800000000000000
+      internalID: -6027456734512395660
       vertices: []
       indices: 
       edges: []
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      greySpace_A_0: 4985268122709148014
+      grayGalaxyFar_B_0: -6027456734512395660
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

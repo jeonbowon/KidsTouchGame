@@ -337,6 +337,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Co_StartStage(int stage)
     {
+        // 스테이지 진입 시 배경 프리셋 적용
+        var bg = FindObjectOfType<BackgroundStageController>(true);
+        if (bg != null) bg.ApplyStage(stage);
+
         isStageRunning = false;
         isStageClearing = false;
 
