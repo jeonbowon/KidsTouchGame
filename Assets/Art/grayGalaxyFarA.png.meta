@@ -1,0 +1,3679 @@
+fileFormatVersion: 2
+guid: d442c81f30503f240bbe2c3541cc33bf
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7015917043529132812
+    second: grayGalaxyFarA_0
+  - first:
+      213: 2507092313443481536
+    second: grayGalaxyFarA_1
+  - first:
+      213: -5214850425171422617
+    second: grayGalaxyFarA_2
+  - first:
+      213: -4996202533035479692
+    second: grayGalaxyFarA_3
+  - first:
+      213: 3996379337432068947
+    second: grayGalaxyFarA_4
+  - first:
+      213: 6361829902158798702
+    second: grayGalaxyFarA_5
+  - first:
+      213: -5055375443836032075
+    second: grayGalaxyFarA_6
+  - first:
+      213: 8010918035423731402
+    second: grayGalaxyFarA_7
+  - first:
+      213: -5655706419415482229
+    second: grayGalaxyFarA_8
+  - first:
+      213: 4227078783472151890
+    second: grayGalaxyFarA_9
+  - first:
+      213: 827642399938441627
+    second: grayGalaxyFarA_10
+  - first:
+      213: -710392133318742245
+    second: grayGalaxyFarA_11
+  - first:
+      213: 8069743565283317317
+    second: grayGalaxyFarA_12
+  - first:
+      213: -7685474309171556716
+    second: grayGalaxyFarA_13
+  - first:
+      213: 6109817923044375400
+    second: grayGalaxyFarA_14
+  - first:
+      213: -4770119277121120358
+    second: grayGalaxyFarA_15
+  - first:
+      213: -6732057726166414314
+    second: grayGalaxyFarA_16
+  - first:
+      213: -7931041183900471564
+    second: grayGalaxyFarA_17
+  - first:
+      213: 3313866711839470547
+    second: grayGalaxyFarA_18
+  - first:
+      213: -6799004808059889592
+    second: grayGalaxyFarA_19
+  - first:
+      213: -6646938742143913750
+    second: grayGalaxyFarA_20
+  - first:
+      213: -1969934149970455238
+    second: grayGalaxyFarA_21
+  - first:
+      213: 3641486410441954513
+    second: grayGalaxyFarA_22
+  - first:
+      213: 1281542409027224202
+    second: grayGalaxyFarA_23
+  - first:
+      213: 1108361855721610520
+    second: grayGalaxyFarA_24
+  - first:
+      213: 1627279700004530496
+    second: grayGalaxyFarA_25
+  - first:
+      213: 887903425563321663
+    second: grayGalaxyFarA_26
+  - first:
+      213: 5322393460653695436
+    second: grayGalaxyFarA_27
+  - first:
+      213: 5703140582476061776
+    second: grayGalaxyFarA_28
+  - first:
+      213: 2009617772565607243
+    second: grayGalaxyFarA_29
+  - first:
+      213: 6047900515884265259
+    second: grayGalaxyFarA_30
+  - first:
+      213: -7391288098494621858
+    second: grayGalaxyFarA_31
+  - first:
+      213: -1732337589135609431
+    second: grayGalaxyFarA_32
+  - first:
+      213: 1948050171892707498
+    second: grayGalaxyFarA_33
+  - first:
+      213: 3802885488003256121
+    second: grayGalaxyFarA_34
+  - first:
+      213: 3911949402840858850
+    second: grayGalaxyFarA_35
+  - first:
+      213: -4519010812491334605
+    second: grayGalaxyFarA_36
+  - first:
+      213: -8448934021493443072
+    second: grayGalaxyFarA_37
+  - first:
+      213: -3315334226108017875
+    second: grayGalaxyFarA_38
+  - first:
+      213: 4353388786209221768
+    second: grayGalaxyFarA_39
+  - first:
+      213: -5118248298730168766
+    second: grayGalaxyFarA_40
+  - first:
+      213: 905013061480609056
+    second: grayGalaxyFarA_41
+  - first:
+      213: -940920513794398071
+    second: grayGalaxyFarA_42
+  - first:
+      213: -7911519518773433940
+    second: grayGalaxyFarA_43
+  - first:
+      213: -8822462897406160925
+    second: grayGalaxyFarA_44
+  - first:
+      213: -2946356635259821412
+    second: grayGalaxyFarA_45
+  - first:
+      213: 617422723794399338
+    second: grayGalaxyFarA_46
+  - first:
+      213: -6135752759677354635
+    second: grayGalaxyFarA_47
+  - first:
+      213: -6274083980718619167
+    second: grayGalaxyFarA_48
+  - first:
+      213: -2666851610997216460
+    second: grayGalaxyFarA_49
+  - first:
+      213: 1995597873480144538
+    second: grayGalaxyFarA_50
+  - first:
+      213: 1514562867153959415
+    second: grayGalaxyFarA_51
+  - first:
+      213: 4520421466597571202
+    second: grayGalaxyFarA_52
+  - first:
+      213: 123663810952963067
+    second: grayGalaxyFarA_53
+  - first:
+      213: 9070509238175336332
+    second: grayGalaxyFarA_54
+  - first:
+      213: 1795557200583315998
+    second: grayGalaxyFarA_55
+  - first:
+      213: 1274103511558850571
+    second: grayGalaxyFarA_56
+  - first:
+      213: -7023843194853376146
+    second: grayGalaxyFarA_57
+  - first:
+      213: -359774584287874664
+    second: grayGalaxyFarA_58
+  - first:
+      213: 7310817317740056624
+    second: grayGalaxyFarA_59
+  - first:
+      213: -1383414720677484985
+    second: grayGalaxyFarA_60
+  - first:
+      213: -4055447954647490558
+    second: grayGalaxyFarA_61
+  - first:
+      213: 3568768666479957833
+    second: grayGalaxyFarA_62
+  - first:
+      213: 485223457115995210
+    second: grayGalaxyFarA_63
+  - first:
+      213: 1706482024156107833
+    second: grayGalaxyFarA_64
+  - first:
+      213: -5140726807883229338
+    second: grayGalaxyFarA_65
+  - first:
+      213: 3937897507737826490
+    second: grayGalaxyFarA_66
+  - first:
+      213: 1942483559562052179
+    second: grayGalaxyFarA_67
+  - first:
+      213: 1968843167570695843
+    second: grayGalaxyFarA_68
+  - first:
+      213: 9069450153068708495
+    second: grayGalaxyFarA_69
+  - first:
+      213: -8909403142369762292
+    second: grayGalaxyFarA_70
+  - first:
+      213: 3185255755032146606
+    second: grayGalaxyFarA_71
+  - first:
+      213: 8397270311446182769
+    second: grayGalaxyFarA_72
+  - first:
+      213: -4621155773621452656
+    second: grayGalaxyFarA_73
+  - first:
+      213: 6672310739308969169
+    second: grayGalaxyFarA_74
+  - first:
+      213: -451780791080960703
+    second: grayGalaxyFarA_75
+  - first:
+      213: -6279559842141531914
+    second: grayGalaxyFarA_76
+  - first:
+      213: -4500360701224768529
+    second: grayGalaxyFarA_77
+  - first:
+      213: 7621618009960067573
+    second: grayGalaxyFarA_78
+  - first:
+      213: -4507656277558966899
+    second: grayGalaxyFarA_79
+  - first:
+      213: -1152003111966916039
+    second: grayGalaxyFarA_80
+  - first:
+      213: 3021293216080124919
+    second: grayGalaxyFarA_81
+  - first:
+      213: -1321876169605898366
+    second: grayGalaxyFarA_82
+  - first:
+      213: -6010457501264135330
+    second: grayGalaxyFarA_83
+  - first:
+      213: -5276630923545389676
+    second: grayGalaxyFarA_84
+  - first:
+      213: 3252211514944473426
+    second: grayGalaxyFarA_85
+  - first:
+      213: -837139971961123678
+    second: grayGalaxyFarA_86
+  - first:
+      213: -8663277900064553590
+    second: grayGalaxyFarA_87
+  - first:
+      213: -1885028447677470325
+    second: grayGalaxyFarA_88
+  - first:
+      213: 519021674197096917
+    second: grayGalaxyFarA_89
+  - first:
+      213: 3896507302050732627
+    second: grayGalaxyFarA_90
+  - first:
+      213: -1917473649756854279
+    second: grayGalaxyFarA_91
+  - first:
+      213: -1004651256120401979
+    second: grayGalaxyFarA_92
+  - first:
+      213: 8505806565488989886
+    second: grayGalaxyFarA_93
+  - first:
+      213: -3800142084424989657
+    second: grayGalaxyFarA_94
+  - first:
+      213: -1891072998698637498
+    second: grayGalaxyFarA_95
+  - first:
+      213: -384789828418429349
+    second: grayGalaxyFarA_96
+  - first:
+      213: 2240077459233648633
+    second: grayGalaxyFarA_97
+  - first:
+      213: -3030928092876033850
+    second: grayGalaxyFarA_98
+  - first:
+      213: -5849777710772230184
+    second: grayGalaxyFarA_99
+  - first:
+      213: 4989177304405206975
+    second: grayGalaxyFarA_100
+  - first:
+      213: -938680560868582923
+    second: grayGalaxyFarA_101
+  - first:
+      213: -3605411447535969772
+    second: grayGalaxyFarA_102
+  - first:
+      213: 7296429867962309386
+    second: grayGalaxyFarA_103
+  - first:
+      213: 5055674142440047121
+    second: grayGalaxyFarA_104
+  - first:
+      213: -3666870837846339066
+    second: grayGalaxyFarA_105
+  - first:
+      213: -5637829115642182473
+    second: grayGalaxyFarA_106
+  - first:
+      213: 2333264764174903869
+    second: grayGalaxyFarA_107
+  - first:
+      213: 7378556359518248620
+    second: grayGalaxyFarA_108
+  - first:
+      213: -2789219829313593145
+    second: grayGalaxyFarA_109
+  - first:
+      213: -25338204016606195
+    second: grayGalaxyFarA_110
+  - first:
+      213: -8256854586206727180
+    second: grayGalaxyFarA_111
+  - first:
+      213: 1680048255295571321
+    second: grayGalaxyFarA_112
+  - first:
+      213: -6521434121395218591
+    second: grayGalaxyFarA_113
+  - first:
+      213: -2191775443874241243
+    second: grayGalaxyFarA_114
+  - first:
+      213: -3272049451154856545
+    second: grayGalaxyFarA_115
+  - first:
+      213: 8308610009749019153
+    second: grayGalaxyFarA_116
+  - first:
+      213: 4420104019329121015
+    second: grayGalaxyFarA_117
+  - first:
+      213: 8367668593464486484
+    second: grayGalaxyFarA_118
+  - first:
+      213: -8651211545249822163
+    second: grayGalaxyFarA_119
+  - first:
+      213: 6119569235803109414
+    second: grayGalaxyFarA_120
+  - first:
+      213: -6197971707075494063
+    second: grayGalaxyFarA_121
+  - first:
+      213: 408240420916111820
+    second: grayGalaxyFarA_122
+  - first:
+      213: -8329022500405616584
+    second: grayGalaxyFarA_123
+  - first:
+      213: -4736773695531091069
+    second: grayGalaxyFarA_124
+  - first:
+      213: -1946277697166790563
+    second: grayGalaxyFarA_125
+  - first:
+      213: 8994893691944488237
+    second: grayGalaxyFarA_126
+  - first:
+      213: -3369810027778604202
+    second: grayGalaxyFarA_127
+  - first:
+      213: 7653421736040399242
+    second: grayGalaxyFarA_128
+  - first:
+      213: 1986999251564198836
+    second: grayGalaxyFarA_129
+  - first:
+      213: -8915463223052005722
+    second: grayGalaxyFarA_130
+  - first:
+      213: -3840021635515076223
+    second: grayGalaxyFarA_131
+  - first:
+      213: -7169467090089812471
+    second: grayGalaxyFarA_132
+  - first:
+      213: 262636221352106880
+    second: grayGalaxyFarA_133
+  - first:
+      213: -3385746448666063736
+    second: grayGalaxyFarA_134
+  - first:
+      213: 7679272308521258630
+    second: grayGalaxyFarA_135
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: grayGalaxyFarA_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 1
+        width: 636
+        height: 2399
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0ba921116b8d5160800000000000000
+      internalID: 7015917043529132812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_1
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 1
+        width: 455
+        height: 2398
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c739e90d2bfac220800000000000000
+      internalID: 2507092313443481536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_2
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 2311
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 762dcd2fa2121a7b0800000000000000
+      internalID: -5214850425171422617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_3
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 2314
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47d6388644ce9aab0800000000000000
+      internalID: -4996202533035479692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_4
+      rect:
+        serializedVersion: 2
+        x: 914
+        y: 2300
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 353795b65ddf57730800000000000000
+      internalID: 3996379337432068947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_5
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 2318
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6f12afe692c94850800000000000000
+      internalID: 6361829902158798702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_6
+      rect:
+        serializedVersion: 2
+        x: 930
+        y: 2313
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bbabef71d2b7d9b0800000000000000
+      internalID: -5055375443836032075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_7
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 2294
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ace9332728f7c2f60800000000000000
+      internalID: 8010918035423731402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_8
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 2294
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8008dc0af4e281b0800000000000000
+      internalID: -5655706419415482229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_9
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 2294
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25da27ee1c999aa30800000000000000
+      internalID: 4227078783472151890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_10
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 2294
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b91f161b0606c7b00800000000000000
+      internalID: 827642399938441627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_11
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 2297
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1fed4a5e1e2426f0800000000000000
+      internalID: -710392133318742245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_12
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 2292
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 546d43d640d7dff60800000000000000
+      internalID: 8069743565283317317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_13
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 2261
+        width: 98
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49e407fc5d5b75590800000000000000
+      internalID: -7685474309171556716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_14
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 2252
+        width: 11
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86bff51a70f6ac450800000000000000
+      internalID: 6109817923044375400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_15
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 2272
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a97d3f66ac12dcdb0800000000000000
+      internalID: -4770119277121120358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_16
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 2272
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61c4d608a2de292a0800000000000000
+      internalID: -6732057726166414314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_17
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 2271
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fe6e9e40184fe190800000000000000
+      internalID: -7931041183900471564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_18
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 2240
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d3fe2087383dfd20800000000000000
+      internalID: 3313866711839470547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_19
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 2227
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 848da65562515a1a0800000000000000
+      internalID: -6799004808059889592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_20
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 2220
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae0fab65e6451c3a0800000000000000
+      internalID: -6646938742143913750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_21
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 2214
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a359918e35369a4e0800000000000000
+      internalID: -1969934149970455238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_22
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 2201
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d41eccc898298230800000000000000
+      internalID: 3641486410441954513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_23
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 2194
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a828aa6f704f8c110800000000000000
+      internalID: 1281542409027224202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_24
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 2199
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81d11e44c31b16f00800000000000000
+      internalID: 1108361855721610520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_25
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 2172
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04969f4f342459610800000000000000
+      internalID: 1627279700004530496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_26
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 2173
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f35ed831677725c00800000000000000
+      internalID: 887903425563321663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_27
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 2177
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc1202937a0fcd940800000000000000
+      internalID: 5322393460653695436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_28
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 2169
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05c999aa420a52f40800000000000000
+      internalID: 5703140582476061776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_29
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 2169
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b43b51c77b893eb10800000000000000
+      internalID: 2009617772565607243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_30
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 2169
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2fee2ed9757ee350800000000000000
+      internalID: 6047900515884265259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_31
+      rect:
+        serializedVersion: 2
+        x: 509
+        y: 1819
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e57d7a892aedc6990800000000000000
+      internalID: -7391288098494621858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_32
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 1813
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a1f388142085f7e0800000000000000
+      internalID: -1732337589135609431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_33
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 1820
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa0bd446f4dd80b10800000000000000
+      internalID: 1948050171892707498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_34
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 1808
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93f0ce9e33096c430800000000000000
+      internalID: 3802885488003256121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_35
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 1795
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e081a761490a4630800000000000000
+      internalID: 3911949402840858850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_36
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 1780
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33cfd49db9f3941c0800000000000000
+      internalID: -4519010812491334605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_37
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 1610
+        width: 303
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 006bb26954b5fba80800000000000000
+      internalID: -8448934021493443072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_38
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 1779
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d23132536119df1d0800000000000000
+      internalID: -3315334226108017875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_39
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 1779
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88c6b2b29085a6c30800000000000000
+      internalID: 4353388786209221768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_40
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 1778
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24ed0f93a4458f8b0800000000000000
+      internalID: -5118248298730168766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_41
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 1774
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 025f3ae95904f8c00800000000000000
+      internalID: 905013061480609056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_42
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 1778
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 988286527cd21f2f0800000000000000
+      internalID: -940920513794398071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_43
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 1779
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca9a0f92ae2a43290800000000000000
+      internalID: -7911519518773433940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_44
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 1777
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3efca0cfcb0509580800000000000000
+      internalID: -8822462897406160925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_45
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 1774
+        width: 31
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9229bd20407c17d0800000000000000
+      internalID: -2946356635259821412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_46
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 1691
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a60f40032b6819800800000000000000
+      internalID: 617422723794399338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_47
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 1641
+        width: 32
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57dfec9af5d69daa0800000000000000
+      internalID: -6135752759677354635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_48
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 1679
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e54c4e6cd9fde8a0800000000000000
+      internalID: -6274083980718619167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_49
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 1675
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43b25d1e6907dfad0800000000000000
+      internalID: -2666851610997216460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_50
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 1675
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a961f4b51b9c1bb10800000000000000
+      internalID: 1995597873480144538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_51
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 1675
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f975b637eec40510800000000000000
+      internalID: 1514562867153959415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_52
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 1633
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28a3997af53cbbe30800000000000000
+      internalID: 4520421466597571202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_53
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 1660
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf32c63b49757b100800000000000000
+      internalID: 123663810952963067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_54
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 1660
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c870751381ce0ed70800000000000000
+      internalID: 9070509238175336332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_55
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 1616
+        width: 19
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e12d9aab2c91be810800000000000000
+      internalID: 1795557200583315998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_56
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 513
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b080b8da4668ea110800000000000000
+      internalID: 1274103511558850571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_57
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 502
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6f38b404db468e90800000000000000
+      internalID: -7023843194853376146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_58
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 289
+        width: 370
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 891be48fbe2d10bf0800000000000000
+      internalID: -359774584287874664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_59
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 459
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0309ba9bd9d357560800000000000000
+      internalID: 7310817317740056624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_60
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 459
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 746e8f424af1dcce0800000000000000
+      internalID: -1383414720677484985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_61
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 456
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 200e62a629728b7c0800000000000000
+      internalID: -4055447954647490558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_62
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 425
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 947151ba130d68130800000000000000
+      internalID: 3568768666479957833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_63
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 340
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4cf516d92cdbb600800000000000000
+      internalID: 485223457115995210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_64
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 338
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9341a611c54aea710800000000000000
+      internalID: 1706482024156107833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_65
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 315
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 667dac8743878a8b0800000000000000
+      internalID: -5140726807883229338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_66
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 309
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab4fb9e5be836a630800000000000000
+      internalID: 3937897507737826490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_67
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 309
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3528bb5718615fa10800000000000000
+      internalID: 1942483559562052179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_68
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 315
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a69185fd6cb25b10800000000000000
+      internalID: 1968843167570695843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_69
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 309
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f82c5c9bcd82ddd70800000000000000
+      internalID: 9069450153068708495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_70
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 306
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c042d4acb017b5480800000000000000
+      internalID: -8909403142369762292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_71
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 303
+        width: 43
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea2b575ab3d443c20800000000000000
+      internalID: 3185255755032146606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_72
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 311
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17bfeac8bd8198470800000000000000
+      internalID: 8397270311446182769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_73
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 307
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0904c8dce4b5edfb0800000000000000
+      internalID: -4621155773621452656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_74
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 315
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dcf887144fc89c50800000000000000
+      internalID: 6672310739308969169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_75
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 311
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14d364f93c3fab9f0800000000000000
+      internalID: -451780791080960703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_76
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 311
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f0985718958ad8a0800000000000000
+      internalID: -6279559842141531914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_77
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 315
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: febae5249c18b81c0800000000000000
+      internalID: -4500360701224768529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_78
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 306
+        width: 27
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f1b361f23d65c960800000000000000
+      internalID: 7621618009960067573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_79
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 315
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d85c9868f769171c0800000000000000
+      internalID: -4507656277558966899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_80
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 315
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9324113f5434300f0800000000000000
+      internalID: -1152003111966916039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_81
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 309
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fbd0ca2c2acde920800000000000000
+      internalID: 3021293216080124919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_82
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 311
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28f169990a0c7ade0800000000000000
+      internalID: -1321876169605898366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_83
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 310
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5bb1935fb0969ca0800000000000000
+      internalID: -6010457501264135330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_84
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 315
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4955c3fb124a5c6b0800000000000000
+      internalID: -5276630923545389676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_85
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 303
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25943b2542d222d20800000000000000
+      internalID: 3252211514944473426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_86
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 315
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ac0aff71a1e164f0800000000000000
+      internalID: -837139971961123678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_87
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 311
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a85092066aad5c780800000000000000
+      internalID: -8663277900064553590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_88
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 309
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b89ada83d9807d5e0800000000000000
+      internalID: -1885028447677470325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_89
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 315
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d91f39767fe33700800000000000000
+      internalID: 519021674197096917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_90
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 309
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35a13732fbc231630800000000000000
+      internalID: 3896507302050732627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_91
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 311
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f72210ffd3c365e0800000000000000
+      internalID: -1917473649756854279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_92
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 315
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cf1bc36103ce02f0800000000000000
+      internalID: -1004651256120401979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_93
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 309
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb618207102ba0670800000000000000
+      internalID: 8505806565488989886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_94
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 309
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72406d188ee234bc0800000000000000
+      internalID: -3800142084424989657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_95
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 315
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6472c34802f81c5e0800000000000000
+      internalID: -1891072998698637498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_96
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 306
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5e9fe390b3f8aaf0800000000000000
+      internalID: -384789828418429349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_97
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 315
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ff2bfaa49a561f10800000000000000
+      internalID: 2240077459233648633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_98
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 309
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c03f5445faffe5d0800000000000000
+      internalID: -3030928092876033850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_99
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 307
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d76c6e5a2a61dea0800000000000000
+      internalID: -5849777710772230184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_100
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 309
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb76386135e1d3540800000000000000
+      internalID: 4989177304405206975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_101
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 309
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f91dd3d00329f2f0800000000000000
+      internalID: -938680560868582923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_102
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 309
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41add78046107fdc0800000000000000
+      internalID: -3605411447535969772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_103
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 311
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0b91788e40224560800000000000000
+      internalID: 7296429867962309386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_104
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 289
+        width: 52
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1124440b8dc592640800000000000000
+      internalID: 5055674142440047121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_105
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 299
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6021ee0a668ac1dc0800000000000000
+      internalID: -3666870837846339066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_106
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 304
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b40bc13a4862c1b0800000000000000
+      internalID: -5637829115642182473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_107
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 303
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3aa49bd0fb616020800000000000000
+      internalID: 2333264764174903869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_108
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 289
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caed84c6ae5e56660800000000000000
+      internalID: 7378556359518248620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_109
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 289
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c0a949d753ba49d0800000000000000
+      internalID: -2789219829313593145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_110
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 289
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d040856a90bf5aff0800000000000000
+      internalID: -25338204016606195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_111
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 289
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f3d7132082c96d80800000000000000
+      internalID: -8256854586206727180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_112
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 290
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9754866acfab05710800000000000000
+      internalID: 1680048255295571321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_113
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 289
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1675028f7363f75a0800000000000000
+      internalID: -6521434121395218591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_114
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 289
+        width: 28
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 525a378a8df3591e0800000000000000
+      internalID: -2191775443874241243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_115
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 289
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9527683c585792d0800000000000000
+      internalID: -3272049451154856545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_116
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 289
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11a585078cc1e4370800000000000000
+      internalID: 8308610009749019153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_117
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 289
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fa7366df2d575d30800000000000000
+      internalID: 4420104019329121015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_118
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 290
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45aa4af704eef1470800000000000000
+      internalID: 8367668593464486484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_119
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 289
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2a40a88fe8b0f780800000000000000
+      internalID: -8651211545249822163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_120
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 289
+        width: 20
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 628f37e0cc31de450800000000000000
+      internalID: 6119569235803109414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_121
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 289
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15ff7d712916cf9a0800000000000000
+      internalID: -6197971707075494063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_122
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 289
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc929a7ff7c5aa500800000000000000
+      internalID: 408240420916111820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_123
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 289
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83066193a2e596c80800000000000000
+      internalID: -8329022500405616584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_124
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 289
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38b7470ab69934eb0800000000000000
+      internalID: -4736773695531091069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_125
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 289
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d50bb1a0fbe6df4e0800000000000000
+      internalID: -1946277697166790563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_126
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 289
+        width: 32
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2dc0c4e72844dc70800000000000000
+      internalID: 8994893691944488237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_127
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 289
+        width: 33
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65305bd32a70c31d0800000000000000
+      internalID: -3369810027778604202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_128
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 289
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8101f4f48a663a60800000000000000
+      internalID: 7653421736040399242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_129
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 289
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bb737eaa4d339b10800000000000000
+      internalID: 1986999251564198836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_130
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 289
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ae0ded4f69e54480800000000000000
+      internalID: -8915463223052005722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_131
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 289
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1813f45faa085bac0800000000000000
+      internalID: -3840021635515076223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_132
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 289
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90ed752caafe08c90800000000000000
+      internalID: -7169467090089812471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_133
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 289
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08bd7d6704215a300800000000000000
+      internalID: 262636221352106880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_134
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 289
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88c08bb1b896301d0800000000000000
+      internalID: -3385746448666063736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarA_135
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 289
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68e47e26a71429a60800000000000000
+      internalID: 7679272308521258630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      grayGalaxyFarA_0: 7015917043529132812
+      grayGalaxyFarA_1: 2507092313443481536
+      grayGalaxyFarA_10: 827642399938441627
+      grayGalaxyFarA_100: 4989177304405206975
+      grayGalaxyFarA_101: -938680560868582923
+      grayGalaxyFarA_102: -3605411447535969772
+      grayGalaxyFarA_103: 7296429867962309386
+      grayGalaxyFarA_104: 5055674142440047121
+      grayGalaxyFarA_105: -3666870837846339066
+      grayGalaxyFarA_106: -5637829115642182473
+      grayGalaxyFarA_107: 2333264764174903869
+      grayGalaxyFarA_108: 7378556359518248620
+      grayGalaxyFarA_109: -2789219829313593145
+      grayGalaxyFarA_11: -710392133318742245
+      grayGalaxyFarA_110: -25338204016606195
+      grayGalaxyFarA_111: -8256854586206727180
+      grayGalaxyFarA_112: 1680048255295571321
+      grayGalaxyFarA_113: -6521434121395218591
+      grayGalaxyFarA_114: -2191775443874241243
+      grayGalaxyFarA_115: -3272049451154856545
+      grayGalaxyFarA_116: 8308610009749019153
+      grayGalaxyFarA_117: 4420104019329121015
+      grayGalaxyFarA_118: 8367668593464486484
+      grayGalaxyFarA_119: -8651211545249822163
+      grayGalaxyFarA_12: 8069743565283317317
+      grayGalaxyFarA_120: 6119569235803109414
+      grayGalaxyFarA_121: -6197971707075494063
+      grayGalaxyFarA_122: 408240420916111820
+      grayGalaxyFarA_123: -8329022500405616584
+      grayGalaxyFarA_124: -4736773695531091069
+      grayGalaxyFarA_125: -1946277697166790563
+      grayGalaxyFarA_126: 8994893691944488237
+      grayGalaxyFarA_127: -3369810027778604202
+      grayGalaxyFarA_128: 7653421736040399242
+      grayGalaxyFarA_129: 1986999251564198836
+      grayGalaxyFarA_13: -7685474309171556716
+      grayGalaxyFarA_130: -8915463223052005722
+      grayGalaxyFarA_131: -3840021635515076223
+      grayGalaxyFarA_132: -7169467090089812471
+      grayGalaxyFarA_133: 262636221352106880
+      grayGalaxyFarA_134: -3385746448666063736
+      grayGalaxyFarA_135: 7679272308521258630
+      grayGalaxyFarA_14: 6109817923044375400
+      grayGalaxyFarA_15: -4770119277121120358
+      grayGalaxyFarA_16: -6732057726166414314
+      grayGalaxyFarA_17: -7931041183900471564
+      grayGalaxyFarA_18: 3313866711839470547
+      grayGalaxyFarA_19: -6799004808059889592
+      grayGalaxyFarA_2: -5214850425171422617
+      grayGalaxyFarA_20: -6646938742143913750
+      grayGalaxyFarA_21: -1969934149970455238
+      grayGalaxyFarA_22: 3641486410441954513
+      grayGalaxyFarA_23: 1281542409027224202
+      grayGalaxyFarA_24: 1108361855721610520
+      grayGalaxyFarA_25: 1627279700004530496
+      grayGalaxyFarA_26: 887903425563321663
+      grayGalaxyFarA_27: 5322393460653695436
+      grayGalaxyFarA_28: 5703140582476061776
+      grayGalaxyFarA_29: 2009617772565607243
+      grayGalaxyFarA_3: -4996202533035479692
+      grayGalaxyFarA_30: 6047900515884265259
+      grayGalaxyFarA_31: -7391288098494621858
+      grayGalaxyFarA_32: -1732337589135609431
+      grayGalaxyFarA_33: 1948050171892707498
+      grayGalaxyFarA_34: 3802885488003256121
+      grayGalaxyFarA_35: 3911949402840858850
+      grayGalaxyFarA_36: -4519010812491334605
+      grayGalaxyFarA_37: -8448934021493443072
+      grayGalaxyFarA_38: -3315334226108017875
+      grayGalaxyFarA_39: 4353388786209221768
+      grayGalaxyFarA_4: 3996379337432068947
+      grayGalaxyFarA_40: -5118248298730168766
+      grayGalaxyFarA_41: 905013061480609056
+      grayGalaxyFarA_42: -940920513794398071
+      grayGalaxyFarA_43: -7911519518773433940
+      grayGalaxyFarA_44: -8822462897406160925
+      grayGalaxyFarA_45: -2946356635259821412
+      grayGalaxyFarA_46: 617422723794399338
+      grayGalaxyFarA_47: -6135752759677354635
+      grayGalaxyFarA_48: -6274083980718619167
+      grayGalaxyFarA_49: -2666851610997216460
+      grayGalaxyFarA_5: 6361829902158798702
+      grayGalaxyFarA_50: 1995597873480144538
+      grayGalaxyFarA_51: 1514562867153959415
+      grayGalaxyFarA_52: 4520421466597571202
+      grayGalaxyFarA_53: 123663810952963067
+      grayGalaxyFarA_54: 9070509238175336332
+      grayGalaxyFarA_55: 1795557200583315998
+      grayGalaxyFarA_56: 1274103511558850571
+      grayGalaxyFarA_57: -7023843194853376146
+      grayGalaxyFarA_58: -359774584287874664
+      grayGalaxyFarA_59: 7310817317740056624
+      grayGalaxyFarA_6: -5055375443836032075
+      grayGalaxyFarA_60: -1383414720677484985
+      grayGalaxyFarA_61: -4055447954647490558
+      grayGalaxyFarA_62: 3568768666479957833
+      grayGalaxyFarA_63: 485223457115995210
+      grayGalaxyFarA_64: 1706482024156107833
+      grayGalaxyFarA_65: -5140726807883229338
+      grayGalaxyFarA_66: 3937897507737826490
+      grayGalaxyFarA_67: 1942483559562052179
+      grayGalaxyFarA_68: 1968843167570695843
+      grayGalaxyFarA_69: 9069450153068708495
+      grayGalaxyFarA_7: 8010918035423731402
+      grayGalaxyFarA_70: -8909403142369762292
+      grayGalaxyFarA_71: 3185255755032146606
+      grayGalaxyFarA_72: 8397270311446182769
+      grayGalaxyFarA_73: -4621155773621452656
+      grayGalaxyFarA_74: 6672310739308969169
+      grayGalaxyFarA_75: -451780791080960703
+      grayGalaxyFarA_76: -6279559842141531914
+      grayGalaxyFarA_77: -4500360701224768529
+      grayGalaxyFarA_78: 7621618009960067573
+      grayGalaxyFarA_79: -4507656277558966899
+      grayGalaxyFarA_8: -5655706419415482229
+      grayGalaxyFarA_80: -1152003111966916039
+      grayGalaxyFarA_81: 3021293216080124919
+      grayGalaxyFarA_82: -1321876169605898366
+      grayGalaxyFarA_83: -6010457501264135330
+      grayGalaxyFarA_84: -5276630923545389676
+      grayGalaxyFarA_85: 3252211514944473426
+      grayGalaxyFarA_86: -837139971961123678
+      grayGalaxyFarA_87: -8663277900064553590
+      grayGalaxyFarA_88: -1885028447677470325
+      grayGalaxyFarA_89: 519021674197096917
+      grayGalaxyFarA_9: 4227078783472151890
+      grayGalaxyFarA_90: 3896507302050732627
+      grayGalaxyFarA_91: -1917473649756854279
+      grayGalaxyFarA_92: -1004651256120401979
+      grayGalaxyFarA_93: 8505806565488989886
+      grayGalaxyFarA_94: -3800142084424989657
+      grayGalaxyFarA_95: -1891072998698637498
+      grayGalaxyFarA_96: -384789828418429349
+      grayGalaxyFarA_97: 2240077459233648633
+      grayGalaxyFarA_98: -3030928092876033850
+      grayGalaxyFarA_99: -5849777710772230184
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

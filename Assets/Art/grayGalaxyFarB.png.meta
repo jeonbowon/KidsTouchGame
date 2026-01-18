@@ -1,0 +1,2509 @@
+fileFormatVersion: 2
+guid: 90b77179382dcd2489ce980d400b68d0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7946643077489766578
+    second: grayGalaxyFarB_0
+  - first:
+      213: 9104951478021391110
+    second: grayGalaxyFarB_1
+  - first:
+      213: -6062965421138959068
+    second: grayGalaxyFarB_2
+  - first:
+      213: -6756711796988335940
+    second: grayGalaxyFarB_3
+  - first:
+      213: -8052330214066476684
+    second: grayGalaxyFarB_4
+  - first:
+      213: 2322740036592021791
+    second: grayGalaxyFarB_5
+  - first:
+      213: 547932618576061252
+    second: grayGalaxyFarB_6
+  - first:
+      213: -147591127154722327
+    second: grayGalaxyFarB_7
+  - first:
+      213: -5894248250710927050
+    second: grayGalaxyFarB_8
+  - first:
+      213: -5572533412777231820
+    second: grayGalaxyFarB_9
+  - first:
+      213: 6010328312851762109
+    second: grayGalaxyFarB_10
+  - first:
+      213: 9019317411865173702
+    second: grayGalaxyFarB_11
+  - first:
+      213: -590463672226776836
+    second: grayGalaxyFarB_12
+  - first:
+      213: 2703404457059361830
+    second: grayGalaxyFarB_13
+  - first:
+      213: -3408175095812622132
+    second: grayGalaxyFarB_14
+  - first:
+      213: -1033713337922822083
+    second: grayGalaxyFarB_15
+  - first:
+      213: 1777631851463876285
+    second: grayGalaxyFarB_16
+  - first:
+      213: 8534892773562309977
+    second: grayGalaxyFarB_17
+  - first:
+      213: 1432411272653396419
+    second: grayGalaxyFarB_18
+  - first:
+      213: -6785362534481103468
+    second: grayGalaxyFarB_19
+  - first:
+      213: 2559206771078748856
+    second: grayGalaxyFarB_20
+  - first:
+      213: -3637799268504277374
+    second: grayGalaxyFarB_21
+  - first:
+      213: 6873308903996121115
+    second: grayGalaxyFarB_22
+  - first:
+      213: 5494196784514556998
+    second: grayGalaxyFarB_23
+  - first:
+      213: -8637381294847962950
+    second: grayGalaxyFarB_24
+  - first:
+      213: 3116202646334875843
+    second: grayGalaxyFarB_25
+  - first:
+      213: 8823941508225921375
+    second: grayGalaxyFarB_26
+  - first:
+      213: 6724437966139219646
+    second: grayGalaxyFarB_27
+  - first:
+      213: -6817809876967102722
+    second: grayGalaxyFarB_28
+  - first:
+      213: 8922049910121449313
+    second: grayGalaxyFarB_29
+  - first:
+      213: -4118681386467393492
+    second: grayGalaxyFarB_30
+  - first:
+      213: 2550355434753890463
+    second: grayGalaxyFarB_31
+  - first:
+      213: 6735815525311181325
+    second: grayGalaxyFarB_32
+  - first:
+      213: 6996504552652109100
+    second: grayGalaxyFarB_33
+  - first:
+      213: -8018725508983165322
+    second: grayGalaxyFarB_34
+  - first:
+      213: 695240564676706640
+    second: grayGalaxyFarB_35
+  - first:
+      213: -2579214395410287995
+    second: grayGalaxyFarB_36
+  - first:
+      213: 3262246561520335369
+    second: grayGalaxyFarB_37
+  - first:
+      213: 1196619170382235263
+    second: grayGalaxyFarB_38
+  - first:
+      213: -6647620239416351130
+    second: grayGalaxyFarB_39
+  - first:
+      213: 7039055442463240124
+    second: grayGalaxyFarB_40
+  - first:
+      213: -8354671572462646470
+    second: grayGalaxyFarB_41
+  - first:
+      213: -153900670889591515
+    second: grayGalaxyFarB_42
+  - first:
+      213: -2379423117681037763
+    second: grayGalaxyFarB_43
+  - first:
+      213: -8778181535913272191
+    second: grayGalaxyFarB_44
+  - first:
+      213: 791573056741926961
+    second: grayGalaxyFarB_45
+  - first:
+      213: 4695005135103007737
+    second: grayGalaxyFarB_46
+  - first:
+      213: 5024448139969764700
+    second: grayGalaxyFarB_47
+  - first:
+      213: -6443601271357113920
+    second: grayGalaxyFarB_48
+  - first:
+      213: 244819182953888600
+    second: grayGalaxyFarB_49
+  - first:
+      213: -1491258404239993096
+    second: grayGalaxyFarB_50
+  - first:
+      213: 4670076950874096678
+    second: grayGalaxyFarB_51
+  - first:
+      213: 855059134795231937
+    second: grayGalaxyFarB_52
+  - first:
+      213: 5675336468106526624
+    second: grayGalaxyFarB_53
+  - first:
+      213: -5643178242396815814
+    second: grayGalaxyFarB_54
+  - first:
+      213: -1290521443662935364
+    second: grayGalaxyFarB_55
+  - first:
+      213: 3381444717320717118
+    second: grayGalaxyFarB_56
+  - first:
+      213: 5053849758827078370
+    second: grayGalaxyFarB_57
+  - first:
+      213: -4028179588896249266
+    second: grayGalaxyFarB_58
+  - first:
+      213: 8588805070734719322
+    second: grayGalaxyFarB_59
+  - first:
+      213: -3689416056821659530
+    second: grayGalaxyFarB_60
+  - first:
+      213: -4297783379620923216
+    second: grayGalaxyFarB_61
+  - first:
+      213: -1576598479203706594
+    second: grayGalaxyFarB_62
+  - first:
+      213: 5876012351162411699
+    second: grayGalaxyFarB_63
+  - first:
+      213: 3486540213515249775
+    second: grayGalaxyFarB_64
+  - first:
+      213: -7212972427250462868
+    second: grayGalaxyFarB_65
+  - first:
+      213: -4564603704073142897
+    second: grayGalaxyFarB_66
+  - first:
+      213: -6889780183846386750
+    second: grayGalaxyFarB_67
+  - first:
+      213: -2282379193439929105
+    second: grayGalaxyFarB_68
+  - first:
+      213: 5666252287221054687
+    second: grayGalaxyFarB_69
+  - first:
+      213: 1700878368698169884
+    second: grayGalaxyFarB_70
+  - first:
+      213: 7692509698982936251
+    second: grayGalaxyFarB_71
+  - first:
+      213: 2394514721563067171
+    second: grayGalaxyFarB_72
+  - first:
+      213: 5931920527768779387
+    second: grayGalaxyFarB_73
+  - first:
+      213: -1472792304961167663
+    second: grayGalaxyFarB_74
+  - first:
+      213: 915255513316619730
+    second: grayGalaxyFarB_75
+  - first:
+      213: 4105357194949841162
+    second: grayGalaxyFarB_76
+  - first:
+      213: 4402707908625395115
+    second: grayGalaxyFarB_77
+  - first:
+      213: -6201629823750395215
+    second: grayGalaxyFarB_78
+  - first:
+      213: -4050668956397761589
+    second: grayGalaxyFarB_79
+  - first:
+      213: -214740786266198474
+    second: grayGalaxyFarB_80
+  - first:
+      213: 2849105129448278723
+    second: grayGalaxyFarB_81
+  - first:
+      213: -7865986407456380032
+    second: grayGalaxyFarB_82
+  - first:
+      213: 7548239433915325588
+    second: grayGalaxyFarB_83
+  - first:
+      213: 340386067040056376
+    second: grayGalaxyFarB_84
+  - first:
+      213: 1449580512754969835
+    second: grayGalaxyFarB_85
+  - first:
+      213: -411348717691934982
+    second: grayGalaxyFarB_86
+  - first:
+      213: -7555656885923554088
+    second: grayGalaxyFarB_87
+  - first:
+      213: 5535897090027717247
+    second: grayGalaxyFarB_88
+  - first:
+      213: -3986707439901097058
+    second: grayGalaxyFarB_89
+  - first:
+      213: -908185068001484508
+    second: grayGalaxyFarB_90
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: grayGalaxyFarB_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 1
+        width: 243
+        height: 2399
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b0389e96c5284e60800000000000000
+      internalID: 7946643077489766578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_1
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 1
+        width: 849
+        height: 2398
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60302a011294b5e70800000000000000
+      internalID: 9104951478021391110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_2
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 2286
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 425298b82150cdba0800000000000000
+      internalID: -6062965421138959068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_3
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 2294
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb8a1d25b665b32a0800000000000000
+      internalID: -6756711796988335940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_4
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 2286
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4792c685550604090800000000000000
+      internalID: -8052330214066476684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_5
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 2297
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1135a2c1c70c3020800000000000000
+      internalID: 2322740036592021791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_6
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 2295
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 443631340d5aa9700800000000000000
+      internalID: 547932618576061252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_7
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 2284
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e971fdd6a6a3fdf0800000000000000
+      internalID: -147591127154722327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_8
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 2297
+        width: 8
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 639586ee17c633ea0800000000000000
+      internalID: -5894248250710927050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_9
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 2297
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43afa68b2626aa2b0800000000000000
+      internalID: -5572533412777231820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_10
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 2286
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbb8007a1c9f86350800000000000000
+      internalID: 6010328312851762109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_11
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 2286
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ce18b2566d0b2d70800000000000000
+      internalID: 9019317411865173702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_12
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 2286
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf876242b604ec7f0800000000000000
+      internalID: -590463672226776836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_13
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 2271
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6242b3bc70c648520800000000000000
+      internalID: 2703404457059361830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_14
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 2269
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc871c1cecab3b0d0800000000000000
+      internalID: -3408175095812622132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_15
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 2265
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d30e68d223387a1f0800000000000000
+      internalID: -1033713337922822083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_16
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 2263
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbe9ce720ca6ba810800000000000000
+      internalID: 1777631851463876285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_17
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 2242
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95dda3cf1c7027670800000000000000
+      internalID: 8534892773562309977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_18
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 2245
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c955c69672f0e310800000000000000
+      internalID: 1432411272653396419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_19
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 2251
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 495720ca9bc85d1a0800000000000000
+      internalID: -6785362534481103468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_20
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 2250
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ba5ce0cff0248320800000000000000
+      internalID: 2559206771078748856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_21
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 2244
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28e60a4d6d0f38dc0800000000000000
+      internalID: -3637799268504277374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_22
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 2237
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b10e7362806e26f50800000000000000
+      internalID: 6873308903996121115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_23
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 2227
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6446513bdde4f3c40800000000000000
+      internalID: 5494196784514556998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_24
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 2227
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab0dbf2a97bd12880800000000000000
+      internalID: -8637381294847962950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_25
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 2218
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c82ce6ebc9fe3b20800000000000000
+      internalID: 3116202646334875843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_26
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 2215
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5171acec00f47a70800000000000000
+      internalID: 8823941508225921375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_27
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 2218
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebed0edd3b0025d50800000000000000
+      internalID: 6724437966139219646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_28
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 2206
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef6e9390a064261a0800000000000000
+      internalID: -6817809876967102722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_29
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 2203
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16748194f1d71db70800000000000000
+      internalID: 8922049910121449313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_30
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 2203
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c200998c91187d6c0800000000000000
+      internalID: -4118681386467393492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_31
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 2198
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f981e7b61cea46320800000000000000
+      internalID: 2550355434753890463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_32
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 2190
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d02fbba488c6a7d50800000000000000
+      internalID: 6735815525311181325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_33
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 2206
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c257b3252d3981160800000000000000
+      internalID: 6996504552652109100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_34
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 2190
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67ee1b572a3c7b090800000000000000
+      internalID: -8018725508983165322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_35
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 2191
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0514ffa2c9df5a900800000000000000
+      internalID: 695240564676706640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_36
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 2191
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 582fef13c2ac43cd0800000000000000
+      internalID: -2579214395410287995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_37
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 2169
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90ab82da6f3d54d20800000000000000
+      internalID: 3262246561520335369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_38
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 2165
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f764e06abce3b9010800000000000000
+      internalID: 1196619170382235263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_39
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 2169
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66624e3ec98eeb3a0800000000000000
+      internalID: -6647620239416351130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_40
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 2141
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbf2d4261afbfa160800000000000000
+      internalID: 7039055442463240124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_41
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 2142
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3b4f44487e3e0c80800000000000000
+      internalID: -8354671572462646470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_42
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 1140
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52d7eecb72c3dddf0800000000000000
+      internalID: -153900670889591515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_43
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 1145
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3ee44cf7479afed0800000000000000
+      internalID: -2379423117681037763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_44
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 1134
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18c1ff1e662ad2680800000000000000
+      internalID: -8778181535913272191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_45
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 1134
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1386fdc408b3cfa00800000000000000
+      internalID: 791573056741926961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_46
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 1112
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fb13709b42082140800000000000000
+      internalID: 4695005135103007737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_47
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 1113
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5d154f66fc6ab540800000000000000
+      internalID: 5024448139969764700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_48
+      rect:
+        serializedVersion: 2
+        x: 557
+        y: 1113
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c9f08a88cab396a0800000000000000
+      internalID: -6443601271357113920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_49
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 1113
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85bfa22ffb5c56300800000000000000
+      internalID: 244819182953888600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_50
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 1112
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f695f2e16cfd4be0800000000000000
+      internalID: -1491258404239993096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_51
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 1110
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62407926e327fc040800000000000000
+      internalID: 4670076950874096678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_52
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 1113
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c23c67b0c7cddb00800000000000000
+      internalID: 855059134795231937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_53
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 1113
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0af3f42d278d2ce40800000000000000
+      internalID: 5675336468106526624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_54
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 1101
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3e79b199476fa1b0800000000000000
+      internalID: -5643178242396815814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_55
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 1084
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cba427f9595271ee0800000000000000
+      internalID: -1290521443662935364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_56
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 1087
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e33c5830e0e4dee20800000000000000
+      internalID: 3381444717320717118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_57
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 1075
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e2e4174491e22640800000000000000
+      internalID: 5053849758827078370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_58
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 1080
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4a2c5091080918c0800000000000000
+      internalID: -4028179588896249266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_59
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 1085
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a597736d4b0913770800000000000000
+      internalID: 8588805070734719322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_60
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 1077
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 678c588c4af8cccc0800000000000000
+      internalID: -3689416056821659530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_61
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 1064
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b8fd1079c43b54c0800000000000000
+      internalID: -4297783379620923216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_62
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 1061
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1954ad490cce1ae0800000000000000
+      internalID: -1576598479203706594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_63
+      rect:
+        serializedVersion: 2
+        x: 545
+        y: 787
+        width: 117
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bae7d6d91acb8150800000000000000
+      internalID: 5876012351162411699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_64
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1054
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f68e0b90adda26030800000000000000
+      internalID: 3486540213515249775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_65
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 1054
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6f8c0b1bcf56eb90800000000000000
+      internalID: -7212972427250462868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_66
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 1054
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8db94e8d1547a0c0800000000000000
+      internalID: -4564603704073142897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_67
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 1031
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c38f492d659260a0800000000000000
+      internalID: -6889780183846386750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_68
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 1030
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fec3544573c5350e0800000000000000
+      internalID: -2282379193439929105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_69
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 1040
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdc3e832f6292ae40800000000000000
+      internalID: 5666252287221054687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_70
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 1041
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1a766c5ddbba9710800000000000000
+      internalID: 1700878368698169884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_71
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 1034
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbeff1780d841ca60800000000000000
+      internalID: 7692509698982936251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_72
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 1032
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 323c53cd3760b3120800000000000000
+      internalID: 2394514721563067171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_73
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 1033
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7a71859a4a625250800000000000000
+      internalID: 5931920527768779387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_74
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 1015
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1de5cdaa3379f8be0800000000000000
+      internalID: -1472792304961167663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_75
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 1022
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d574f54a04a3bc00800000000000000
+      internalID: 915255513316619730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_76
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 1018
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0154112e9829f830800000000000000
+      internalID: 4105357194949841162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_77
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 1008
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bad6b6f248f891d30800000000000000
+      internalID: 4402707908625395115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_78
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 983
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1baa3ee68826fe9a0800000000000000
+      internalID: -6201629823750395215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_79
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 990
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcb8537ab0229c7c0800000000000000
+      internalID: -4050668956397761589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_80
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 975
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63ea0d38466150df0800000000000000
+      internalID: -214740786266198474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_81
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 970
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ca0280250e0a8720800000000000000
+      internalID: 2849105129448278723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_82
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 954
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08be287c90766d290800000000000000
+      internalID: -7865986407456380032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_83
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 912
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49c5e1ad5cbb0c860800000000000000
+      internalID: 7548239433915325588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_84
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 906
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8343a64135b49b400800000000000000
+      internalID: 340386067040056376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_85
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 864
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: beca610dbc1fd1410800000000000000
+      internalID: 1449580512754969835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_86
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 855
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af6e82b45889a4af0800000000000000
+      internalID: -411348717691934982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_87
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 815
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dcdac5081ae42790800000000000000
+      internalID: -7555656885923554088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_88
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 808
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f72883ca21573dc40800000000000000
+      internalID: 5535897090027717247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_89
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 791
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e93c945b4be5ca8c0800000000000000
+      internalID: -3986707439901097058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyFarB_90
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 798
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 421257f0e7a7563f0800000000000000
+      internalID: -908185068001484508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      grayGalaxyFarB_0: 7946643077489766578
+      grayGalaxyFarB_1: 9104951478021391110
+      grayGalaxyFarB_10: 6010328312851762109
+      grayGalaxyFarB_11: 9019317411865173702
+      grayGalaxyFarB_12: -590463672226776836
+      grayGalaxyFarB_13: 2703404457059361830
+      grayGalaxyFarB_14: -3408175095812622132
+      grayGalaxyFarB_15: -1033713337922822083
+      grayGalaxyFarB_16: 1777631851463876285
+      grayGalaxyFarB_17: 8534892773562309977
+      grayGalaxyFarB_18: 1432411272653396419
+      grayGalaxyFarB_19: -6785362534481103468
+      grayGalaxyFarB_2: -6062965421138959068
+      grayGalaxyFarB_20: 2559206771078748856
+      grayGalaxyFarB_21: -3637799268504277374
+      grayGalaxyFarB_22: 6873308903996121115
+      grayGalaxyFarB_23: 5494196784514556998
+      grayGalaxyFarB_24: -8637381294847962950
+      grayGalaxyFarB_25: 3116202646334875843
+      grayGalaxyFarB_26: 8823941508225921375
+      grayGalaxyFarB_27: 6724437966139219646
+      grayGalaxyFarB_28: -6817809876967102722
+      grayGalaxyFarB_29: 8922049910121449313
+      grayGalaxyFarB_3: -6756711796988335940
+      grayGalaxyFarB_30: -4118681386467393492
+      grayGalaxyFarB_31: 2550355434753890463
+      grayGalaxyFarB_32: 6735815525311181325
+      grayGalaxyFarB_33: 6996504552652109100
+      grayGalaxyFarB_34: -8018725508983165322
+      grayGalaxyFarB_35: 695240564676706640
+      grayGalaxyFarB_36: -2579214395410287995
+      grayGalaxyFarB_37: 3262246561520335369
+      grayGalaxyFarB_38: 1196619170382235263
+      grayGalaxyFarB_39: -6647620239416351130
+      grayGalaxyFarB_4: -8052330214066476684
+      grayGalaxyFarB_40: 7039055442463240124
+      grayGalaxyFarB_41: -8354671572462646470
+      grayGalaxyFarB_42: -153900670889591515
+      grayGalaxyFarB_43: -2379423117681037763
+      grayGalaxyFarB_44: -8778181535913272191
+      grayGalaxyFarB_45: 791573056741926961
+      grayGalaxyFarB_46: 4695005135103007737
+      grayGalaxyFarB_47: 5024448139969764700
+      grayGalaxyFarB_48: -6443601271357113920
+      grayGalaxyFarB_49: 244819182953888600
+      grayGalaxyFarB_5: 2322740036592021791
+      grayGalaxyFarB_50: -1491258404239993096
+      grayGalaxyFarB_51: 4670076950874096678
+      grayGalaxyFarB_52: 855059134795231937
+      grayGalaxyFarB_53: 5675336468106526624
+      grayGalaxyFarB_54: -5643178242396815814
+      grayGalaxyFarB_55: -1290521443662935364
+      grayGalaxyFarB_56: 3381444717320717118
+      grayGalaxyFarB_57: 5053849758827078370
+      grayGalaxyFarB_58: -4028179588896249266
+      grayGalaxyFarB_59: 8588805070734719322
+      grayGalaxyFarB_6: 547932618576061252
+      grayGalaxyFarB_60: -3689416056821659530
+      grayGalaxyFarB_61: -4297783379620923216
+      grayGalaxyFarB_62: -1576598479203706594
+      grayGalaxyFarB_63: 5876012351162411699
+      grayGalaxyFarB_64: 3486540213515249775
+      grayGalaxyFarB_65: -7212972427250462868
+      grayGalaxyFarB_66: -4564603704073142897
+      grayGalaxyFarB_67: -6889780183846386750
+      grayGalaxyFarB_68: -2282379193439929105
+      grayGalaxyFarB_69: 5666252287221054687
+      grayGalaxyFarB_7: -147591127154722327
+      grayGalaxyFarB_70: 1700878368698169884
+      grayGalaxyFarB_71: 7692509698982936251
+      grayGalaxyFarB_72: 2394514721563067171
+      grayGalaxyFarB_73: 5931920527768779387
+      grayGalaxyFarB_74: -1472792304961167663
+      grayGalaxyFarB_75: 915255513316619730
+      grayGalaxyFarB_76: 4105357194949841162
+      grayGalaxyFarB_77: 4402707908625395115
+      grayGalaxyFarB_78: -6201629823750395215
+      grayGalaxyFarB_79: -4050668956397761589
+      grayGalaxyFarB_8: -5894248250710927050
+      grayGalaxyFarB_80: -214740786266198474
+      grayGalaxyFarB_81: 2849105129448278723
+      grayGalaxyFarB_82: -7865986407456380032
+      grayGalaxyFarB_83: 7548239433915325588
+      grayGalaxyFarB_84: 340386067040056376
+      grayGalaxyFarB_85: 1449580512754969835
+      grayGalaxyFarB_86: -411348717691934982
+      grayGalaxyFarB_87: -7555656885923554088
+      grayGalaxyFarB_88: 5535897090027717247
+      grayGalaxyFarB_89: -3986707439901097058
+      grayGalaxyFarB_9: -5572533412777231820
+      grayGalaxyFarB_90: -908185068001484508
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

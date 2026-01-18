@@ -1,181 +1,208 @@
 fileFormatVersion: 2
-guid: e7e3e0c6ca8fecb4d9188de76d7459cf
+guid: 3c65736ec3912204babc5ba90140a885
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2718188910662167590
-    second: grayGalaxyNear_B_0
+      213: 4366200785324574567
+    second: grayGalaxyNearA_0
   - first:
-      213: 6048667927151464910
-    second: grayGalaxyNear_B_1
+      213: -1588443165470764086
+    second: grayGalaxyNearA_1
   - first:
-      213: 1824864387330635501
-    second: grayGalaxyNear_B_2
+      213: 150349447691370531
+    second: grayGalaxyNearA_2
   - first:
-      213: -1378956343500129240
-    second: grayGalaxyNear_B_3
+      213: 3878294653299369798
+    second: grayGalaxyNearA_3
   - first:
-      213: -6427703872926449752
-    second: grayGalaxyNear_B_4
+      213: 6353607643025822463
+    second: grayGalaxyNearA_4
   - first:
-      213: -7039328396430002385
-    second: grayGalaxyNear_B_5
+      213: -6655685113893493688
+    second: grayGalaxyNearA_5
   - first:
-      213: -7985655970835639504
-    second: grayGalaxyNear_B_6
+      213: 5824471338045042972
+    second: grayGalaxyNearA_6
   - first:
-      213: -5547771130739515769
-    second: grayGalaxyNear_B_7
+      213: 4694508245147300681
+    second: grayGalaxyNearA_7
   - first:
-      213: 54142950812564589
-    second: grayGalaxyNear_B_8
+      213: 5501685086844533481
+    second: grayGalaxyNearA_8
   - first:
-      213: 7454469450126011180
-    second: grayGalaxyNear_B_9
+      213: 2468160418530777764
+    second: grayGalaxyNearA_9
   - first:
-      213: 2684649438089922349
-    second: grayGalaxyNear_B_10
+      213: -5082212218030007599
+    second: grayGalaxyNearA_10
   - first:
-      213: 2549797273692881067
-    second: grayGalaxyNear_B_11
+      213: -3600371012208016790
+    second: grayGalaxyNearA_11
   - first:
-      213: 5764674136220690849
-    second: grayGalaxyNear_B_12
+      213: 4820818669679128002
+    second: grayGalaxyNearA_12
   - first:
-      213: -7610196789263904214
-    second: grayGalaxyNear_B_13
+      213: 8687783116684364628
+    second: grayGalaxyNearA_13
   - first:
-      213: -7231578454444558848
-    second: grayGalaxyNear_B_14
+      213: 4285603186472324876
+    second: grayGalaxyNearA_14
   - first:
-      213: -7758705465539899387
-    second: grayGalaxyNear_B_15
+      213: -8205306910724322239
+    second: grayGalaxyNearA_15
   - first:
-      213: -953811517295650806
-    second: grayGalaxyNear_B_16
+      213: -7098714776389870491
+    second: grayGalaxyNearA_16
   - first:
-      213: 8762383962499427931
-    second: grayGalaxyNear_B_17
+      213: 5946712949809779383
+    second: grayGalaxyNearA_17
   - first:
-      213: 8295224170166337037
-    second: grayGalaxyNear_B_18
+      213: 6265579400440999902
+    second: grayGalaxyNearA_18
   - first:
-      213: -6093532268390721294
-    second: grayGalaxyNear_B_19
+      213: 4958285350831121902
+    second: grayGalaxyNearA_19
   - first:
-      213: 5989210327295287646
-    second: grayGalaxyNear_B_20
+      213: -5801606681234853840
+    second: grayGalaxyNearA_20
   - first:
-      213: 7403020455508419691
-    second: grayGalaxyNear_B_21
+      213: -4231160488546603240
+    second: grayGalaxyNearA_21
   - first:
-      213: 6752578800024599897
-    second: grayGalaxyNear_B_22
+      213: 1977467984190469980
+    second: grayGalaxyNearA_22
   - first:
-      213: 6909652330568380278
-    second: grayGalaxyNear_B_23
+      213: -8908141521324870631
+    second: grayGalaxyNearA_23
   - first:
-      213: -93803869553163250
-    second: grayGalaxyNear_B_24
+      213: -5831477392915756093
+    second: grayGalaxyNearA_24
   - first:
-      213: 4360839743634440376
-    second: grayGalaxyNear_B_25
+      213: 9156124459263386935
+    second: grayGalaxyNearA_25
   - first:
-      213: 5346701193674177116
-    second: grayGalaxyNear_B_26
+      213: -6850493950053233314
+    second: grayGalaxyNearA_26
   - first:
-      213: 7446738273381510485
-    second: grayGalaxyNear_B_27
+      213: 6749767386939921666
+    second: grayGalaxyNearA_27
   - first:
-      213: -407671403962272564
-    second: grayGalaxyNear_B_28
+      213: -7409321012461236518
+    second: grayGalaxyNearA_28
   - first:
-      213: 994824955373508633
-    second: grayGalaxyNear_B_29
+      213: -111100251317757055
+    second: grayGalaxyNearA_29
   - first:
-      213: 6191328841888605840
-    second: grayGalaxyNear_B_30
+      213: -4285452603176099465
+    second: grayGalaxyNearA_30
   - first:
-      213: -7724157316818851662
-    second: grayGalaxyNear_B_31
+      213: 5212181947905694494
+    second: grayGalaxyNearA_31
   - first:
-      213: 1275036593815241006
-    second: grayGalaxyNear_B_32
+      213: -8377263576410604802
+    second: grayGalaxyNearA_32
   - first:
-      213: -6734357319765868591
-    second: grayGalaxyNear_B_33
+      213: -349500444127820895
+    second: grayGalaxyNearA_33
   - first:
-      213: 8893485231694208865
-    second: grayGalaxyNear_B_34
+      213: 1379381131770602323
+    second: grayGalaxyNearA_34
   - first:
-      213: 6680333987365941507
-    second: grayGalaxyNear_B_35
+      213: 3805139055927162372
+    second: grayGalaxyNearA_35
   - first:
-      213: 4520840351389004590
-    second: grayGalaxyNear_B_36
+      213: -925409214721571033
+    second: grayGalaxyNearA_36
   - first:
-      213: -7807520023344459905
-    second: grayGalaxyNear_B_37
+      213: -6322557277194412375
+    second: grayGalaxyNearA_37
   - first:
-      213: -7633303677018591124
-    second: grayGalaxyNear_B_38
+      213: -62650006980197003
+    second: grayGalaxyNearA_38
   - first:
-      213: -1520672246376457072
-    second: grayGalaxyNear_B_39
+      213: -8758526357917497182
+    second: grayGalaxyNearA_39
   - first:
-      213: 6625249926877765631
-    second: grayGalaxyNear_B_40
+      213: 6043239382334475032
+    second: grayGalaxyNearA_40
   - first:
-      213: 8725715946574648417
-    second: grayGalaxyNear_B_41
+      213: 113105551193494864
+    second: grayGalaxyNearA_41
   - first:
-      213: 219143556798066789
-    second: grayGalaxyNear_B_42
+      213: -4924943482277959210
+    second: grayGalaxyNearA_42
   - first:
-      213: -6797660519354444208
-    second: grayGalaxyNear_B_43
+      213: 6722359633512836794
+    second: grayGalaxyNearA_43
   - first:
-      213: 7575049897877468848
-    second: grayGalaxyNear_B_44
+      213: -2655299060802124497
+    second: grayGalaxyNearA_44
   - first:
-      213: 3014037663359274231
-    second: grayGalaxyNear_B_45
+      213: 7343680175012085557
+    second: grayGalaxyNearA_45
   - first:
-      213: 1353845113528700272
-    second: grayGalaxyNear_B_46
+      213: -6933358841764128627
+    second: grayGalaxyNearA_46
   - first:
-      213: -1032497946136175567
-    second: grayGalaxyNear_B_47
+      213: -631145663116285163
+    second: grayGalaxyNearA_47
   - first:
-      213: 5084397716692114998
-    second: grayGalaxyNear_B_48
+      213: 6425035751948809214
+    second: grayGalaxyNearA_48
   - first:
-      213: 6975760961693785557
-    second: grayGalaxyNear_B_49
+      213: -6771555444753644933
+    second: grayGalaxyNearA_49
   - first:
-      213: -1814234973544840682
-    second: grayGalaxyNear_B_50
+      213: -1692328335064902654
+    second: grayGalaxyNearA_50
   - first:
-      213: 7608520096783763507
-    second: grayGalaxyNear_B_51
+      213: 7036630506520873028
+    second: grayGalaxyNearA_51
   - first:
-      213: -8316905452442909457
-    second: grayGalaxyNear_B_52
+      213: -2584725054610890214
+    second: grayGalaxyNearA_52
   - first:
-      213: 9117501875679703428
-    second: grayGalaxyNear_B_53
+      213: 1385832912952829459
+    second: grayGalaxyNearA_53
   - first:
-      213: -7732572936855625281
-    second: grayGalaxyNear_B_54
+      213: 3726901315364574382
+    second: grayGalaxyNearA_54
   - first:
-      213: 2834139959336831184
-    second: grayGalaxyNear_B_55
+      213: 9049319762368210550
+    second: grayGalaxyNearA_55
   - first:
-      213: -3792151430327108667
-    second: grayGalaxyNear_B_56
+      213: 2417238960120804586
+    second: grayGalaxyNearA_56
   - first:
-      213: 8236122683644751915
-    second: grayGalaxyNear_B_57
+      213: 3169218578918591310
+    second: grayGalaxyNearA_57
+  - first:
+      213: 1215635760313880845
+    second: grayGalaxyNearA_58
+  - first:
+      213: -7569518563141476141
+    second: grayGalaxyNearA_59
+  - first:
+      213: -956566008600521513
+    second: grayGalaxyNearA_60
+  - first:
+      213: 7297070550772154824
+    second: grayGalaxyNearA_61
+  - first:
+      213: -5731476948514482023
+    second: grayGalaxyNearA_62
+  - first:
+      213: 7032128670451075460
+    second: grayGalaxyNearA_63
+  - first:
+      213: -7118911754257193286
+    second: grayGalaxyNearA_64
+  - first:
+      213: -4110672865066915038
+    second: grayGalaxyNearA_65
+  - first:
+      213: 8057102307838805244
+    second: grayGalaxyNearA_66
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -217,7 +244,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -297,13 +324,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: grayGalaxyNear_B_0
+      name: grayGalaxyNearA_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1024
-        height: 1532
+        x: 7
+        y: 1
+        width: 1065
+        height: 2399
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,18 +339,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad3539b569d074ad0800000000000000
-      internalID: -2718188910662167590
+      spriteID: 7678d4b2b7cd79c30800000000000000
+      internalID: 4366200785324574567
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_1
+      name: grayGalaxyNearA_1
       rect:
         serializedVersion: 2
-        x: 806
-        y: 1353
+        x: 613
+        y: 1968
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac3d7306b57b4f9e0800000000000000
+      internalID: -1588443165470764086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_2
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 1969
         width: 6
         height: 6
       alignment: 0
@@ -334,62 +383,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ec1592abe6f21f350800000000000000
-      internalID: 6048667927151464910
+      spriteID: 32002dda606261200800000000000000
+      internalID: 150349447691370531
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_2
+      name: grayGalaxyNearA_3
       rect:
         serializedVersion: 2
-        x: 886
-        y: 1351
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: de67a12ed78335910800000000000000
-      internalID: 1824864387330635501
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_3
-      rect:
-        serializedVersion: 2
-        x: 896
-        y: 1355
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 82c37e8f286fcdce0800000000000000
-      internalID: -1378956343500129240
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_4
-      rect:
-        serializedVersion: 2
-        x: 912
-        y: 1352
+        x: 587
+        y: 1938
         width: 6
         height: 7
       alignment: 0
@@ -400,547 +405,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8aff0dc02653cc6a0800000000000000
-      internalID: -6427703872926449752
+      spriteID: 647a438607872d530800000000000000
+      internalID: 3878294653299369798
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_5
+      name: grayGalaxyNearA_4
       rect:
         serializedVersion: 2
-        x: 918
-        y: 700
-        width: 106
-        height: 832
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f2738719e184f4e90800000000000000
-      internalID: -7039328396430002385
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_6
-      rect:
-        serializedVersion: 2
-        x: 731
-        y: 1309
-        width: 14
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0335ddf44304d2190800000000000000
-      internalID: -7985655970835639504
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_7
-      rect:
-        serializedVersion: 2
-        x: 948
-        y: 983
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 78e9a19cc8b5203b0800000000000000
-      internalID: -5547771130739515769
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_8
-      rect:
-        serializedVersion: 2
-        x: 418
-        y: 107
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d6c36461aba50c000800000000000000
-      internalID: 54142950812564589
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_9
-      rect:
-        serializedVersion: 2
-        x: 480
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c2b23cb2878937760800000000000000
-      internalID: 7454469450126011180
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_10
-      rect:
-        serializedVersion: 2
-        x: 488
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d274dc7a07ac14520800000000000000
-      internalID: 2684649438089922349
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_11
-      rect:
-        serializedVersion: 2
-        x: 506
-        y: 107
-        width: 7
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ba049bb6c13b26320800000000000000
-      internalID: 2549797273692881067
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_12
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 107
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1a9e057959c300050800000000000000
-      internalID: 5764674136220690849
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_13
-      rect:
-        serializedVersion: 2
-        x: 528
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a225b193756236690800000000000000
-      internalID: -7610196789263904214
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_14
-      rect:
-        serializedVersion: 2
-        x: 536
-        y: 101
-        width: 14
-        height: 13
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 006b671d5b544ab90800000000000000
-      internalID: -7231578454444558848
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_15
-      rect:
-        serializedVersion: 2
-        x: 546
-        y: 104
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 500dc998c7a835490800000000000000
-      internalID: -7758705465539899387
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_16
-      rect:
-        serializedVersion: 2
-        x: 552
-        y: 103
-        width: 11
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a089ae08a7163c2f0800000000000000
-      internalID: -953811517295650806
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_17
-      rect:
-        serializedVersion: 2
-        x: 560
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b5eab5ee9cd3a9970800000000000000
-      internalID: 8762383962499427931
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_18
-      rect:
-        serializedVersion: 2
-        x: 560
-        y: 102
-        width: 11
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d0ebfface6e8e1370800000000000000
-      internalID: 8295224170166337037
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_19
-      rect:
-        serializedVersion: 2
-        x: 568
-        y: 101
-        width: 9
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2f8d033dfac6f6ba0800000000000000
-      internalID: -6093532268390721294
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_20
-      rect:
-        serializedVersion: 2
-        x: 570
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e51698b7f03fd1350800000000000000
-      internalID: 5989210327295287646
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_21
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 103
-        width: 9
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b64a783a1efccb660800000000000000
-      internalID: 7403020455508419691
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_22
-      rect:
-        serializedVersion: 2
-        x: 584
-        y: 101
-        width: 9
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 95dbc4554aaf5bd50800000000000000
-      internalID: 6752578800024599897
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_23
-      rect:
-        serializedVersion: 2
-        x: 592
-        y: 101
-        width: 17
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 67f6afc8f2404ef50800000000000000
-      internalID: 6909652330568380278
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_24
-      rect:
-        serializedVersion: 2
-        x: 602
-        y: 107
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e040abca0edb2bef0800000000000000
-      internalID: -93803869553163250
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_25
-      rect:
-        serializedVersion: 2
-        x: 608
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8b08cb164a0d48c30800000000000000
-      internalID: 4360839743634440376
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_26
-      rect:
-        serializedVersion: 2
-        x: 614
-        y: 101
-        width: 21
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c5a3b19586c433a40800000000000000
-      internalID: 5346701193674177116
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_27
-      rect:
-        serializedVersion: 2
-        x: 632
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 55de5305101285760800000000000000
-      internalID: 7446738273381510485
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_28
-      rect:
-        serializedVersion: 2
-        x: 632
-        y: 100
-        width: 11
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cc47ebd9409a75af0800000000000000
-      internalID: -407671403962272564
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_29
-      rect:
-        serializedVersion: 2
-        x: 638
-        y: 95
-        width: 19
+        x: 815
+        y: 1923
+        width: 16
         height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -950,18 +427,524 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9185bbea6045ecd00800000000000000
-      internalID: 994824955373508633
+      spriteID: ff2d2cc0d7c8c2850800000000000000
+      internalID: 6353607643025822463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_30
+      name: grayGalaxyNearA_5
       rect:
         serializedVersion: 2
-        x: 650
-        y: 107
+        x: 455
+        y: 1857
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 844e589f6a142a3a0800000000000000
+      internalID: -6655685113893493688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_6
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 1862
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c117e9492dda4d050800000000000000
+      internalID: 5824471338045042972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_7
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 1844
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 943b52b506e362140800000000000000
+      internalID: 4694508245147300681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_8
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 1795
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eabe63ff69e95c40800000000000000
+      internalID: 5501685086844533481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_9
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 1759
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4aad433e2daa04220800000000000000
+      internalID: 2468160418530777764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_10
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 1722
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dadb271aea5879b0800000000000000
+      internalID: -5082212218030007599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_11
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 1740
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a624ab5d3a9e80ec0800000000000000
+      internalID: -3600371012208016790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_12
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 1729
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cdabccc90df6e240800000000000000
+      internalID: 4820818669679128002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_13
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 1729
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45b8b9bf6b4319870800000000000000
+      internalID: 8687783116684364628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_14
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 1729
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0f07f95465897b30800000000000000
+      internalID: 4285603186472324876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_15
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 1722
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14c083996d4e02e80800000000000000
+      internalID: -8205306910724322239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_16
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 1722
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56c177f758c4c7d90800000000000000
+      internalID: -7098714776389870491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_17
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 1722
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b290aabbe7f68250800000000000000
+      internalID: 5946712949809779383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_18
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 1722
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edf6a4ba44fc3f650800000000000000
+      internalID: 6265579400440999902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_19
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 1696
+        width: 28
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee5ef47a14e5fc440800000000000000
+      internalID: 4958285350831121902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_20
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 1722
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 030b67e267d8c7fa0800000000000000
+      internalID: -5801606681234853840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_21
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 1719
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81fe28c04f5e745c0800000000000000
+      internalID: -4231160488546603240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_22
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 1729
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c57716097a0617b10800000000000000
+      internalID: 1977467984190469980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_23
+      rect:
+        serializedVersion: 2
+        x: 977
+        y: 1728
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 914f584db7cef5480800000000000000
+      internalID: -8908141521324870631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_24
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 1729
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cb0987253e621fa0800000000000000
+      internalID: -5831477392915756093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_25
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 1723
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 735e8a93fa6111f70800000000000000
+      internalID: 9156124459263386935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_26
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 1721
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5d4d134c082ee0a0800000000000000
+      internalID: -6850493950053233314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_27
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 1720
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20512173dadfbad50800000000000000
+      internalID: 6749767386939921666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_28
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 1721
         width: 7
         height: 6
       alignment: 0
@@ -972,173 +955,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 096a66457c40ce550800000000000000
-      internalID: 6191328841888605840
+      spriteID: ade0961abcdcc2990800000000000000
+      internalID: -7409321012461236518
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_31
+      name: grayGalaxyNearA_29
       rect:
         serializedVersion: 2
-        x: 656
-        y: 107
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2b827cd38d74ec490800000000000000
-      internalID: -7724157316818851662
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_32
-      rect:
-        serializedVersion: 2
-        x: 664
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e214bf1d607d1b110800000000000000
-      internalID: 1275036593815241006
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_33
-      rect:
-        serializedVersion: 2
-        x: 672
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1dfbdc4a2b1ca82a0800000000000000
-      internalID: -6734357319765868591
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_34
-      rect:
-        serializedVersion: 2
-        x: 680
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 16fd052d2b10c6b70800000000000000
-      internalID: 8893485231694208865
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_35
-      rect:
-        serializedVersion: 2
-        x: 696
-        y: 103
-        width: 9
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3017ae91e5055bc50800000000000000
-      internalID: 6680333987365941507
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_36
-      rect:
-        serializedVersion: 2
-        x: 704
-        y: 107
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e233bced8504dbe30800000000000000
-      internalID: 4520840351389004590
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_37
-      rect:
-        serializedVersion: 2
-        x: 712
-        y: 107
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f7fcdcf97ed16a390800000000000000
-      internalID: -7807520023344459905
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_38
-      rect:
-        serializedVersion: 2
-        x: 728
-        y: 107
-        width: 12
+        x: 725
+        y: 1719
+        width: 7
         height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1148,41 +977,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c60bf9cafbe011690800000000000000
-      internalID: -7633303677018591124
+      spriteID: 18b9fb9f8ea457ef0800000000000000
+      internalID: -111100251317757055
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_39
+      name: grayGalaxyNearA_30
       rect:
         serializedVersion: 2
-        x: 559
-        y: 96
-        width: 9
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 09c9fe616ac75eae0800000000000000
-      internalID: -1520672246376457072
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_40
-      rect:
-        serializedVersion: 2
-        x: 187
-        y: 82
-        width: 9
+        x: 799
+        y: 1719
+        width: 7
         height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1192,41 +999,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fff5bb7d4bd91fb50800000000000000
-      internalID: 6625249926877765631
+      spriteID: 7716aed00930784c0800000000000000
+      internalID: -4285452603176099465
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_41
+      name: grayGalaxyNearA_31
       rect:
         serializedVersion: 2
-        x: 361
-        y: 80
+        x: 863
+        y: 1720
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1b5f95cdd3655840800000000000000
+      internalID: 5212181947905694494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_32
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 1711
         width: 10
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1641b8e2c68f71970800000000000000
-      internalID: 8725715946574648417
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_42
-      rect:
-        serializedVersion: 2
-        x: 483
-        y: 79
-        width: 16
         height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1236,20 +1043,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 560b3c167ed8a0300800000000000000
-      internalID: 219143556798066789
+      spriteID: efa3a32792bfdbb80800000000000000
+      internalID: -8377263576410604802
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_43
+      name: grayGalaxyNearA_33
       rect:
         serializedVersion: 2
-        x: 513
-        y: 80
-        width: 11
-        height: 9
+        x: 882
+        y: 1718
+        width: 6
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1258,20 +1065,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0565e20f5cbd9a1a0800000000000000
-      internalID: -6797660519354444208
+      spriteID: 1a38be2a233562bf0800000000000000
+      internalID: -349500444127820895
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_44
+      name: grayGalaxyNearA_34
       rect:
         serializedVersion: 2
-        x: 523
-        y: 80
-        width: 11
-        height: 9
+        x: 896
+        y: 1720
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1280,19 +1087,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0b678de6fbbff1960800000000000000
-      internalID: 7575049897877468848
+      spriteID: 3532011c4db842310800000000000000
+      internalID: 1379381131770602323
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_45
+      name: grayGalaxyNearA_35
       rect:
         serializedVersion: 2
-        x: 532
-        y: 82
-        width: 8
+        x: 923
+        y: 1716
+        width: 7
         height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1302,19 +1109,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7fc8d28294304d920800000000000000
-      internalID: 3014037663359274231
+      spriteID: 406f0859fc19ec430800000000000000
+      internalID: 3805139055927162372
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_46
+      name: grayGalaxyNearA_36
       rect:
         serializedVersion: 2
-        x: 548
-        y: 82
-        width: 8
+        x: 598
+        y: 1697
+        width: 26
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 727c5a4e8394823f0800000000000000
+      internalID: -925409214721571033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_37
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 1713
+        width: 6
         height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1324,19 +1153,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 07dc6c035f2d9c210800000000000000
-      internalID: 1353845113528700272
+      spriteID: 9ae14cc97a3c148a0800000000000000
+      internalID: -6322557277194412375
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_47
+      name: grayGalaxyNearA_38
       rect:
         serializedVersion: 2
-        x: 563
-        y: 84
-        width: 9
+        x: 833
+        y: 1710
+        width: 6
         height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1346,19 +1175,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 13c9b31a694dba1f0800000000000000
-      internalID: -1032497946136175567
+      spriteID: 57505cc862c612ff0800000000000000
+      internalID: -62650006980197003
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_48
+      name: grayGalaxyNearA_39
       rect:
         serializedVersion: 2
-        x: 570
-        y: 78
-        width: 22
+        x: 853
+        y: 1701
+        width: 7
         height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1368,19 +1197,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 63e9d38f8c86f8640800000000000000
-      internalID: 5084397716692114998
+      spriteID: 2a88e60aea6737680800000000000000
+      internalID: -8758526357917497182
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_49
+      name: grayGalaxyNearA_40
       rect:
         serializedVersion: 2
-        x: 587
-        y: 80
-        width: 16
+        x: 550
+        y: 1693
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81b82b42336edd350800000000000000
+      internalID: 6043239382334475032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_41
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 1702
+        width: 7
         height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1390,20 +1241,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5dd9bcfa2a1eec060800000000000000
-      internalID: 6975760961693785557
+      spriteID: 055530946e4d19100800000000000000
+      internalID: 113105551193494864
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_50
+      name: grayGalaxyNearA_42
       rect:
         serializedVersion: 2
-        x: 611
-        y: 80
-        width: 14
-        height: 9
+        x: 565
+        y: 1701
+        width: 9
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1412,18 +1263,238 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 61205ce57ea82d6e0800000000000000
-      internalID: -1814234973544840682
+      spriteID: 6d962ff0ff517abb0800000000000000
+      internalID: -4924943482277959210
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_51
+      name: grayGalaxyNearA_43
       rect:
         serializedVersion: 2
-        x: 618
-        y: 85
+        x: 589
+        y: 1699
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abe25f7587e9a4d50800000000000000
+      internalID: 6722359633512836794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_44
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 1693
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f250674929b762bd0800000000000000
+      internalID: -2655299060802124497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_45
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 1705
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53f7cafe53ef9e560800000000000000
+      internalID: 7343680175012085557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_46
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 1699
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d88d5503ed2c7cf90800000000000000
+      internalID: -6933358841764128627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_47
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 1702
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51bec640d58bd37f0800000000000000
+      internalID: -631145663116285163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_48
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 1697
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef3f710a9ff4a2950800000000000000
+      internalID: 6425035751948809214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_49
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 1704
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b72c892433a9602a0800000000000000
+      internalID: -6771555444753644933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_50
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 1704
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 204d0297854a388e0800000000000000
+      internalID: -1692328335064902654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_51
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 1699
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4488adcf92227a160800000000000000
+      internalID: 7036630506520873028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_52
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 1706
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a12adddd146312cd0800000000000000
+      internalID: -2584725054610890214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_53
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 1704
         width: 10
         height: 7
       alignment: 0
@@ -1434,41 +1505,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 338873367b4e69960800000000000000
-      internalID: 7608520096783763507
+      spriteID: 316299e11b77b3310800000000000000
+      internalID: 1385832912952829459
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_52
+      name: grayGalaxyNearA_54
       rect:
         serializedVersion: 2
-        x: 624
-        y: 80
-        width: 11
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fe481ac4e8a649c80800000000000000
-      internalID: -8316905452442909457
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: grayGalaxyNear_B_53
-      rect:
-        serializedVersion: 2
-        x: 645
-        y: 79
-        width: 9
+        x: 875
+        y: 1696
+        width: 12
         height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1478,19 +1527,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 481b8da36afd78e70800000000000000
-      internalID: 9117501875679703428
+      spriteID: ea4dd37100d98b330800000000000000
+      internalID: 3726901315364574382
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_54
+      name: grayGalaxyNearA_55
       rect:
         serializedVersion: 2
-        x: 656
-        y: 80
-        width: 9
+        x: 880
+        y: 1705
+        width: 7
         height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1500,19 +1549,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fb1ebe202e160b490800000000000000
-      internalID: -7732572936855625281
+      spriteID: 67621e6e064a59d70800000000000000
+      internalID: 9049319762368210550
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_55
+      name: grayGalaxyNearA_56
       rect:
         serializedVersion: 2
-        x: 683
-        y: 82
-        width: 8
+        x: 889
+        y: 1699
+        width: 7
         height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1522,19 +1571,85 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0d80300f643e45720800000000000000
-      internalID: 2834139959336831184
+      spriteID: ae43c33f602cb8120800000000000000
+      internalID: 2417238960120804586
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_56
+      name: grayGalaxyNearA_57
       rect:
         serializedVersion: 2
-        x: 696
-        y: 80
-        width: 9
+        x: 935
+        y: 1696
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4bc20c91835bfb20800000000000000
+      internalID: 3169218578918591310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_58
+      rect:
+        serializedVersion: 2
+        x: 949
+        y: 1699
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0155c5884eced010800000000000000
+      internalID: 1215635760313880845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_59
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 1701
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d02a3bc8faa3f690800000000000000
+      internalID: -7569518563141476141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_60
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 1705
+        width: 6
         height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1544,19 +1659,129 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5cbfcd4ad529f5bc0800000000000000
-      internalID: -3792151430327108667
+      spriteID: 7d41725884899b2f0800000000000000
+      internalID: -956566008600521513
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grayGalaxyNear_B_57
+      name: grayGalaxyNearA_61
       rect:
         serializedVersion: 2
-        x: 787
-        y: 80
-        width: 16
+        x: 710
+        y: 1699
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c10dbf1107644560800000000000000
+      internalID: 7297070550772154824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_62
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 1699
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 998547df414b570b0800000000000000
+      internalID: -5731476948514482023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_63
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 1693
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 489831994c3279160800000000000000
+      internalID: 7032128670451075460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_64
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 1693
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab6a5242a7b843d90800000000000000
+      internalID: -7118911754257193286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_65
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 1693
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22b69d9fec4f3f6c0800000000000000
+      internalID: -4110672865066915038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grayGalaxyNearA_66
+      rect:
+        serializedVersion: 2
+        x: 983
+        y: 1696
+        width: 9
         height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1566,8 +1791,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b20be25a1f59c4270800000000000000
-      internalID: 8236122683644751915
+      spriteID: cf446b15cd390df60800000000000000
+      internalID: 8057102307838805244
       vertices: []
       indices: 
       edges: []
@@ -1576,7 +1801,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -1586,64 +1811,73 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      grayGalaxyNear_B_0: -2718188910662167590
-      grayGalaxyNear_B_1: 6048667927151464910
-      grayGalaxyNear_B_10: 2684649438089922349
-      grayGalaxyNear_B_11: 2549797273692881067
-      grayGalaxyNear_B_12: 5764674136220690849
-      grayGalaxyNear_B_13: -7610196789263904214
-      grayGalaxyNear_B_14: -7231578454444558848
-      grayGalaxyNear_B_15: -7758705465539899387
-      grayGalaxyNear_B_16: -953811517295650806
-      grayGalaxyNear_B_17: 8762383962499427931
-      grayGalaxyNear_B_18: 8295224170166337037
-      grayGalaxyNear_B_19: -6093532268390721294
-      grayGalaxyNear_B_2: 1824864387330635501
-      grayGalaxyNear_B_20: 5989210327295287646
-      grayGalaxyNear_B_21: 7403020455508419691
-      grayGalaxyNear_B_22: 6752578800024599897
-      grayGalaxyNear_B_23: 6909652330568380278
-      grayGalaxyNear_B_24: -93803869553163250
-      grayGalaxyNear_B_25: 4360839743634440376
-      grayGalaxyNear_B_26: 5346701193674177116
-      grayGalaxyNear_B_27: 7446738273381510485
-      grayGalaxyNear_B_28: -407671403962272564
-      grayGalaxyNear_B_29: 994824955373508633
-      grayGalaxyNear_B_3: -1378956343500129240
-      grayGalaxyNear_B_30: 6191328841888605840
-      grayGalaxyNear_B_31: -7724157316818851662
-      grayGalaxyNear_B_32: 1275036593815241006
-      grayGalaxyNear_B_33: -6734357319765868591
-      grayGalaxyNear_B_34: 8893485231694208865
-      grayGalaxyNear_B_35: 6680333987365941507
-      grayGalaxyNear_B_36: 4520840351389004590
-      grayGalaxyNear_B_37: -7807520023344459905
-      grayGalaxyNear_B_38: -7633303677018591124
-      grayGalaxyNear_B_39: -1520672246376457072
-      grayGalaxyNear_B_4: -6427703872926449752
-      grayGalaxyNear_B_40: 6625249926877765631
-      grayGalaxyNear_B_41: 8725715946574648417
-      grayGalaxyNear_B_42: 219143556798066789
-      grayGalaxyNear_B_43: -6797660519354444208
-      grayGalaxyNear_B_44: 7575049897877468848
-      grayGalaxyNear_B_45: 3014037663359274231
-      grayGalaxyNear_B_46: 1353845113528700272
-      grayGalaxyNear_B_47: -1032497946136175567
-      grayGalaxyNear_B_48: 5084397716692114998
-      grayGalaxyNear_B_49: 6975760961693785557
-      grayGalaxyNear_B_5: -7039328396430002385
-      grayGalaxyNear_B_50: -1814234973544840682
-      grayGalaxyNear_B_51: 7608520096783763507
-      grayGalaxyNear_B_52: -8316905452442909457
-      grayGalaxyNear_B_53: 9117501875679703428
-      grayGalaxyNear_B_54: -7732572936855625281
-      grayGalaxyNear_B_55: 2834139959336831184
-      grayGalaxyNear_B_56: -3792151430327108667
-      grayGalaxyNear_B_57: 8236122683644751915
-      grayGalaxyNear_B_6: -7985655970835639504
-      grayGalaxyNear_B_7: -5547771130739515769
-      grayGalaxyNear_B_8: 54142950812564589
-      grayGalaxyNear_B_9: 7454469450126011180
+      grayGalaxyNearA_0: 4366200785324574567
+      grayGalaxyNearA_1: -1588443165470764086
+      grayGalaxyNearA_10: -5082212218030007599
+      grayGalaxyNearA_11: -3600371012208016790
+      grayGalaxyNearA_12: 4820818669679128002
+      grayGalaxyNearA_13: 8687783116684364628
+      grayGalaxyNearA_14: 4285603186472324876
+      grayGalaxyNearA_15: -8205306910724322239
+      grayGalaxyNearA_16: -7098714776389870491
+      grayGalaxyNearA_17: 5946712949809779383
+      grayGalaxyNearA_18: 6265579400440999902
+      grayGalaxyNearA_19: 4958285350831121902
+      grayGalaxyNearA_2: 150349447691370531
+      grayGalaxyNearA_20: -5801606681234853840
+      grayGalaxyNearA_21: -4231160488546603240
+      grayGalaxyNearA_22: 1977467984190469980
+      grayGalaxyNearA_23: -8908141521324870631
+      grayGalaxyNearA_24: -5831477392915756093
+      grayGalaxyNearA_25: 9156124459263386935
+      grayGalaxyNearA_26: -6850493950053233314
+      grayGalaxyNearA_27: 6749767386939921666
+      grayGalaxyNearA_28: -7409321012461236518
+      grayGalaxyNearA_29: -111100251317757055
+      grayGalaxyNearA_3: 3878294653299369798
+      grayGalaxyNearA_30: -4285452603176099465
+      grayGalaxyNearA_31: 5212181947905694494
+      grayGalaxyNearA_32: -8377263576410604802
+      grayGalaxyNearA_33: -349500444127820895
+      grayGalaxyNearA_34: 1379381131770602323
+      grayGalaxyNearA_35: 3805139055927162372
+      grayGalaxyNearA_36: -925409214721571033
+      grayGalaxyNearA_37: -6322557277194412375
+      grayGalaxyNearA_38: -62650006980197003
+      grayGalaxyNearA_39: -8758526357917497182
+      grayGalaxyNearA_4: 6353607643025822463
+      grayGalaxyNearA_40: 6043239382334475032
+      grayGalaxyNearA_41: 113105551193494864
+      grayGalaxyNearA_42: -4924943482277959210
+      grayGalaxyNearA_43: 6722359633512836794
+      grayGalaxyNearA_44: -2655299060802124497
+      grayGalaxyNearA_45: 7343680175012085557
+      grayGalaxyNearA_46: -6933358841764128627
+      grayGalaxyNearA_47: -631145663116285163
+      grayGalaxyNearA_48: 6425035751948809214
+      grayGalaxyNearA_49: -6771555444753644933
+      grayGalaxyNearA_5: -6655685113893493688
+      grayGalaxyNearA_50: -1692328335064902654
+      grayGalaxyNearA_51: 7036630506520873028
+      grayGalaxyNearA_52: -2584725054610890214
+      grayGalaxyNearA_53: 1385832912952829459
+      grayGalaxyNearA_54: 3726901315364574382
+      grayGalaxyNearA_55: 9049319762368210550
+      grayGalaxyNearA_56: 2417238960120804586
+      grayGalaxyNearA_57: 3169218578918591310
+      grayGalaxyNearA_58: 1215635760313880845
+      grayGalaxyNearA_59: -7569518563141476141
+      grayGalaxyNearA_6: 5824471338045042972
+      grayGalaxyNearA_60: -956566008600521513
+      grayGalaxyNearA_61: 7297070550772154824
+      grayGalaxyNearA_62: -5731476948514482023
+      grayGalaxyNearA_63: 7032128670451075460
+      grayGalaxyNearA_64: -7118911754257193286
+      grayGalaxyNearA_65: -4110672865066915038
+      grayGalaxyNearA_66: 8057102307838805244
+      grayGalaxyNearA_7: 4694508245147300681
+      grayGalaxyNearA_8: 5501685086844533481
+      grayGalaxyNearA_9: 2468160418530777764
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
