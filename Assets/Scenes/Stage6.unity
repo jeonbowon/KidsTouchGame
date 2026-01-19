@@ -515,6 +515,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 749058688603855500, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1654967730474905549, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 540
@@ -555,9 +559,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1787333832368809840, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1878555138307460730, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
       propertyPath: m_Name
       value: BG_Root
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218200181296473056, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040373056332020344, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4486285903751997998, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107188054235087345, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5130259712221363494, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277025998804587426, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6286685200748116711, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7999949275048491813, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -904,6 +944,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageBackgroundConfig
   enabledLayerKeys:
   - Base
+  - GalaxyFar
+  - PlanetFar
   exclusive: 1
 --- !u!4 &1950232873
 Transform:

@@ -640,6 +640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageBackgroundConfig
   enabledLayerKeys:
   - Base
+  - GalaxyNear
+  - PlanetNear
   exclusive: 1
 --- !u!4 &895156991
 Transform:

@@ -167,6 +167,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1787333832368809840, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_Size.x
+      value: 5.9925995
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787333832368809840, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_Size.y
+      value: 5.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787333832368809840, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6563168631046575252, guid: 5b8b9b926a90d1548bc036c5ed043149, type: 3}
+    - target: {fileID: 1787333832368809840, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1878555138307460730, guid: d95bfd972b39c324c91843acd41aa38e, type: 3}
       propertyPath: m_Name
       value: BG_Root
@@ -697,6 +713,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageBackgroundConfig
   enabledLayerKeys:
   - Base
+  - GalaxyFar
+  - PlanetFar
   exclusive: 1
 --- !u!4 &1313375083
 Transform:
