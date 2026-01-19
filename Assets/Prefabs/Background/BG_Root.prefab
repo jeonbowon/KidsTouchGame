@@ -100,6 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8683842876629754864}
   - component: {fileID: 4534361735507146702}
+  - component: {fileID: 5316229234358681805}
   m_Layer: 0
   m_Name: GalaxyNearScroll
   m_TagString: Untagged
@@ -141,6 +142,20 @@ MonoBehaviour:
   scrollSpeed: 0.22
   scrollDown: 1
   padding: 1.02
+--- !u!114 &5316229234358681805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273860761443544310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a2b54ec3538ed41adcb8cc9549102d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundLayer
+  key: GalaxyNear
+  root: {fileID: 273860761443544310}
 --- !u!1 &1282496052427926455
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,262 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45d8a074745421f46865086af5e246d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundStageController
-  baseScroll: {fileID: 714474603837382124}
-  galaxyFarScroll: {fileID: 8811900965620533722}
-  galaxyNearScroll: {fileID: 4534361735507146702}
-  planetFarScroll: {fileID: 859118579624183263}
-  planetNearScroll: {fileID: 4418573644264464677}
-  presets:
-  - baseLayer:
-      enabled: 1
-      sprite: {fileID: 0}
-      speed: 0.6
-      scrollDown: 1
-    galaxyFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.12
-      scrollDown: 1
-    galaxyNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.22
-      scrollDown: 1
-    planetFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.08
-      scrollDown: 1
-    planetNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.16
-      scrollDown: 1
-  - baseLayer:
-      enabled: 1
-      sprite: {fileID: 0}
-      speed: 0.6
-      scrollDown: 1
-    galaxyFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.12
-      scrollDown: 1
-    galaxyNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.22
-      scrollDown: 1
-    planetFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.08
-      scrollDown: 1
-    planetNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.16
-      scrollDown: 1
-  - baseLayer:
-      enabled: 1
-      sprite: {fileID: 0}
-      speed: 0.6
-      scrollDown: 1
-    galaxyFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.12
-      scrollDown: 1
-    galaxyNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.22
-      scrollDown: 1
-    planetFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.08
-      scrollDown: 1
-    planetNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.16
-      scrollDown: 1
-  - baseLayer:
-      enabled: 1
-      sprite: {fileID: 0}
-      speed: 0.6
-      scrollDown: 1
-    galaxyFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.12
-      scrollDown: 1
-    galaxyNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.22
-      scrollDown: 1
-    planetFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.08
-      scrollDown: 1
-    planetNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.16
-      scrollDown: 1
-  - baseLayer:
-      enabled: 1
-      sprite: {fileID: 0}
-      speed: 0.6
-      scrollDown: 1
-    galaxyFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.12
-      scrollDown: 1
-    galaxyNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.22
-      scrollDown: 1
-    planetFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.08
-      scrollDown: 1
-    planetNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.16
-      scrollDown: 1
-  - baseLayer:
-      enabled: 1
-      sprite: {fileID: 0}
-      speed: 0.6
-      scrollDown: 1
-    galaxyFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.12
-      scrollDown: 1
-    galaxyNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.22
-      scrollDown: 1
-    planetFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.08
-      scrollDown: 1
-    planetNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.16
-      scrollDown: 1
-  - baseLayer:
-      enabled: 1
-      sprite: {fileID: 0}
-      speed: 0.6
-      scrollDown: 1
-    galaxyFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.12
-      scrollDown: 1
-    galaxyNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.22
-      scrollDown: 1
-    planetFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.08
-      scrollDown: 1
-    planetNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.16
-      scrollDown: 1
-  - baseLayer:
-      enabled: 1
-      sprite: {fileID: 0}
-      speed: 0.6
-      scrollDown: 1
-    galaxyFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.12
-      scrollDown: 1
-    galaxyNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.22
-      scrollDown: 1
-    planetFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.08
-      scrollDown: 1
-    planetNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.16
-      scrollDown: 1
-  - baseLayer:
-      enabled: 1
-      sprite: {fileID: 0}
-      speed: 0.6
-      scrollDown: 1
-    galaxyFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.12
-      scrollDown: 1
-    galaxyNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.22
-      scrollDown: 1
-    planetFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.08
-      scrollDown: 1
-    planetNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.16
-      scrollDown: 1
-  - baseLayer:
-      enabled: 1
-      sprite: {fileID: 0}
-      speed: 0.6
-      scrollDown: 1
-    galaxyFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.12
-      scrollDown: 1
-    galaxyNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.22
-      scrollDown: 1
-    planetFar:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.08
-      scrollDown: 1
-    planetNear:
-      enabled: 0
-      sprite: {fileID: 0}
-      speed: 0.16
-      scrollDown: 1
+  defaultExclusive: 1
 --- !u!1 &4293813359709753193
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8044708153789941127}
   - component: {fileID: 8811900965620533722}
+  - component: {fileID: 8420604036817683607}
   m_Layer: 0
   m_Name: GalaxyFarScroll
   m_TagString: Untagged
@@ -587,6 +348,20 @@ MonoBehaviour:
   scrollSpeed: 0.12
   scrollDown: 1
   padding: 1.02
+--- !u!114 &8420604036817683607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4293813359709753193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a2b54ec3538ed41adcb8cc9549102d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundLayer
+  key: GalaxyFar
+  root: {fileID: 4293813359709753193}
 --- !u!1 &5225013016075411008
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 53798405524254575}
   - component: {fileID: 4418573644264464677}
+  - component: {fileID: 5540927030746082544}
   m_Layer: 0
   m_Name: PlanetNearScroll
   m_TagString: Untagged
@@ -638,6 +414,20 @@ MonoBehaviour:
   scrollSpeed: 0.16
   scrollDown: 1
   padding: 1.02
+--- !u!114 &5540927030746082544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5225013016075411008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a2b54ec3538ed41adcb8cc9549102d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundLayer
+  key: PlanetNear
+  root: {fileID: 5225013016075411008}
 --- !u!1 &5255419647107909143
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,6 +438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5647055534012060022}
   - component: {fileID: 859118579624183263}
+  - component: {fileID: 6338909413709142468}
   m_Layer: 0
   m_Name: PlanetFarScroll
   m_TagString: Untagged
@@ -689,6 +480,20 @@ MonoBehaviour:
   scrollSpeed: 0.08
   scrollDown: 1
   padding: 1.02
+--- !u!114 &6338909413709142468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5255419647107909143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a2b54ec3538ed41adcb8cc9549102d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundLayer
+  key: PlanetFar
+  root: {fileID: 5255419647107909143}
 --- !u!1 &5284476182311572948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,6 +1134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4827592431708884136}
   - component: {fileID: 714474603837382124}
+  - component: {fileID: 8847144386597850967}
   m_Layer: 0
   m_Name: BaseScroll
   m_TagString: Untagged
@@ -1370,6 +1176,20 @@ MonoBehaviour:
   scrollSpeed: 0.6
   scrollDown: 1
   padding: 1.02
+--- !u!114 &8847144386597850967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8974305671803587648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68a2b54ec3538ed41adcb8cc9549102d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundLayer
+  key: Base
+  root: {fileID: 8974305671803587648}
 --- !u!1 &9056887472941195585
 GameObject:
   m_ObjectHideFlags: 0
