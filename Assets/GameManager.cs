@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     // 코인 표시용 텍스트
     [SerializeField] private TMP_Text coinText;
+
     [Header("Score / Stage Clear")]
     [SerializeField] private int scoreToClearStage = 100;
 
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
     private GameOverPanel gameOverPanelInstance;
 
     [Header("Continue Reward")]
+    [Tooltip("Continue 성공 시 지급할 생명 수")]
     [SerializeField] private int continueLives = 3;
 
     [Header("Ad Wait/Retry")]
@@ -122,9 +124,6 @@ public class GameManager : MonoBehaviour
         Debug.Log($"[GM] stage={CurrentStage} -> enemyBulletSpeed={r}");
         return r;
     }
-
-    // Continue는 이번 런에서 1번만
-    private bool bonusContinueUsed = false;
 
     // GameOver 처리 중 중복 방지
     private bool isHandlingGameOverFlow = false;
@@ -184,7 +183,7 @@ public class GameManager : MonoBehaviour
             RebindStageSceneObjects();
             EnsureGameOverPanel();
 
-            // 스테이지 진입 시 미리 로드(AdManager가 Ready면 이제 절대 깨지지 않음)
+            // 스테이지 진입 시 미리 로드
             if (AdManager.I != null)
             {
                 AdManager.I.RequestRewardedReload();
@@ -257,7 +256,6 @@ public class GameManager : MonoBehaviour
         UpdateStageUI();
         UpdateScoreUI();
         UpdateCoinUI();
-        UpdateCoinUI();
     }
 
     private TMP_Text SafeFindTMP(string name)
@@ -277,7 +275,6 @@ public class GameManager : MonoBehaviour
         isStageClearing = false;
         aliveEnemyCount = 0;
 
-        bonusContinueUsed = false;
         isHandlingGameOverFlow = false;
         _choice = GameOverChoice.None;
         _continueSucceededThisFlow = false;
@@ -322,7 +319,6 @@ public class GameManager : MonoBehaviour
         aliveEnemyCount = 0;
         score = 0;
 
-        bonusContinueUsed = false;
         isHandlingGameOverFlow = false;
         _choice = GameOverChoice.None;
         _continueSucceededThisFlow = false;
@@ -337,10 +333,6 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Co_StartStage(int stage)
     {
-        // 스테이지 진입 시 배경 프리셋 적용
-        //var bg = FindObjectOfType<BackgroundStageController>(true);
-        //if (bg != null) bg.ApplyStage(stage);
-
         isStageRunning = false;
         isStageClearing = false;
 
@@ -389,7 +381,7 @@ public class GameManager : MonoBehaviour
         isStageClearing = true;
         isStageRunning = false;
 
-        // 상점 코인 보상 (스테이지 종료 시 확실하게 지급)
+        // 상점 코인 보상
         if (stageClearStoreCoins > 0)
         {
             CosmeticSaveManager.AddCoins(stageClearStoreCoins);
@@ -400,13 +392,12 @@ public class GameManager : MonoBehaviour
 
         yield return ShowMessageFor("STAGE CLEAR", 1.5f);
 
-        // ✅ 여기부터 추가: Stage 클리어 보상(해금) = Unlocked만 열기 + 연출
+        // Stage 클리어 보상(해금) = Unlocked만 열기 + 연출
         var newlyUnlocked = GrantStageUnlocksAndGetNew(CurrentStage);
         if (newlyUnlocked != null && newlyUnlocked.Count > 0)
         {
             yield return Co_PlayUnlockPresentation(newlyUnlocked);
         }
-        // ✅ 여기까지 추가
 
         if (CurrentStage < maxStage)
         {
@@ -506,7 +497,7 @@ public class GameManager : MonoBehaviour
         isStageClearing = false;
         isRespawning = false;
 
-        Debug.Log($"[GameManager] Co_GameOver 진입 (bonusContinueUsed={bonusContinueUsed})");
+        Debug.Log("[GameManager] Co_GameOver 진입 (UNLIMITED CONTINUE MODE)");
 
         KillAllPlayers();
         EnsureGameOverPanel();
@@ -514,31 +505,23 @@ public class GameManager : MonoBehaviour
         // ✅ 완전 정지
         ForcePause(true);
 
-        // 첫 GameOver: 선택 UI + Continue 재시도(실패해도 메뉴로 튕기지 않음)
-        if (!bonusContinueUsed)
-        {
-            if (!isHandlingGameOverFlow)
-                StartCoroutine(Co_FirstGameOverChoiceFlow());
-            yield break;
-        }
-
-        // 두번째 GameOver: 선택 없이 전면광고 시도 후 메뉴
+        // ✅ 무조건 "선택 UI(Continue/Menu)" 흐름으로 (Continue 횟수 제한 없음)
         if (!isHandlingGameOverFlow)
-            StartCoroutine(Co_SecondGameOverAdsThenMenuFlow());
+            StartCoroutine(Co_GameOverChoiceFlow_Unlimited());
 
         yield break;
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 첫 GameOver: Continue/Menu 선택
-    private IEnumerator Co_FirstGameOverChoiceFlow()
+    // GameOver: Continue/Menu 선택 (무제한 Continue)
+    private IEnumerator Co_GameOverChoiceFlow_Unlimited()
     {
         isHandlingGameOverFlow = true;
         _continueSucceededThisFlow = false;
 
         while (true)
         {
-            // ✅ Continue 성공으로 게임이 재개됐으면 즉시 이 코루틴을 종료
+            // ✅ Continue 성공으로 게임이 재개됐으면 즉시 종료
             if (!isGameOver || _continueSucceededThisFlow)
             {
                 isHandlingGameOverFlow = false;
@@ -561,7 +544,6 @@ public class GameManager : MonoBehaviour
 
             while (_choice == GameOverChoice.None)
             {
-                // ✅ 중간에 Continue 성공으로 상태가 바뀌면 바로 탈출
                 if (!isGameOver || _continueSucceededThisFlow)
                 {
                     isHandlingGameOverFlow = false;
@@ -578,10 +560,10 @@ public class GameManager : MonoBehaviour
                 yield break;
             }
 
-            // CONTINUE (실패하면 패널 유지 + 안내 + 버튼 다시 활성화, 게임 재개 금지)
+            // CONTINUE (실패하면 패널 유지 + 안내 + 버튼 재활성화)
             yield return Co_TryContinueWithRewardedWait();
 
-            // ✅ Continue 성공이면 여기서 종료 (다음 while 반복으로 Show 재호출 방지)
+            // ✅ Continue 성공이면 종료
             if (!isGameOver || _continueSucceededThisFlow)
             {
                 isHandlingGameOverFlow = false;
@@ -659,14 +641,13 @@ public class GameManager : MonoBehaviour
         {
             success = ok;
             done = true;
-        }, "FirstContinue");
+        }, "Continue_Unlimited");
 
         while (!done) yield return null;
 
         if (success)
         {
-            bonusContinueUsed = true;
-
+            // 무제한 Continue: 플래그/카운트 제한 없음
             Lives = Mathf.Max(1, continueLives);
             UpdateLivesUI();
 
@@ -674,7 +655,7 @@ public class GameManager : MonoBehaviour
             isStageRunning = true;
             isRespawning = false;
 
-            _continueSucceededThisFlow = true; // ✅ 바깥 while 종료 트리거
+            _continueSucceededThisFlow = true;
 
             if (gameOverPanelInstance != null)
                 gameOverPanelInstance.Hide();
@@ -684,7 +665,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.05f);
             SpawnPlayer();
 
-            Debug.Log("[GAME] Continue 성공 → 부활 후 재개");
+            Debug.Log("[GAME] Continue 성공 → 부활 후 재개 (UNLIMITED)");
             yield break;
         }
 
@@ -741,7 +722,7 @@ public class GameManager : MonoBehaviour
             {
                 showOk = ok;
                 done = true;
-            }, "FirstMenuToMenu_Interstitial");
+            }, "MenuToMenu_Interstitial");
 
             while (!done) yield return null;
         }
@@ -757,44 +738,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
-    private IEnumerator Co_SecondGameOverAdsThenMenuFlow()
-    {
-        isHandlingGameOverFlow = true;
-
-        if (gameOverPanelInstance != null)
-            gameOverPanelInstance.Show("GAME OVER", showButtons: false);
-
-        if (AdManager.I != null)
-            AdManager.I.RequestInterstitialReload();
-
-        float t = 0f;
-        while (AdManager.I != null && !AdManager.I.IsInterstitialReady && t < interstitialWaitTimeout)
-        {
-            if (!AdManager.I.IsInterstitialLoading && AdManager.I.InterstitialLoadFailed)
-                break;
-
-            t += Time.unscaledDeltaTime;
-            yield return null;
-        }
-
-        if (AdManager.I != null && AdManager.I.IsInterstitialReady)
-        {
-            bool done = false;
-            AdManager.I.ShowInterstitial(_ => done = true, "SecondDeathToMenu_Interstitial");
-            while (!done) yield return null;
-        }
-
-        ForcePause(false);
-        DestroyGameOverPanelInstance();
-        SceneManager.LoadScene(mainMenuSceneName);
-
-        isHandlingGameOverFlow = false;
-    }
-
     private void OnPanelContinue()
     {
         if (!isGameOver) return;
-        if (bonusContinueUsed) return;
         Debug.Log("[UI] Continue 버튼 클릭");
         _choice = GameOverChoice.Continue;
     }
@@ -1006,7 +952,7 @@ public class GameManager : MonoBehaviour
     }
 
     // ============================================================
-       //  Cosmetics Unlock (Stage Clear) - 추가된 영역
+    //  Cosmetics Unlock (Stage Clear)
     // ============================================================
 
     private void EnsureCosmeticDb()
@@ -1050,7 +996,6 @@ public class GameManager : MonoBehaviour
         unlockPopupInScene = Instantiate(prefab, canvas.transform);
         DontDestroyOnLoad(unlockPopupInScene.gameObject);
     }
-
 
     private List<CosmeticItem> GrantStageUnlocksAndGetNew(int clearedStage)
     {

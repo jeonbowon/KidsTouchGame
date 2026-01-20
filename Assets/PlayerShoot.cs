@@ -40,6 +40,12 @@ public class PlayerShoot : MonoBehaviour
     private float nextFireTime = 0f;
     private PlayerMovement movement;
 
+    [Header("Weapon (Cosmetic)")]
+    [Tooltip("CosmeticDatabase 에셋을 연결하세요(Ship Store에서 쓰는 그 DB).")]
+    [SerializeField] private CosmeticDatabase cosmeticDb;
+
+    private CosmeticItem equippedWeapon; // category == Weapon
+
     void Awake()
     {
         if (cam == null) cam = Camera.main;
@@ -47,6 +53,11 @@ public class PlayerShoot : MonoBehaviour
 
         movement = GetComponent<PlayerMovement>();
         aimDir = Vector2.up;
+    }
+
+    void Start()
+    {
+        RefreshEquippedWeapon();
     }
 
     void Update()
@@ -90,12 +101,29 @@ public class PlayerShoot : MonoBehaviour
             Vector2 forward = Vector2.up;
             float angle = Vector2.Angle(dir, forward);
 
-            // 기존: 90도를 기준으로 뒤쪽은 무조건 앞으로
-            // 개선: maxAimHalfAngle(Inspector) 기준으로 더 좁힐 수 있게
             if (angle > maxAimHalfAngle)
                 aimDir = forward;
             else
                 aimDir = dir.normalized;
+        }
+    }
+
+    public void RefreshEquippedWeapon()
+    {
+        equippedWeapon = null;
+        if (cosmeticDb == null) return;
+
+        // Weapon만 사용 (BulletSkin 호환 제거)
+        string wid = CosmeticSaveManager.GetEquipped(CosmeticCategory.Weapon);
+        if (string.IsNullOrEmpty(wid)) return;
+
+        var it = cosmeticDb.GetById(wid);
+        if (it == null) return;
+
+        if (it.category == CosmeticCategory.Weapon)
+        {
+            equippedWeapon = it;
+            equippedWeapon.IsWeaponValid(); // 내부검증
         }
     }
 
@@ -110,38 +138,70 @@ public class PlayerShoot : MonoBehaviour
         if (dir.sqrMagnitude < 1e-4f)
             dir = Vector2.up;
 
-        // 1) 메인 총구
-        ShootOneBullet(firePoint, dir);
+        int shotCount = GetWeaponShotCount();
+        float spreadAngle = GetWeaponSpreadAngle();
+        float finalInterval = GetFinalFireInterval();
 
-        // 2) Twin 모드면 두 번째 총구
+        ShootMultiBullets(firePoint, dir, shotCount, spreadAngle);
+
         if (twinMode && twinFirePoint != null)
-            ShootOneBullet(twinFirePoint, dir);
+            ShootMultiBullets(twinFirePoint, dir, shotCount, spreadAngle);
 
-        nextFireTime = Time.time + fireInterval;
+        nextFireTime = Time.time + finalInterval;
+    }
+
+    private void ShootMultiBullets(Transform muzzle, Vector2 dir, int shotCount, float spreadAngle)
+    {
+        shotCount = Mathf.Max(1, shotCount);
+
+        if (shotCount == 1 || spreadAngle <= 0.0001f)
+        {
+            ShootOneBullet(muzzle, dir);
+            return;
+        }
+
+        float half = spreadAngle * 0.5f;
+
+        for (int i = 0; i < shotCount; i++)
+        {
+            float t = (shotCount == 1) ? 0.5f : (float)i / (shotCount - 1);
+            float ang = Mathf.Lerp(-half, +half, t);
+            Vector2 rotated = Rotate(dir, ang);
+            ShootOneBullet(muzzle, rotated);
+        }
+    }
+
+    private static Vector2 Rotate(Vector2 v, float degrees)
+    {
+        float rad = degrees * Mathf.Deg2Rad;
+        float cs = Mathf.Cos(rad);
+        float sn = Mathf.Sin(rad);
+        return new Vector2(v.x * cs - v.y * sn, v.x * sn + v.y * cs);
     }
 
     private void ShootOneBullet(Transform muzzle, Vector2 dir)
     {
         var b = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
 
-        // 기본 속도는 프리팹의 baseSpeed
         float speed = b.baseSpeed;
 
-        // overrideBaseSpeed가 설정되어 있으면 그 값으로 덮어씀
         if (overrideBaseSpeed > 0f)
             speed = overrideBaseSpeed;
 
-        // 총알 속도 보너스가 활성이라면 배율 적용
         if (IsBulletSpeedBonusActive)
             speed *= bulletSpeedBonusMul;
+
+        speed *= GetWeaponSpeedMul();
 
         b.baseSpeed = speed;
 
         b.owner = BulletOwner.Player;
+
+        // Bullet에 Weapon 주입
+        b.ApplyWeapon(equippedWeapon);
+
         b.SetDirection(dir);
     }
-
-    // ────────────── 보너스 관련 공개 API ──────────────
 
     public bool IsBulletSpeedBonusActive => Time.time < bulletSpeedBonusEndTime;
 
@@ -151,10 +211,33 @@ public class PlayerShoot : MonoBehaviour
         bulletSpeedBonusEndTime = Time.time + duration;
     }
 
-    // ────────────── 코스메틱 적용 API (추가) ──────────────
     public void SetBulletPrefab(Bullet newPrefab)
     {
         if (newPrefab == null) return;
         bulletPrefab = newPrefab;
+    }
+
+    private float GetFinalFireInterval()
+    {
+        if (equippedWeapon == null) return fireInterval;
+        return fireInterval * Mathf.Max(0.1f, equippedWeapon.fireIntervalMul);
+    }
+
+    private int GetWeaponShotCount()
+    {
+        if (equippedWeapon == null) return 1;
+        return Mathf.Max(1, equippedWeapon.shotCount);
+    }
+
+    private float GetWeaponSpreadAngle()
+    {
+        if (equippedWeapon == null) return 0f;
+        return Mathf.Max(0f, equippedWeapon.spreadAngle);
+    }
+
+    private float GetWeaponSpeedMul()
+    {
+        if (equippedWeapon == null) return 1f;
+        return Mathf.Max(0.1f, equippedWeapon.speedMul);
     }
 }

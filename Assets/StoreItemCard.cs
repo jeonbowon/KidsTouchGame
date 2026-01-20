@@ -8,6 +8,7 @@ public class StoreItemCard : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image iconImage;
     [SerializeField] private TMP_Text titleText;
+    [SerializeField] private TMP_Text descText;      // optional (weapon stats)
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private TMP_Text stateText;
     [SerializeField] private Button actionButton;
@@ -51,10 +52,8 @@ public class StoreItemCard : MonoBehaviour
     {
         if (_item == null) return false;
 
-        // 0이면 처음부터 구매 가능
         if (_item.unlockOnStageClear <= 0) return true;
 
-        // Stage로 Unlocked 되었거나, 이미 Owned이면 구매 가능 취급
         return CosmeticSaveManager.IsUnlocked(_item.id) || CosmeticSaveManager.IsOwned(_item.id);
     }
 
@@ -79,6 +78,22 @@ public class StoreItemCard : MonoBehaviour
                 iconImage.color = (!unlocked && !owned && !isEquipped) ? iconLockedColor : iconNormalColor;
             else
                 iconImage.color = iconNormalColor;
+        }
+
+        // Weapon description (optional)
+        if (descText != null)
+        {
+            if (_item.category == CosmeticCategory.Weapon)
+            {
+                var lines = _item.GetWeaponDescriptionLines();
+                descText.text = (lines != null && lines.Count > 0) ? string.Join("\n", lines) : "";
+                descText.gameObject.SetActive(!string.IsNullOrEmpty(descText.text));
+            }
+            else
+            {
+                descText.text = "";
+                descText.gameObject.SetActive(false);
+            }
         }
 
         if (priceText != null)

@@ -158,6 +158,7 @@ MonoBehaviour:
   bulletSpeedBonusMul: 1
   maxAimHalfAngle: 70
   aimDir: {x: 0, y: 1}
+  cosmeticDb: {fileID: 11400000, guid: d33662cb5004393408b28cfa5e3350ab, type: 2}
 --- !u!114 &-6007922334837466443
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,8 +1,8 @@
 public enum CosmeticCategory
 {
-    ShipSkin = 0,
-    // ³ªÁß¿¡: EngineTrail, BulletSkin, Wings, etc...
-    BulletSkin,
+    ShipSkin = 0,        
+    Weapon = 1,
+
     ThrusterVfx,
     ExplosionVfx,
     SoundPack
