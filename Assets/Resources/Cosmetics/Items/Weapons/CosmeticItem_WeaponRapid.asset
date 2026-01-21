@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477d48cd4fe509b49a76cec25cda6912, type: 3}
+  m_Name: CosmeticItem_WeaponRapid
+  m_EditorClassIdentifier: Assembly-CSharp::CosmeticItem
+  id: weapon_rapid
+  displayName: "Rapid (\uC18D\uC0AC\uD615)"
+  category: 1
+  unlockOnStageClear: 7
+  priceCoins: 10000
+  icon: {fileID: -9138755767786231198, guid: bcc90c912856c694ba14117e6e1d9152, type: 3}
+  shipSprite: {fileID: 0}
+  damageMul: 0.85
+  speedMul: 1
+  fireIntervalMul: 0.75
+  shotCount: 1
+  spreadAngle: 0
+  usePierce: 0
+  pierceCount: 0
+  useHoming: 0
+  homingStrength: 0
+  turnRate: 0
+  useExplosion: 0
+  explosionRadius: 0
+  hitRadiusMul: 1
+  critChance: 0
+  critMul: 1.5
+  slowPercent: 0
+  slowTime: 0
+  maxWeight: 5
