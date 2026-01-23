@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "TNB/Cosmetics/Cosmetic Item", fileName = "CosmeticItem_")]
@@ -16,7 +16,7 @@ public class CosmeticItem : ScriptableObject
     // Unlock / Price
     // -------------------------------------------------
     [Header("Unlock Rule")]
-    [Tooltip("0ÀÌ¸é Ã³À½ºÎÅÍ ±¸¸Å °¡´É(Unlocked). 1ÀÌ¸é Stage1 Å¬¸®¾î ½Ã Unlocked ...")]
+    [Tooltip("0ì´ë©´ ì²˜ìŒë¶€í„° êµ¬ë§¤ ê°€ëŠ¥(Unlocked). 1ì´ë©´ Stage1 í´ë¦¬ì–´ ì‹œ Unlocked ...")]
     public int unlockOnStageClear = 0;
 
     [Header("Price (Soft Currency)")]
@@ -37,6 +37,11 @@ public class CosmeticItem : ScriptableObject
     // =================================================
     // =============== WEAPON DATA =====================
     // =================================================
+
+    [Header("Weapon - Visual")]
+    [Tooltip("ì´ì•Œ(íˆ¬ì‚¬ì²´) ìŠ¤í”„ë¼ì´íŠ¸. ë¹„ì›Œë‘ë©´ Bullet í”„ë¦¬íŒ¹ì˜ ê¸°ë³¸ ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ ê·¸ëŒ€ë¡œ ì‚¬ìš©í•©ë‹ˆë‹¤.")]
+    public Sprite bulletSprite;
+
     [Header("Weapon - Core Stats (Weight 0)")]
     [Tooltip("Damage multiplier (1 = base)")]
     public float damageMul = 1f;
@@ -145,37 +150,37 @@ public class CosmeticItem : ScriptableObject
             return lines;
 
         if (Mathf.Abs(speedMul - 1f) > 0.01f)
-            lines.Add($"Åº¼Ó {(speedMul > 1f ? "+" : "")}{Mathf.RoundToInt((speedMul - 1f) * 100f)}%");
+            lines.Add($"íƒ„ì† {(speedMul > 1f ? "+" : "")}{Mathf.RoundToInt((speedMul - 1f) * 100f)}%");
 
         if (Mathf.Abs(fireIntervalMul - 1f) > 0.01f)
-            lines.Add($"¿¬»ç {(fireIntervalMul < 1f ? "+" : "")}{Mathf.RoundToInt((1f - fireIntervalMul) * 100f)}%");
+            lines.Add($"ì—°ì‚¬ {(fireIntervalMul < 1f ? "+" : "")}{Mathf.RoundToInt((1f - fireIntervalMul) * 100f)}%");
 
         if (Mathf.Abs(damageMul - 1f) > 0.01f)
-            lines.Add($"µ¥¹ÌÁö {(damageMul > 1f ? "+" : "")}{Mathf.RoundToInt((damageMul - 1f) * 100f)}%");
+            lines.Add($"ë°ë¯¸ì§€ {(damageMul > 1f ? "+" : "")}{Mathf.RoundToInt((damageMul - 1f) * 100f)}%");
 
         if (shotCount > 1)
-            lines.Add($"¹ß»ç ¼ö +{shotCount - 1}");
+            lines.Add($"ë°œì‚¬ ìˆ˜ +{shotCount - 1}");
 
         if (spreadAngle > 0f)
-            lines.Add($"¹ß»ç°¢ +{spreadAngle}¡Æ");
+            lines.Add($"ë°œì‚¬ê° +{spreadAngle}Â°");
 
         if (usePierce)
-            lines.Add($"°üÅë +{pierceCount}");
+            lines.Add($"ê´€í†µ +{pierceCount}");
 
         if (useHoming)
-            lines.Add("À¯µµ ÅºÈ¯");
+            lines.Add("ìœ ë„ íƒ„í™˜");
 
         if (useExplosion)
-            lines.Add("¹üÀ§ µ¥¹ÌÁö");
+            lines.Add("ë²”ìœ„ ë°ë¯¸ì§€");
 
         if (hitRadiusMul > 1.01f)
-            lines.Add($"ÆÇÁ¤ +{Mathf.RoundToInt((hitRadiusMul - 1f) * 100f)}%");
+            lines.Add($"íŒì • +{Mathf.RoundToInt((hitRadiusMul - 1f) * 100f)}%");
 
         if (critChance > 0f)
-            lines.Add($"Ä¡¸íÅ¸ {Mathf.RoundToInt(critChance * 100f)}%");
+            lines.Add($"ì¹˜ëª…íƒ€ {Mathf.RoundToInt(critChance * 100f)}%");
 
         if (slowPercent > 0f)
-            lines.Add("½½·Î¿ì È¿°ú");
+            lines.Add("ìŠ¬ë¡œìš° íš¨ê³¼");
 
         return lines;
     }

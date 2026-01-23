@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 477d48cd4fe509b49a76cec25cda6912, type: 3}
-  m_Name: CosmeticItem_WeaponSniper
+  m_Name: CosmeticItem_WeaponTwin1
   m_EditorClassIdentifier: Assembly-CSharp::CosmeticItem
-  id: weapon_sniper
-  displayName: "Sniper (\uC800\uACA9\uD3EC)"
+  id: weapon_twin1
+  displayName: "Twin 1 (\uC30D\uBC1C)"
   category: 1
   unlockOnStageClear: 2
-  priceCoins: 1000
-  icon: {fileID: -4199692420837788071, guid: 1d3b1e4117a86164399ea658d5a8d479, type: 3}
+  priceCoins: 100
+  icon: {fileID: -3182672492752990383, guid: 5f58d74d1f4d1cd4cb8418a6f8cbb0e0, type: 3}
   shipSprite: {fileID: 0}
-  damageMul: 1.6
-  speedMul: 1.25
-  fireIntervalMul: 1.35
-  shotCount: 1
-  spreadAngle: 0
+  damageMul: 0.8
+  speedMul: 1
+  fireIntervalMul: 1.1
+  shotCount: 3
+  spreadAngle: 20
   usePierce: 0
   pierceCount: 0
   useHoming: 0

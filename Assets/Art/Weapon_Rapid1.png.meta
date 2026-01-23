@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: bcc90c912856c694ba14117e6e1d9152
+guid: 3d51ac4f5c933f941a222a6d8eede05d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9138755767786231198
-    second: Weapon_Rapid_0
-  - first:
-      213: -6385639612814085549
-    second: Weapon_Rapid_1
+      213: 3014876059548210706
+    second: Weapon_Rapid1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -129,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Weapon_Rapid_0
+      name: Weapon_Rapid1_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 64
         y: 0
-        width: 198
-        height: 201
+        width: 71
+        height: 193
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,30 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 26aac046c0e9c2180800000000000000
-      internalID: -9138755767786231198
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Weapon_Rapid_1
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 169
-        width: 23
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 352bd8eca96a167a0800000000000000
-      internalID: -6385639612814085549
+      spriteID: 216533b7dcdf6d920800000000000000
+      internalID: 3014876059548210706
       vertices: []
       indices: 
       edges: []
@@ -176,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -186,8 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Weapon_Rapid_0: -9138755767786231198
-      Weapon_Rapid_1: -6385639612814085549
+      Weapon_Rapid1_0: 3014876059548210706
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

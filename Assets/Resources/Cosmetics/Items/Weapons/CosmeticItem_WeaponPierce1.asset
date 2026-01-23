@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 477d48cd4fe509b49a76cec25cda6912, type: 3}
-  m_Name: CosmeticItem_WeaponSniper
+  m_Name: CosmeticItem_WeaponPierce1
   m_EditorClassIdentifier: Assembly-CSharp::CosmeticItem
-  id: weapon_sniper
-  displayName: "Sniper (\uC800\uACA9\uD3EC)"
+  id: weapon_pierce1
+  displayName: "Pierce 1 (\uAD00\uD1B5\uD615)"
   category: 1
-  unlockOnStageClear: 2
-  priceCoins: 1000
-  icon: {fileID: -4199692420837788071, guid: 1d3b1e4117a86164399ea658d5a8d479, type: 3}
+  unlockOnStageClear: 3
+  priceCoins: 300
+  icon: {fileID: 7726592338139483099, guid: aebdcc8b79b0d9c49b93e4b19645ae6f, type: 3}
   shipSprite: {fileID: 0}
-  damageMul: 1.6
-  speedMul: 1.25
-  fireIntervalMul: 1.35
+  damageMul: 1.2
+  speedMul: 1
+  fireIntervalMul: 1
   shotCount: 1
   spreadAngle: 0
-  usePierce: 0
-  pierceCount: 0
+  usePierce: 1
+  pierceCount: 2
   useHoming: 0
   homingStrength: 0
   turnRate: 0

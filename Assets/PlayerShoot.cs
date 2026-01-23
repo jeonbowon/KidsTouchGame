@@ -41,7 +41,7 @@ public class PlayerShoot : MonoBehaviour
     private PlayerMovement movement;
 
     [Header("Weapon (Cosmetic)")]
-    [Tooltip("CosmeticDatabase 에셋을 연결하세요(Ship Store에서 쓰는 그 DB).")]
+    [Tooltip("비워두면 Resources에서 자동 로드합니다.")]
     [SerializeField] private CosmeticDatabase cosmeticDb;
 
     private CosmeticItem equippedWeapon; // category == Weapon

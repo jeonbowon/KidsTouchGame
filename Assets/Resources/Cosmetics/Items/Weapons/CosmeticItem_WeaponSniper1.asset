@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 477d48cd4fe509b49a76cec25cda6912, type: 3}
-  m_Name: CosmeticItem_WeaponSniper
+  m_Name: CosmeticItem_WeaponSniper1
   m_EditorClassIdentifier: Assembly-CSharp::CosmeticItem
-  id: weapon_sniper
+  id: weapon_sniper1
   displayName: "Sniper (\uC800\uACA9\uD3EC)"
   category: 1
   unlockOnStageClear: 2
   priceCoins: 1000
-  icon: {fileID: -4199692420837788071, guid: 1d3b1e4117a86164399ea658d5a8d479, type: 3}
+  icon: {fileID: -4547296011273321953, guid: c05615a9f5fc5394795088db0b3d734c, type: 3}
   shipSprite: {fileID: 0}
-  damageMul: 1.6
-  speedMul: 1.25
-  fireIntervalMul: 1.35
+  damageMul: 1.7
+  speedMul: 1.35
+  fireIntervalMul: 1.25
   shotCount: 1
   spreadAngle: 0
   usePierce: 0

@@ -23,6 +23,11 @@ public class Bullet : MonoBehaviour, IBullet
 
     private float speedOverride = -1f;
 
+    // Visual
+    private SpriteRenderer sr;
+    private Sprite initialSprite;
+    private Vector3 _initialLocalScale;
+
     // Weapon runtime (optional)
     private int damage = 1;
     private float critChance = 0f;
@@ -33,7 +38,6 @@ public class Bullet : MonoBehaviour, IBullet
     private float turnRate = 0f;
 
     private readonly HashSet<int> _hitOnce = new HashSet<int>();
-    private Vector3 _initialLocalScale;
 
     public void SetOwner(BulletOwner o) => owner = o;
 
@@ -60,8 +64,7 @@ public class Bullet : MonoBehaviour, IBullet
         if (weapon == null || weapon.category != CosmeticCategory.Weapon)
             return;
 
-        // 대표님 CosmeticItem에는 "damage"가 없고 damageMul만 존재
-        // Bullet은 기본 데미지를 1로 두고 damageMul을 곱한 값을 런타임 데미지로 사용
+        // ==== 스탯 적용 ====
         damage = Mathf.Max(0, Mathf.RoundToInt(1f * weapon.damageMul));
 
         critChance = Mathf.Clamp01(weapon.critChance);
@@ -75,6 +78,15 @@ public class Bullet : MonoBehaviour, IBullet
 
         float hitMul = Mathf.Max(0.1f, weapon.hitRadiusMul);
         transform.localScale = _initialLocalScale * hitMul;
+
+        // ==== 비주얼(스킨) 적용 ====
+        // bulletSprite 우선, 없으면 icon 사용
+        if (sr != null)
+        {
+            Sprite s = weapon.bulletSprite != null ? weapon.bulletSprite : weapon.icon;
+            if (s != null)
+                sr.sprite = s;
+        }
     }
 
     void Awake()
@@ -85,6 +97,9 @@ public class Bullet : MonoBehaviour, IBullet
 
         col = GetComponent<Collider2D>();
         col.isTrigger = true;
+
+        sr = GetComponentInChildren<SpriteRenderer>(true);
+        if (sr != null) initialSprite = sr.sprite;
 
         _initialLocalScale = transform.localScale;
     }
@@ -102,6 +117,9 @@ public class Bullet : MonoBehaviour, IBullet
         turnRate = 0f;
 
         transform.localScale = _initialLocalScale;
+
+        // 기본 스프라이트로 리셋 (그 뒤 PlayerShoot에서 ApplyWeapon으로 다시 바뀜)
+        if (sr != null) sr.sprite = initialSprite;
 
         ApplyVelocityAndRotation();
 
@@ -141,7 +159,7 @@ public class Bullet : MonoBehaviour, IBullet
         float rad = clamped * Mathf.Deg2Rad;
         float cs = Mathf.Cos(rad);
         float sn = Mathf.Sin(rad);
-        return new Vector2(from.x * cs - from.y * sn, from.x * sn + from.y * sn + from.y * 0f).normalized;
+        return new Vector2(from.x * cs - from.y * sn, from.x * sn + from.y * cs).normalized;
     }
 
     private static Transform FindNearestEnemy(Vector2 pos, float radius)
