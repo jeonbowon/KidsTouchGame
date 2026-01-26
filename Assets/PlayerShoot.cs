@@ -35,6 +35,7 @@ public class PlayerShoot : MonoBehaviour
     public float maxAimHalfAngle = 90f;
 
     [Header("디버그")]
+    public bool debugWeaponLog = true;
     public Vector2 aimDir = Vector2.up;
 
     private float nextFireTime = 0f;
@@ -44,7 +45,7 @@ public class PlayerShoot : MonoBehaviour
     [Tooltip("비워두면 Resources에서 자동 로드합니다.")]
     [SerializeField] private CosmeticDatabase cosmeticDb;
 
-    private CosmeticItem equippedWeapon; // category == Weapon
+    private CosmeticItem equippedWeapon;
 
     void Awake()
     {
@@ -53,10 +54,14 @@ public class PlayerShoot : MonoBehaviour
 
         movement = GetComponent<PlayerMovement>();
         aimDir = Vector2.up;
+
+        EnsureCosmeticDb();
+        RefreshEquippedWeapon();
     }
 
-    void Start()
+    void OnEnable()
     {
+        EnsureCosmeticDb();
         RefreshEquippedWeapon();
     }
 
@@ -64,13 +69,8 @@ public class PlayerShoot : MonoBehaviour
     {
         UpdateAimDirectionFromMovement();
 
-        bool wantFire = false;
-
-        if (autoFire)
-        {
-            wantFire = true;
-        }
-        else
+        bool wantFire = autoFire;
+        if (!autoFire)
         {
             if (allowKeyboard && Keyboard.current != null && Keyboard.current.spaceKey.isPressed)
                 wantFire = true;
@@ -80,6 +80,26 @@ public class PlayerShoot : MonoBehaviour
         {
             Fire(aimDir);
         }
+    }
+
+    private void EnsureCosmeticDb()
+    {
+        if (cosmeticDb != null) return;
+
+        // 대표님 프로젝트 기준 경로 우선
+        cosmeticDb = Resources.Load<CosmeticDatabase>("Cosmetics/CosmeticDatabase");
+        if (cosmeticDb == null)
+            cosmeticDb = Resources.Load<CosmeticDatabase>("CosmeticDatabase");
+
+        if (cosmeticDb == null)
+        {
+            var all = Resources.LoadAll<CosmeticDatabase>("");
+            if (all != null && all.Length > 0)
+                cosmeticDb = all[0];
+        }
+
+        if (debugWeaponLog)
+            Debug.Log($"[WeaponDBG] EnsureCosmeticDb => {(cosmeticDb == null ? "NULL" : cosmeticDb.name)}");
     }
 
     void UpdateAimDirectionFromMovement()
@@ -106,29 +126,59 @@ public class PlayerShoot : MonoBehaviour
             else
                 aimDir = dir.normalized;
         }
+        else
+        {
+            aimDir = Vector2.up;
+        }
     }
 
     public void RefreshEquippedWeapon()
     {
-        equippedWeapon = null;
-        if (cosmeticDb == null) return;
+        EnsureCosmeticDb();
 
-        // Weapon만 사용 (BulletSkin 호환 제거)
+        equippedWeapon = null;
+        if (cosmeticDb == null)
+        {
+            if (debugWeaponLog) Debug.Log("[WeaponDBG] cosmeticDb NULL -> equippedWeapon NULL");
+            return;
+        }
+
         string wid = CosmeticSaveManager.GetEquipped(CosmeticCategory.Weapon);
-        if (string.IsNullOrEmpty(wid)) return;
+
+        if (debugWeaponLog) Debug.Log($"[WeaponDBG] saved equipped weapon id = '{wid}'");
+
+        if (string.IsNullOrEmpty(wid))
+        {
+            if (debugWeaponLog) Debug.Log("[WeaponDBG] wid empty -> equippedWeapon NULL");
+            return;
+        }
 
         var it = cosmeticDb.GetById(wid);
-        if (it == null) return;
 
-        if (it.category == CosmeticCategory.Weapon)
+        if (it == null)
         {
-            equippedWeapon = it;
-            equippedWeapon.IsWeaponValid(); // 내부검증
+            if (debugWeaponLog) Debug.Log($"[WeaponDBG] cosmeticDb.GetById('{wid}') => NULL");
+            return;
         }
+
+        if (it.category != CosmeticCategory.Weapon)
+        {
+            if (debugWeaponLog) Debug.Log($"[WeaponDBG] item category not Weapon => {it.category}");
+            return;
+        }
+
+        equippedWeapon = it;
+        equippedWeapon.IsWeaponValid();
+
+        if (debugWeaponLog)
+            Debug.Log($"[WeaponDBG] equippedWeapon OK => id={equippedWeapon.id}, pierceCount={equippedWeapon.pierceCount}, usePierce={equippedWeapon.usePierce}");
     }
 
     public void Fire(Vector2 dir)
     {
+        // 여기서 매번 갱신: 스토어 장착 변경이 100% 반영됨
+        RefreshEquippedWeapon();
+
         if (bulletPrefab == null || firePoint == null)
         {
             Debug.LogWarning("[PlayerShoot] bulletPrefab 또는 firePoint가 설정되지 않았습니다.");
@@ -194,12 +244,13 @@ public class PlayerShoot : MonoBehaviour
         speed *= GetWeaponSpeedMul();
 
         b.baseSpeed = speed;
-
         b.owner = BulletOwner.Player;
 
-        // Bullet에 Weapon 주입
-        b.ApplyWeapon(equippedWeapon);
+        // 여기가 핵심: 실제로 무엇이 들어가는지 로그로 확정
+        if (debugWeaponLog)
+            Debug.Log($"[WeaponDBG] ApplyWeapon => {(equippedWeapon == null ? "NULL" : equippedWeapon.id)} pierceCount={(equippedWeapon == null ? -1 : equippedWeapon.pierceCount)}");
 
+        b.ApplyWeapon(equippedWeapon);
         b.SetDirection(dir);
     }
 
@@ -209,12 +260,6 @@ public class PlayerShoot : MonoBehaviour
     {
         bulletSpeedBonusMul = Mathf.Max(1f, mul);
         bulletSpeedBonusEndTime = Time.time + duration;
-    }
-
-    public void SetBulletPrefab(Bullet newPrefab)
-    {
-        if (newPrefab == null) return;
-        bulletPrefab = newPrefab;
     }
 
     private float GetFinalFireInterval()

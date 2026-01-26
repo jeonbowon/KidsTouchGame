@@ -19,6 +19,7 @@ MonoBehaviour:
   priceCoins: 100
   icon: {fileID: -8905356251452925904, guid: a481f1f9ecaaa3b448fa2ac3f007422d, type: 3}
   shipSprite: {fileID: 0}
+  bulletSprite: {fileID: 0}
   damageMul: 0.7
   speedMul: 1
   fireIntervalMul: 0.95

@@ -41,8 +41,8 @@ public class EnemyBullet : MonoBehaviour, IBullet
     // 오너(팀킬 방지용)
     private BulletOwner _owner = BulletOwner.Enemy;
 
-    // 물리
     private Rigidbody2D _rb;
+    private Collider2D _col;
 
     // ===== IBullet 구현 =====
     public void SetOwner(BulletOwner owner) => _owner = owner;
@@ -58,26 +58,33 @@ public class EnemyBullet : MonoBehaviour, IBullet
 
         float ang = Mathf.Atan2(_dir.y, _dir.x) * Mathf.Rad2Deg + 90f;
         transform.rotation = Quaternion.Euler(0, 0, ang);
+
+        ApplyVelocity();
     }
 
     public void SetSpeed(float s)
     {
         speed = Mathf.Max(0f, s);
+        ApplyVelocity();
     }
-    // ========================
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _col = GetComponent<Collider2D>();
 
+        // 트리거는 물리 업데이트(FixedUpdate) 기반으로 안정적으로 처리
+        _col.isTrigger = true;
+
+        // EnemyBullet은 “물리로 튕기는 물체”가 아니라 “날아가는 트리거”다.
+        // Dynamic도 가능하지만, 안정성을 위해 Kinematic 권장.
+        _rb.bodyType = RigidbodyType2D.Kinematic;
         _rb.gravityScale = 0f;
-        _rb.angularVelocity = 0f;
-        _rb.rotation = 0f;
         _rb.freezeRotation = true;
-        _rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
-        var col = GetComponent<Collider2D>();
-        col.isTrigger = true;
+        // 충돌 안정성
+        _rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        _rb.interpolation = RigidbodyInterpolation2D.Interpolate;
     }
 
     void OnEnable()
@@ -85,17 +92,23 @@ public class EnemyBullet : MonoBehaviour, IBullet
         _spawned = true;
         CancelInvoke(nameof(Despawn));
         Invoke(nameof(Despawn), lifetime);
+
+        ApplyVelocity();
     }
 
     void OnDisable()
     {
         _spawned = false;
         CancelInvoke(nameof(Despawn));
+        if (_rb != null) _rb.linearVelocity = Vector2.zero;
     }
 
-    void Update()
+    private void ApplyVelocity()
     {
-        transform.Translate(_dir * speed * Time.deltaTime, Space.World);
+        if (_rb == null) return;
+        if (!_spawned) return;
+
+        _rb.linearVelocity = _dir * speed;
     }
 
     private bool CanPlayHitSfxThisFrame()
@@ -127,14 +140,8 @@ public class EnemyBullet : MonoBehaviour, IBullet
 
         if (hitSfx != null && CanPlayHitSfxThisFrame())
         {
-            if (SfxManager.I != null)
-            {
-                SfxManager.I.PlayExplosion(hitSfx, hitSfxVolume);
-            }
-            else
-            {
-                AudioSource.PlayClipAtPoint(hitSfx, pos, hitSfxVolume);
-            }
+            if (SfxManager.I != null) SfxManager.I.PlayExplosion(hitSfx, hitSfxVolume);
+            else AudioSource.PlayClipAtPoint(hitSfx, pos, hitSfxVolume);
         }
     }
 
@@ -149,40 +156,37 @@ public class EnemyBullet : MonoBehaviour, IBullet
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // 1) Player에 맞았을 때
+        // Player 피격
         if (_owner == BulletOwner.Enemy && other.CompareTag("Player"))
         {
-            // ✅ 플레이어 죽음 처리는 PlayerHealth가 담당하도록 통일
             var ph = other.GetComponent<PlayerHealth>();
             if (ph != null && ph.IsInvincible)
             {
-                // 무적이면: 큰 폭발만 보여주고 총알만 사라짐
                 SpawnHitEffect(hitEffectOnPlayer, transform.position, explosionScaleOnPlayerHit);
                 Despawn();
                 return;
             }
 
-            // 무적이 아니면: PlayerHealth.Die() 호출(중복 호출돼도 내부 dead 플래그로 안전)
-            if (ph != null)
-                ph.Die();
+            if (ph != null) ph.Die();
 
             SpawnHitEffect(hitEffectOnPlayer, transform.position, explosionScaleOnPlayerHit);
             Despawn();
             return;
         }
 
-        // 2) 플레이어 탄과 서로 부딪혔을 때
+        // PlayerBullet과 충돌
         Bullet playerBullet = other.GetComponent<Bullet>();
         if (playerBullet != null && playerBullet.owner == BulletOwner.Player)
         {
-            // 총알끼리 부딪힐 땐 연기 적은 작은 폭발
             Vector3 mid = (transform.position + playerBullet.transform.position) * 0.5f;
-            // 만약 hitEffectOnBullet 이 비어있으면 hitEffectOnPlayer 를 대신 사용
             GameObject fxPrefab = hitEffectOnBullet != null ? hitEffectOnBullet : hitEffectOnPlayer;
 
             SpawnHitEffect(fxPrefab, mid, explosionScaleOnBulletHit);
 
-            playerBullet.DespawnFromOutside();
+            // pierce 소비는 Bullet이 한다
+            playerBullet.OnHitByEnemyBullet(_col);
+
+            // 적탄은 항상 사라진다.
             Despawn();
         }
     }
@@ -192,10 +196,7 @@ public class EnemyBullet : MonoBehaviour, IBullet
         if (!_spawned) return;
         _spawned = false;
 
-        // ⭕ Destroy 하지 않고 풀로 되돌아감
-        if (this != null && gameObject != null)
-        {
-            gameObject.SetActive(false);
-        }
+        if (_rb != null) _rb.linearVelocity = Vector2.zero;
+        gameObject.SetActive(false);
     }
 }

@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private AudioClip playerExplodeSfx;
 
     [Header("Hit 설정")]
+    // 평상시에는 Enemy/EnemyBullet 둘 다 치명타로 처리
     public string[] lethalTags = { "Enemy", "EnemyBullet" };
 
     [Header("Invincibility")]
@@ -42,65 +43,64 @@ public class PlayerHealth : MonoBehaviour
     {
         if (dead) return;
 
-        // 무적이면: 플레이어는 죽지 않고, 상대만 폭파/제거
+        // =========================
+        // 무적 처리 (중요)
+        // =========================
         if (IsInvincible)
         {
-            foreach (var t in lethalTags)
+            //    EnemyBullet은 여기서 절대 처리하지 않는다.
+            //    EnemyBullet.cs가 PlayerHealth.IsInvincible을 보고 자기 스스로 이펙트+Despawn 한다.
+            //    PlayerHealth가 EnemyBullet까지 건드리면 "중복 처리"가 발생해서
+            //    pierce가 랜덤처럼 보이거나, 탄-탄 충돌이 이상하게 보이는 현상이 생긴다.
+            if (other.CompareTag("Enemy"))
             {
-                if (other.CompareTag(t))
-                {
-                    HandleInvincibleCollision(other);
-                    return;
-                }
+                HandleInvincibleCollision_EnemyOnly(other);
             }
             return;
         }
 
-        // 평상시: lethalTags 충돌이면 죽음
+        // =========================
+        // 평상시 처리: lethalTags면 죽음
+        // =========================
         foreach (var t in lethalTags)
         {
-            if (other.CompareTag(t))
-            {
-                // Enemy와 충돌로 죽는 경우: 적도 같이 터뜨리되(점수/드랍 없음), 소리는 나게
-                if (other.CompareTag("Enemy"))
-                {
-                    var galaga = other.GetComponent<EnemyGalaga>();
-                    if (galaga != null)
-                    {
-                        galaga.DespawnWithFxAndSfxNoReward();
-                    }
-                    else
-                    {
-                        // EnemyGalaga가 아닌 적이면, 최소한 이펙트라도
-                        if (explosionPrefab != null)
-                            Instantiate(explosionPrefab, other.transform.position, Quaternion.identity);
-                        Destroy(other.gameObject);
-                    }
-                }
+            if (!other.CompareTag(t)) continue;
 
-                Die();
-                return;
+            // Enemy와 충돌로 죽는 경우: 적도 같이 터뜨리되(점수/드랍 없음), 소리는 나게
+            if (other.CompareTag("Enemy"))
+            {
+                var galaga = other.GetComponent<EnemyGalaga>();
+                if (galaga != null)
+                {
+                    galaga.DespawnWithFxAndSfxNoReward();
+                }
+                else
+                {
+                    // EnemyGalaga가 아닌 적이면, 최소한 이펙트라도
+                    if (explosionPrefab != null)
+                        Instantiate(explosionPrefab, other.transform.position, Quaternion.identity);
+                    Destroy(other.gameObject);
+                }
             }
+
+            Die();
+            return;
         }
     }
 
-    private void HandleInvincibleCollision(Collider2D other)
+    /// <summary>
+    /// 무적 중에는 "Enemy만" 처리한다.
+    /// EnemyBullet은 PlayerHealth에서 처리하지 않는다(EnemyBullet.cs가 처리).
+    /// </summary>
+    private void HandleInvincibleCollision_EnemyOnly(Collider2D other)
     {
-        // 1) 상대가 EnemyBullet이면: 이 총알만 폭발 후 비활성(풀)로
-        var eb = other.GetComponent<EnemyBullet>();
-        if (eb != null)
-        {
-            eb.DespawnWithEffectOnInvincibleHit();
-            return;
-        }
-
-        // 2) 그 외(Enemy 등): 폭발 이펙트 만들고, "점수 없이" 제거
+        // Enemy 폭발 이펙트 만들고, "점수 없이" 제거
         GameObject fx = invincibleHitExplosionPrefab != null ? invincibleHitExplosionPrefab : explosionPrefab;
         if (fx != null)
             Instantiate(fx, other.transform.position, Quaternion.identity);
 
-        // EnemyGalaga는 점수/아이템 없이 제거하는 전용 함수로 처리(무적 충돌은 조용히 제거 유지)
-		// 무적 충돌에서도 적 폭발음이 필요하면: 조용히 제거(DespawnNoScore)가 아니라 FX+SFX 포함 제거를 호출해야 합니다.
+        // EnemyGalaga는 점수/아이템 없이 제거하는 전용 함수로 처리
+        // 무적 충돌에서도 적 폭발음이 필요하면: FX+SFX 포함 제거를 호출해야 함
         var galaga = other.GetComponent<EnemyGalaga>();
         if (galaga != null)
         {

@@ -161,17 +161,19 @@ public class EnemyGalaga : MonoBehaviour
             PositionHpUI();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    /// <summary>
+    /// Bullet.cs가 SendMessage("TakeDamage", dealt)로 호출하는 진짜 데미지 진입점.
+    /// (관통 탄환을 위해 "적이 총알을 Destroy하지 않는다"가 핵심)
+    /// </summary>
+    public void TakeDamage(int amount)
     {
         if (isDying) return;
-        if (!other.CompareTag("Bullet")) return;
 
-        // 총알 제거
-        Destroy(other.gameObject);
+        int dmg = Mathf.Max(0, amount);
+        if (dmg <= 0) return;
 
-        // 데미지(정수)
-        _hpInt -= 1;
-        hp = _hpInt; // 외부 디버깅/표시용 동기화
+        _hpInt -= dmg;
+        hp = _hpInt;
 
         PlayHitFeedback();
 
@@ -180,6 +182,25 @@ public class EnemyGalaga : MonoBehaviour
 
         if (_hpInt <= 0)
             Die();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (isDying) return;
+        if (!other.CompareTag("Bullet")) return;
+
+        // ✅ 핵심: "새 총알(Bullet 컴포넌트)"은 Bullet.cs가 충돌/관통/소멸을 책임진다.
+        // Enemy가 여기서 Destroy를 해버리면 관통이 절대 동작할 수 없다.
+        // 따라서 Bullet 컴포넌트가 있으면 아무것도 하지 않고 빠진다.
+        if (other.GetComponent<Bullet>() != null)
+        {
+            return;
+        }
+
+        // (예외) 구형/특수 총알처럼 Bullet 컴포넌트가 없는 경우만 기존 방식 유지
+        // 이 경우 관통은 지원하지 않음 (구형 로직)
+        Destroy(other.gameObject);
+        TakeDamage(1);
     }
 
     private void PlayHitFeedback()

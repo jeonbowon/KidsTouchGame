@@ -38,6 +38,8 @@ public class Bullet : MonoBehaviour, IBullet
     private float turnRate = 0f;
 
     private readonly HashSet<int> _hitOnce = new HashSet<int>();
+    private const float PIERCE_PUSH_DISTANCE = 0.12f;
+    private const float PIERCE_IGNORE_TIME = 0.25f;
 
     public void SetOwner(BulletOwner o) => owner = o;
 
@@ -60,11 +62,9 @@ public class Bullet : MonoBehaviour, IBullet
 
     public void ApplyWeapon(CosmeticItem weapon)
     {
-        // Weapon만 적용
         if (weapon == null || weapon.category != CosmeticCategory.Weapon)
             return;
 
-        // ==== 스탯 적용 ====
         damage = Mathf.Max(0, Mathf.RoundToInt(1f * weapon.damageMul));
 
         critChance = Mathf.Clamp01(weapon.critChance);
@@ -79,8 +79,6 @@ public class Bullet : MonoBehaviour, IBullet
         float hitMul = Mathf.Max(0.1f, weapon.hitRadiusMul);
         transform.localScale = _initialLocalScale * hitMul;
 
-        // ==== 비주얼(스킨) 적용 ====
-        // bulletSprite 우선, 없으면 icon 사용
         if (sr != null)
         {
             Sprite s = weapon.bulletSprite != null ? weapon.bulletSprite : weapon.icon;
@@ -118,7 +116,6 @@ public class Bullet : MonoBehaviour, IBullet
 
         transform.localScale = _initialLocalScale;
 
-        // 기본 스프라이트로 리셋 (그 뒤 PlayerShoot에서 ApplyWeapon으로 다시 바뀜)
         if (sr != null) sr.sprite = initialSprite;
 
         ApplyVelocityAndRotation();
@@ -140,33 +137,21 @@ public class Bullet : MonoBehaviour, IBullet
         if (to.sqrMagnitude < 0.0001f) return;
 
         Vector2 desired = to.normalized;
-
         Vector2 current = rb.linearVelocity.sqrMagnitude > 0.0001f ? rb.linearVelocity.normalized : dir;
 
-        float maxStep = (turnRate > 0f) ? (turnRate * Time.fixedDeltaTime) : (360f * Time.fixedDeltaTime);
-        Vector2 newDir = RotateTowards(current, desired, maxStep);
+        float maxTurn = Mathf.Max(0f, turnRate) * Time.fixedDeltaTime;
+        Vector2 next = Vector2.Lerp(current, desired, Mathf.Clamp01(homingStrength));
+        next = Vector2.Lerp(current, next, Mathf.Clamp01(maxTurn));
 
-        newDir = Vector2.Lerp(current, newDir, Mathf.Clamp01(homingStrength)).normalized;
-
-        dir = newDir;
+        dir = next.normalized;
         ApplyVelocityAndRotation();
     }
 
-    private static Vector2 RotateTowards(Vector2 from, Vector2 to, float maxDegrees)
+    private Transform FindNearestEnemy(Vector3 from, float radius)
     {
-        float angle = Vector2.SignedAngle(from, to);
-        float clamped = Mathf.Clamp(angle, -maxDegrees, maxDegrees);
-        float rad = clamped * Mathf.Deg2Rad;
-        float cs = Mathf.Cos(rad);
-        float sn = Mathf.Sin(rad);
-        return new Vector2(from.x * cs - from.y * sn, from.x * sn + from.y * cs).normalized;
-    }
-
-    private static Transform FindNearestEnemy(Vector2 pos, float radius)
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(pos, radius);
+        var hits = Physics2D.OverlapCircleAll(from, radius);
         Transform best = null;
-        float bestSqr = float.MaxValue;
+        float bestD = float.MaxValue;
 
         for (int i = 0; i < hits.Length; i++)
         {
@@ -174,37 +159,58 @@ public class Bullet : MonoBehaviour, IBullet
             if (h == null) continue;
             if (!h.CompareTag("Enemy")) continue;
 
-            float sqr = ((Vector2)h.transform.position - pos).sqrMagnitude;
-            if (sqr < bestSqr)
+            Transform t = (h.attachedRigidbody != null) ? h.attachedRigidbody.transform : h.transform;
+            float d = ((Vector2)t.position - (Vector2)from).sqrMagnitude;
+            if (d < bestD)
             {
-                bestSqr = sqr;
-                best = h.transform;
+                bestD = d;
+                best = t;
             }
         }
+
         return best;
     }
 
     private void ApplyVelocityAndRotation()
     {
-        float finalSpeed;
+        if (rb == null) return;
 
-        if (owner == BulletOwner.Enemy && speedOverride >= 0f)
+        float spd = (speedOverride >= 0f) ? speedOverride : baseSpeed;
+
+        rb.linearVelocity = dir.normalized * spd;
+
+        if (spritePointsUp) transform.up = dir;
+        else transform.right = dir;
+    }
+
+    /// <summary>
+    /// EnemyBullet(적 탄환)과 충돌했을 때 EnemyBullet 쪽에서 호출한다.
+    /// 관통(pierceRemain)을 '적/적탄/무엇이든' 충돌 1회로 소비한다.
+    /// pierceRemain > 0 이면 1 감소 후 계속 진행, 0이면 이 탄환은 터진다.
+    /// </summary>
+    public void OnHitByEnemyBullet(Collider2D enemyBulletCollider)
+    {
+        if (owner != BulletOwner.Player) return;
+
+        Debug.Log($"[PierceDBG] Hit EnemyBullet | pierceRemain BEFORE = {pierceRemain}");
+
+        if (pierceRemain > 0)
         {
-            finalSpeed = speedOverride;
-        }
-        else
-        {
-            float mul = (GameManager.I != null) ? GameManager.I.BulletSpeedMul : 1f;
-            finalSpeed = baseSpeed * mul;
+            pierceRemain--;
+            Debug.Log($"[PierceDBG] Pierce consumed by EnemyBullet, remain = {pierceRemain}");
+
+            if (col != null && enemyBulletCollider != null)
+            {
+                Physics2D.IgnoreCollision(col, enemyBulletCollider, true);
+            }
+
+            transform.position += (Vector3)(dir.normalized * PIERCE_PUSH_DISTANCE);
+            ApplyVelocityAndRotation();
+            return;
         }
 
-        rb.linearVelocity = dir * finalSpeed;
-
-        if (rb.linearVelocity.sqrMagnitude > 0.0001f)
-        {
-            if (spritePointsUp) transform.up = rb.linearVelocity;
-            else transform.right = rb.linearVelocity;
-        }
+        Debug.Log("[PierceDBG] No pierce left (EnemyBullet) -> Despawn");
+        Despawn();
     }
 
     public void DespawnFromOutside()
@@ -214,14 +220,15 @@ public class Bullet : MonoBehaviour, IBullet
 
     void Despawn()
     {
+        Debug.Log($"[PierceDBG] Bullet Despawn() called. pierceRemain={pierceRemain}");
         speedOverride = -1f;
-
-        if (this != null && gameObject != null)
-            Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // 탄-탄 충돌(pierce 카운트 소비)은 EnemyBullet.cs가 Bullet.OnHitByEnemyBullet() 호출로 처리한다.
+        // 여기서 같이 처리하면 "양쪽 트리거"로 2번 깎이는 사고가 난다.
         if (other.GetComponent<EnemyBullet>() != null)
             return;
 
@@ -230,7 +237,9 @@ public class Bullet : MonoBehaviour, IBullet
             if (!other.CompareTag("Enemy"))
                 return;
 
-            int id = other.GetInstanceID();
+            Transform enemyT = (other.attachedRigidbody != null) ? other.attachedRigidbody.transform : other.transform;
+
+            int id = enemyT.GetInstanceID();
             if (_hitOnce.Contains(id))
                 return;
             _hitOnce.Add(id);
@@ -239,26 +248,45 @@ public class Bullet : MonoBehaviour, IBullet
             if (critChance > 0f && Random.value < critChance)
                 dealt = Mathf.RoundToInt(dealt * critMultiplier);
 
-            other.SendMessage("TakeDamage", dealt, SendMessageOptions.DontRequireReceiver);
+            enemyT.SendMessage("TakeDamage", dealt, SendMessageOptions.DontRequireReceiver);
 
             if (explosionRadius > 0f)
             {
                 var hits = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
+                HashSet<int> boomOnce = new HashSet<int>();
+
                 for (int i = 0; i < hits.Length; i++)
                 {
                     var h = hits[i];
                     if (h == null) continue;
                     if (!h.CompareTag("Enemy")) continue;
-                    h.SendMessage("TakeDamage", dealt, SendMessageOptions.DontRequireReceiver);
+
+                    Transform t = (h.attachedRigidbody != null) ? h.attachedRigidbody.transform : h.transform;
+                    int tid = t.GetInstanceID();
+                    if (boomOnce.Contains(tid)) continue;
+                    boomOnce.Add(tid);
+
+                    t.SendMessage("TakeDamage", dealt, SendMessageOptions.DontRequireReceiver);
                 }
             }
+
+            Debug.Log($"[PierceDBG] Hit Enemy | pierceRemain BEFORE = {pierceRemain}");
 
             if (pierceRemain > 0)
             {
                 pierceRemain--;
+                Debug.Log($"[PierceDBG] Pierce consumed, remain = {pierceRemain}");
+                if (col != null && other != null)
+                {
+                    Physics2D.IgnoreCollision(col, other, true);
+                }
+                transform.position += (Vector3)(dir.normalized * PIERCE_PUSH_DISTANCE);
+                ApplyVelocityAndRotation();
+
                 return;
             }
 
+            Debug.Log("[PierceDBG] No pierce left -> Despawn");
             Despawn();
             return;
         }
@@ -271,7 +299,6 @@ public class Bullet : MonoBehaviour, IBullet
             if (ph != null) ph.Die();
 
             Despawn();
-            return;
         }
     }
 }
