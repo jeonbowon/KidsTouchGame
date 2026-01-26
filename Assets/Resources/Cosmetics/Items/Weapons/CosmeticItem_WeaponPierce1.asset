@@ -20,13 +20,13 @@ MonoBehaviour:
   icon: {fileID: 7726592338139483099, guid: aebdcc8b79b0d9c49b93e4b19645ae6f, type: 3}
   shipSprite: {fileID: 0}
   bulletSprite: {fileID: 0}
-  damageMul: 1.2
+  damageMul: 1
   speedMul: 1
   fireIntervalMul: 1
   shotCount: 1
   spreadAngle: 0
   usePierce: 1
-  pierceCount: 1
+  pierceCount: 2
   useHoming: 0
   homingStrength: 0
   turnRate: 0

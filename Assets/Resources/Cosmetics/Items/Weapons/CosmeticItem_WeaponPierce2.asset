@@ -20,7 +20,7 @@ MonoBehaviour:
   icon: {fileID: 4687734138813058668, guid: 6c666852db9dc6340898515c43cd37f7, type: 3}
   shipSprite: {fileID: 0}
   bulletSprite: {fileID: 0}
-  damageMul: 1.5
+  damageMul: 1
   speedMul: 1
   fireIntervalMul: 1
   shotCount: 1
