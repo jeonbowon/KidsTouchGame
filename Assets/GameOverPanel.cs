@@ -11,6 +11,10 @@ public class GameOverPanel : MonoBehaviour
     [SerializeField] private Button menuButton;
     [SerializeField] private TMP_Text infoText;
 
+    // 버튼 라벨용(자동 바인딩)
+    [SerializeField] private TMP_Text continueLabel;
+    [SerializeField] private TMP_Text menuLabel;
+
     public event Action OnContinueClicked;
     public event Action OnMenuClicked;
 
@@ -57,6 +61,13 @@ public class GameOverPanel : MonoBehaviour
             }
             if (infoText == null && tmps.Length > 0) infoText = tmps[0];
         }
+
+        // 라벨 텍스트 자동 바인딩(버튼 자식 TMP_Text)
+        if (continueButton != null && continueLabel == null)
+            continueLabel = continueButton.GetComponentInChildren<TMP_Text>(true);
+
+        if (menuButton != null && menuLabel == null)
+            menuLabel = menuButton.GetComponentInChildren<TMP_Text>(true);
     }
 
     private void WireOnce()
@@ -113,5 +124,12 @@ public class GameOverPanel : MonoBehaviour
             continueButton.interactable = interactable;
         if (menuButton != null && menuButton.gameObject.activeSelf)
             menuButton.interactable = interactable;
+    }
+
+    // 추가: 버튼 라벨 변경
+    public void SetButtonLabels(string continueText, string menuText)
+    {
+        if (continueLabel != null) continueLabel.text = continueText;
+        if (menuLabel != null) menuLabel.text = menuText;
     }
 }

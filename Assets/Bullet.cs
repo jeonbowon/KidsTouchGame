@@ -38,8 +38,11 @@ public class Bullet : MonoBehaviour, IBullet
     private float turnRate = 0f;
 
     private readonly HashSet<int> _hitOnce = new HashSet<int>();
+
     private const float PIERCE_PUSH_DISTANCE = 0.12f;
-    private const float PIERCE_IGNORE_TIME = 0.25f;
+
+    // EnemyBullet로 인한 pierce 소비가 "같은 프레임"에 중복 발생하는 것을 차단
+    private int _lastEnemyBulletHitFrame = -999;
 
     public void SetOwner(BulletOwner o) => owner = o;
 
@@ -118,6 +121,8 @@ public class Bullet : MonoBehaviour, IBullet
 
         if (sr != null) sr.sprite = initialSprite;
 
+        _lastEnemyBulletHitFrame = -999;
+
         ApplyVelocityAndRotation();
 
         CancelInvoke(nameof(Despawn));
@@ -185,12 +190,28 @@ public class Bullet : MonoBehaviour, IBullet
 
     /// <summary>
     /// EnemyBullet(적 탄환)과 충돌했을 때 EnemyBullet 쪽에서 호출한다.
-    /// 관통(pierceRemain)을 '적/적탄/무엇이든' 충돌 1회로 소비한다.
-    /// pierceRemain > 0 이면 1 감소 후 계속 진행, 0이면 이 탄환은 터진다.
+    /// 관통(pierceRemain)을 '적탄 충돌 1회'로 소비한다.
+    /// 단, 같은 프레임에 중복 호출되는 케이스(정면/겹침/동시접촉)를 방어한다.
     /// </summary>
     public void OnHitByEnemyBullet(Collider2D enemyBulletCollider)
     {
         if (owner != BulletOwner.Player) return;
+
+        // 핵심 가드: 같은 프레임에 EnemyBullet 충돌 처리가 2번 이상 들어오면
+        // pierce가 연속으로 깎여서 "첫 타에 터지는" 현상이 난다.
+        // 그래서 EnemyBullet에 의한 pierce 소비는 1프레임 1회만 허용한다.
+        int f = Time.frameCount;
+        if (_lastEnemyBulletHitFrame == f)
+        {
+            // 그래도 충돌 무시 + 살짝 밀어주는 건 해주면 끼임이 줄어든다.
+            if (col != null && enemyBulletCollider != null)
+                Physics2D.IgnoreCollision(col, enemyBulletCollider, true);
+
+            transform.position += (Vector3)(dir.normalized * PIERCE_PUSH_DISTANCE);
+            ApplyVelocityAndRotation();
+            return;
+        }
+        _lastEnemyBulletHitFrame = f;
 
         Debug.Log($"[PierceDBG] Hit EnemyBullet | pierceRemain BEFORE = {pierceRemain}");
 
@@ -200,9 +221,7 @@ public class Bullet : MonoBehaviour, IBullet
             Debug.Log($"[PierceDBG] Pierce consumed by EnemyBullet, remain = {pierceRemain}");
 
             if (col != null && enemyBulletCollider != null)
-            {
                 Physics2D.IgnoreCollision(col, enemyBulletCollider, true);
-            }
 
             transform.position += (Vector3)(dir.normalized * PIERCE_PUSH_DISTANCE);
             ApplyVelocityAndRotation();
@@ -277,12 +296,10 @@ public class Bullet : MonoBehaviour, IBullet
                 pierceRemain--;
                 Debug.Log($"[PierceDBG] Pierce consumed, remain = {pierceRemain}");
                 if (col != null && other != null)
-                {
                     Physics2D.IgnoreCollision(col, other, true);
-                }
+
                 transform.position += (Vector3)(dir.normalized * PIERCE_PUSH_DISTANCE);
                 ApplyVelocityAndRotation();
-
                 return;
             }
 

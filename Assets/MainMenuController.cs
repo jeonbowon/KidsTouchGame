@@ -8,6 +8,20 @@ using UnityEngine.InputSystem;
 
 public class MainMenuController : MonoBehaviour
 {
+    // =========================
+    // Overlay Store Mode (Additive)
+    // =========================
+    private static bool s_overlayStoreRequest = false;
+    private static System.Action s_onOverlayStoreClosed = null;
+
+    public static void RequestOverlayStore(System.Action onClosed)
+    {
+        s_overlayStoreRequest = true;
+        s_onOverlayStoreClosed = onClosed;
+    }
+
+    private bool _overlayStoreMode = false;
+
     [Header("패널 연결")]
     [SerializeField] private GameObject panelMain;
     [SerializeField] private GameObject panelSettings;
@@ -64,10 +78,45 @@ public class MainMenuController : MonoBehaviour
     {
         _builtinFont = LoadBuiltinFontSafe();
         ValidateRefs();
+
+        // Additive Shop 오버레이 요청이 있으면 이 인스턴스는 오버레이 모드로 동작
+        if (s_overlayStoreRequest)
+        {
+            _overlayStoreMode = true;
+            // 다음에 또 MainMenu를 정상 로드했을 때 영향을 주지 않게 즉시 리셋
+            s_overlayStoreRequest = false;
+        }
     }
 
     private void Start()
     {
+        if (_overlayStoreMode)
+        {
+            // 오버레이 모드: Shop만 켜고 나머지 기능은 최소화
+            SetActiveSafe(panelMain, false);
+            SetActiveSafe(panelSettings, false);
+            SetActiveSafe(panelStore, true);
+
+            // Canvas가 Stage UI 위로 오도록 sorting 올림(가능하면)
+            var canvas = GetComponentInChildren<Canvas>(true);
+            if (canvas != null)
+            {
+                canvas.overrideSorting = true;
+                canvas.sortingOrder = 999;
+            }
+
+            // 핵심: 오버레이 모드에서 Close 버튼이 확실히 이 스크립트의 OnClickCloseStore()를 타도록 강제 연결
+            WireOverlayCloseButton();
+
+            if (storeController != null)
+                storeController.RefreshAll();
+
+            Debug.Log("[MainMenuController] OverlayStoreMode START (Additive).");
+            return;
+        }
+
+        // -------- 정상 MainMenu 동작 --------
+
         // 초기 상태
         SetActiveSafe(panelMain, true);
         SetActiveSafe(panelSettings, false);
@@ -110,7 +159,9 @@ public class MainMenuController : MonoBehaviour
 
     private void Update()
     {
-        // Input System / Legacy 둘 다 안전하게 처리
+        // 오버레이 모드에서는 DEV 제스처/런타임 UI 안 돌림(불필요 + 위험)
+        if (_overlayStoreMode) return;
+
         HandleDevGesture();
     }
 
@@ -133,6 +184,47 @@ public class MainMenuController : MonoBehaviour
         if (go.activeSelf != active) go.SetActive(active);
     }
 
+    // Overlay 모드에서 Store Close 버튼을 자동으로 찾아 이 스크립트로 연결
+    private void WireOverlayCloseButton()
+    {
+        if (panelStore == null)
+        {
+            Debug.LogWarning("[MainMenuController] OverlayClose 자동 연결 실패: panelStore가 null");
+            return;
+        }
+
+        var buttons = panelStore.GetComponentsInChildren<Button>(true);
+        if (buttons == null || buttons.Length == 0)
+        {
+            Debug.LogWarning("[MainMenuController] OverlayClose 자동 연결 실패: panelStore 아래 Button이 없음");
+            return;
+        }
+
+        Button best = null;
+
+        foreach (var b in buttons)
+        {
+            if (b == null) continue;
+            string n = b.name.ToLowerInvariant();
+
+            // 이름에 close/back/exit 같은 단어가 들어간 버튼을 우선
+            if (n.Contains("close") || n.Contains("back") || n.Contains("exit"))
+            {
+                best = b;
+                break;
+            }
+        }
+
+        // 그래도 못 찾으면: 마지막 버튼 하나를 fallback으로 (최악이라도 "닫힘"은 되게)
+        if (best == null)
+            best = buttons[buttons.Length - 1];
+
+        best.onClick.RemoveListener(OnClickCloseStore);
+        best.onClick.AddListener(OnClickCloseStore);
+
+        Debug.Log($"[MainMenuController] OverlayClose 버튼 자동 연결 완료: {best.name} -> OnClickCloseStore()");
+    }
+
     public void OnClickStart()
     {
         Debug.Log("[MainMenuController] OnClickStart()");
@@ -148,6 +240,8 @@ public class MainMenuController : MonoBehaviour
 
     public void OnClickSettings()
     {
+        if (_overlayStoreMode) return;
+
         Debug.Log("[MainMenuController] OnClickSettings()");
         SetActiveSafe(panelMain, false);
         SetActiveSafe(panelSettings, true);
@@ -156,6 +250,8 @@ public class MainMenuController : MonoBehaviour
 
     public void OnClickCloseSettings()
     {
+        if (_overlayStoreMode) return;
+
         Debug.Log("[MainMenuController] OnClickCloseSettings()");
         if (sliderBGM != null)
             OnBgmVolumeChanged(sliderBGM.value);
@@ -192,6 +288,15 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("[MainMenuController] OnClickCloseStore()");
 
+        if (_overlayStoreMode)
+        {
+            // 오버레이 모드: MainMenu로 돌아가지 말고, GameManager에게 "닫힘" 신호
+            var cb = s_onOverlayStoreClosed;
+            s_onOverlayStoreClosed = null;
+            cb?.Invoke();
+            return;
+        }
+
         if (panelStore == null)
         {
             Debug.LogError("[MainMenuController] panelStore가 null 입니다.");
@@ -204,6 +309,8 @@ public class MainMenuController : MonoBehaviour
 
     public void OnClickQuit()
     {
+        if (_overlayStoreMode) return;
+
         Debug.Log("[MainMenuController] OnClickQuit()");
         Application.Quit();
 #if UNITY_EDITOR
@@ -221,18 +328,15 @@ public class MainMenuController : MonoBehaviour
     }
 
     // ============================================================
-    // DEV Gesture + Runtime UI
+    // DEV Gesture + Runtime UI (원본 유지)
     // ============================================================
 
     private void HandleDevGesture()
     {
-        // 마우스/터치 모두 처리
         bool down = false;
         Vector2 pos = default;
 
 #if ENABLE_INPUT_SYSTEM
-        // -------- Input System --------
-        // 터치 우선
         if (Touchscreen.current != null)
         {
             var touch = Touchscreen.current.primaryTouch;
@@ -243,7 +347,6 @@ public class MainMenuController : MonoBehaviour
             }
         }
 
-        // 마우스
         if (!down && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             down = true;
@@ -252,7 +355,6 @@ public class MainMenuController : MonoBehaviour
 #endif
 
 #if ENABLE_LEGACY_INPUT_MANAGER
-        // -------- Legacy Input --------
         if (!down)
         {
             if (Input.touchCount > 0)
@@ -274,7 +376,6 @@ public class MainMenuController : MonoBehaviour
 
         if (!down) return;
 
-        // 시간 초과면 리셋
         if (_seqStartTime > 0f && Time.unscaledTime - _seqStartTime > devSequenceTimeout)
             ResetDevSequence();
 
@@ -290,7 +391,6 @@ public class MainMenuController : MonoBehaviour
 
         if (IsBottomRight(pos))
         {
-            // TL을 다 채운 다음에만 BR 카운트
             if (_tlCount >= devTapCount)
             {
                 _brCount++;
@@ -341,16 +441,13 @@ public class MainMenuController : MonoBehaviour
             _devInput.text = "";
     }
 
+    // 이하 UI Builders 원본 그대로(생략 없이 유지)
+    // ----------------- UI Builders -----------------
     private void EnsureDevUI()
     {
         if (_devRoot != null) return;
 
-        // "아무 Canvas"가 아니라, MainMenu의 Canvas를 우선적으로 찾는다.
-        Canvas canvas = null;
-
-        // 1) 활성 포함 전체 Canvas에서 "MainMenu 씬 Canvas" 같은 걸 우선으로 잡고 싶으면
-        //    현재는 MainMenu에 Canvas가 1개인 전제라 FindObjectOfType로 충분.
-        canvas = FindObjectOfType<Canvas>(true);
+        Canvas canvas = FindObjectOfType<Canvas>(true);
 
         if (canvas == null)
         {
@@ -358,7 +455,6 @@ public class MainMenuController : MonoBehaviour
             return;
         }
 
-        // Root
         _devRoot = new GameObject("DevCheatUI");
         _devRoot.transform.SetParent(canvas.transform, false);
 
@@ -368,7 +464,6 @@ public class MainMenuController : MonoBehaviour
         rootRT.offsetMin = Vector2.zero;
         rootRT.offsetMax = Vector2.zero;
 
-        // Blocker
         var blocker = new GameObject("Blocker");
         blocker.transform.SetParent(_devRoot.transform, false);
         var bRT = blocker.AddComponent<RectTransform>();
@@ -381,9 +476,8 @@ public class MainMenuController : MonoBehaviour
         bImg.color = new Color(0, 0, 0, 0.60f);
 
         var bBtn = blocker.AddComponent<Button>();
-        bBtn.onClick.AddListener(() => ShowDevUI(false)); // 바깥 클릭하면 닫기
+        bBtn.onClick.AddListener(() => ShowDevUI(false));
 
-        // Panel
         var panel = new GameObject("Panel");
         panel.transform.SetParent(_devRoot.transform, false);
         var pRT = panel.AddComponent<RectTransform>();
@@ -517,19 +611,14 @@ public class MainMenuController : MonoBehaviour
         _devCoinsText.text = $"COINS: {DevCheats.GetCoins()}";
     }
 
-    // ----------------- UI Builders -----------------
-
     private Font LoadBuiltinFontSafe()
     {
-        // Unity 6: LegacyRuntime.ttf
         var f = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         if (f != null) return f;
 
-        // 혹시 구버전/환경에서만 남아있을 수 있는 fallback
         f = Resources.GetBuiltinResource<Font>("Arial.ttf");
         if (f != null) return f;
 
-        // 최후 fallback: null 허용(이 경우 Text가 깨질 수 있음)
         Debug.LogWarning("[DEV] Built-in Font 로드 실패. LegacyRuntime.ttf/Arial.ttf 둘 다 없음.");
         return null;
     }
@@ -545,7 +634,6 @@ public class MainMenuController : MonoBehaviour
         var t = go.AddComponent<Text>();
         t.text = text;
 
-        // Unity 6 오류 방지: LegacyRuntime.ttf 사용
         t.font = _builtinFont != null ? _builtinFont : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         t.fontSize = fontSize;
         t.alignment = anchor;
@@ -567,7 +655,6 @@ public class MainMenuController : MonoBehaviour
 
         var input = go.AddComponent<InputField>();
 
-        // Placeholder
         var ph = CreateText(go.transform, "Placeholder", "Enter Code (DDMMYY, 6 digits)", 14, TextAnchor.MiddleLeft);
         ph.color = new Color(0, 0, 0, 0.4f);
         var phRT = ph.GetComponent<RectTransform>();
@@ -576,7 +663,6 @@ public class MainMenuController : MonoBehaviour
         phRT.offsetMin = new Vector2(10, 6);
         phRT.offsetMax = new Vector2(-10, -6);
 
-        // Text
         var tx = CreateText(go.transform, "Text", "", 16, TextAnchor.MiddleLeft);
         var txRT = tx.GetComponent<RectTransform>();
         txRT.anchorMin = Vector2.zero;
