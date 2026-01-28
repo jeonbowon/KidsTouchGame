@@ -92,6 +92,9 @@ public class MainMenuController : MonoBehaviour
     {
         if (_overlayStoreMode)
         {
+            // overlay에서 panelStore/storeController 참조가 빠져도 동작하도록 보강
+            ResolveStoreRefsForOverlay();
+
             // 오버레이 모드: Shop만 켜고 나머지 기능은 최소화
             SetActiveSafe(panelMain, false);
             SetActiveSafe(panelSettings, false);
@@ -106,7 +109,7 @@ public class MainMenuController : MonoBehaviour
             }
 
             // 핵심: 오버레이 모드에서 Close 버튼이 확실히 이 스크립트의 OnClickCloseStore()를 타도록 강제 연결
-            WireOverlayCloseButton();
+            WireOverlayCloseButton_Strong();
 
             if (storeController != null)
                 storeController.RefreshAll();
@@ -184,45 +187,71 @@ public class MainMenuController : MonoBehaviour
         if (go.activeSelf != active) go.SetActive(active);
     }
 
-    // Overlay 모드에서 Store Close 버튼을 자동으로 찾아 이 스크립트로 연결
-    private void WireOverlayCloseButton()
+    // overlay에서 panelStore/storeController가 null일 수 있으니 강제로 찾아 채움
+    private void ResolveStoreRefsForOverlay()
+    {
+        if (storeController == null)
+            storeController = FindObjectOfType<StoreController>(true);
+
+        if (panelStore == null)
+        {
+            if (storeController != null)
+                panelStore = storeController.gameObject;
+            else
+            {
+                // 이름 기반 fallback (프로젝트에서 흔히 쓰는 이름들)
+                var byName = GameObject.Find("PanelStore") ?? GameObject.Find("panelStore") ?? GameObject.Find("StorePanel") ?? GameObject.Find("Panel_Store");
+                if (byName != null) panelStore = byName;
+            }
+        }
+    }
+
+    // Overlay 모드에서 Close 버튼을 더 강하게 묶는다:
+    // - panelStore 아래 모든 close/back/exit 버튼을 전부 OnClickCloseStore로 연결
+    // - 못 찾으면 panelStore 아래 모든 버튼을 대상으로 1차 연결(최악에도 닫힘은 되게)
+    private void WireOverlayCloseButton_Strong()
     {
         if (panelStore == null)
         {
-            Debug.LogWarning("[MainMenuController] OverlayClose 자동 연결 실패: panelStore가 null");
+            Debug.LogWarning("[MainMenuController] OverlayClose 연결 실패: panelStore가 null");
             return;
         }
 
         var buttons = panelStore.GetComponentsInChildren<Button>(true);
         if (buttons == null || buttons.Length == 0)
         {
-            Debug.LogWarning("[MainMenuController] OverlayClose 자동 연결 실패: panelStore 아래 Button이 없음");
+            Debug.LogWarning("[MainMenuController] OverlayClose 연결 실패: panelStore 아래 Button이 없음");
             return;
         }
 
-        Button best = null;
+        int wired = 0;
 
+        // 1) close/back/exit 우선 전부 연결
         foreach (var b in buttons)
         {
             if (b == null) continue;
             string n = b.name.ToLowerInvariant();
-
-            // 이름에 close/back/exit 같은 단어가 들어간 버튼을 우선
             if (n.Contains("close") || n.Contains("back") || n.Contains("exit"))
             {
-                best = b;
-                break;
+                b.onClick.RemoveListener(OnClickCloseStore);
+                b.onClick.AddListener(OnClickCloseStore);
+                wired++;
             }
         }
 
-        // 그래도 못 찾으면: 마지막 버튼 하나를 fallback으로 (최악이라도 "닫힘"은 되게)
-        if (best == null)
-            best = buttons[buttons.Length - 1];
+        // 2) 하나도 못 찾으면: 전부 연결(overlay에서는 “닫힘”이 최우선)
+        if (wired == 0)
+        {
+            foreach (var b in buttons)
+            {
+                if (b == null) continue;
+                b.onClick.RemoveListener(OnClickCloseStore);
+                b.onClick.AddListener(OnClickCloseStore);
+                wired++;
+            }
+        }
 
-        best.onClick.RemoveListener(OnClickCloseStore);
-        best.onClick.AddListener(OnClickCloseStore);
-
-        Debug.Log($"[MainMenuController] OverlayClose 버튼 자동 연결 완료: {best.name} -> OnClickCloseStore()");
+        Debug.Log($"[MainMenuController] OverlayClose 버튼 연결 완료. wiredCount={wired}");
     }
 
     public void OnClickStart()

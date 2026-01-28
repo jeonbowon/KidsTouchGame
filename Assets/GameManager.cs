@@ -176,11 +176,13 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 핵심: Additive로 Shop(MainMenu) 오버레이를 띄우는 중이면,
-        // GameManager의 "씬 전환 처리"를 절대 돌리면 안 됩니다.
-        if (mode == LoadSceneMode.Additive && _overlayShopLoadingOrOpen && scene.name == mainMenuSceneName)
+        // ✅✅ 핵심 수정:
+        // Overlay Shop(Additive) 로딩/오픈 중에는 어떤 sceneLoaded도
+        // "게임 흐름(StopAllCoroutines/ForcePause/StartStage)"를 건드리면 안 됩니다.
+        // (한 번이라도 StopAllCoroutines가 실행되면 Close 대기 코루틴이 끊겨서 Close가 먹통처럼 보입니다.)
+        if (_overlayShopLoadingOrOpen && mode == LoadSceneMode.Additive)
         {
-            Debug.Log("[GameManager] Additive Overlay Shop sceneLoaded 감지 → GameManager 씬 처리 스킵");
+            Debug.Log($"[GameManager] OverlayShop 중 Additive sceneLoaded({scene.name}) → GameManager 씬 처리 강제 스킵");
             return;
         }
 
@@ -591,6 +593,9 @@ public class GameManager : MonoBehaviour
 
         _overlayShopLoadingOrOpen = true;
 
+        // 혹시 다른 스크립트가 TimeScale을 건드려도, Shop 열려 있는 동안은 강제로 멈춤 유지
+        ForcePause(true);
+
         // MainMenuController에게 "오버레이 Shop 모드로 시작해라" + "닫힐 때 콜백"
         MainMenuController.RequestOverlayStore(() =>
         {
@@ -601,6 +606,9 @@ public class GameManager : MonoBehaviour
         var op = SceneManager.LoadSceneAsync(mainMenuSceneName, LoadSceneMode.Additive);
         while (!op.isDone) yield return null;
 
+        // 로드 직후도 다시 한 번 강제 Pause(안전)
+        ForcePause(true);
+
         // 닫힐 때까지 대기
         while (!closed) yield return null;
 
@@ -609,6 +617,9 @@ public class GameManager : MonoBehaviour
         while (unload != null && !unload.isDone) yield return null;
 
         _overlayShopLoadingOrOpen = false;
+
+        // 여기서는 계속 Pause 상태 유지 (Continue 흐름에서 재개/스폰을 한다)
+        ForcePause(true);
 
         yield break;
     }

@@ -2650,11 +2650,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8887501038146142839, guid: 7a9b9d8ca4a9c8049a927503eaea37a6, type: 3}
       propertyPath: maxStage
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8887501038146142839, guid: 7a9b9d8ca4a9c8049a927503eaea37a6, type: 3}
       propertyPath: scoreToClearStage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887501038146142839, guid: 7a9b9d8ca4a9c8049a927503eaea37a6, type: 3}
+      propertyPath: stageClearStoreCoins
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8887501038146142839, guid: 7a9b9d8ca4a9c8049a927503eaea37a6, type: 3}
       propertyPath: respawnInvincibleTime
@@ -2662,11 +2666,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8887501038146142839, guid: 7a9b9d8ca4a9c8049a927503eaea37a6, type: 3}
       propertyPath: enemyBulletSpeedStage1
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8887501038146142839, guid: 7a9b9d8ca4a9c8049a927503eaea37a6, type: 3}
       propertyPath: enemyBulletSpeedPerStage
-      value: 0.4
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
