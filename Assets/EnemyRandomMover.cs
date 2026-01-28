@@ -76,7 +76,7 @@ public class EnemyRandomMover : MonoBehaviour
         }
         else
         {
-            float t = 1f - Mathf.Exp(-accel * Time.deltaTime); // 프레임 독립 보간
+            float t = 1f - Mathf.Exp(-accel * Time.deltaTime);
             _downNow = Mathf.Lerp(_downNow, targetDown, t);
             _horiNow = Mathf.Lerp(_horiNow, targetHori, t);
         }
@@ -87,13 +87,17 @@ public class EnemyRandomMover : MonoBehaviour
 
     int GetStage()
     {
-        // 대표님 GameManager.cs 기준
         return (GameManager.I != null) ? Mathf.Max(1, GameManager.I.CurrentStage) : 1;
     }
 
     float GetTargetDownSpeed()
     {
         int stage = GetStage();
+
+        // SO 우선
+        if (GameManager.I != null && GameManager.I.Difficulty != null)
+            return GameManager.I.Difficulty.randomDownSpeed.Eval(stage);
+
         float s = moveSpeedStage1 + (stage - 1) * moveSpeedPerStage;
         return Mathf.Clamp(s, moveSpeedClamp.x, moveSpeedClamp.y);
     }
@@ -101,6 +105,11 @@ public class EnemyRandomMover : MonoBehaviour
     float GetTargetHorizontalSpeed()
     {
         int stage = GetStage();
+
+        // SO 우선
+        if (GameManager.I != null && GameManager.I.Difficulty != null)
+            return GameManager.I.Difficulty.randomHorizontalSpeed.Eval(stage);
+
         float s = horizontalSpeedStage1 + (stage - 1) * horizontalSpeedPerStage;
         return Mathf.Clamp(s, horizontalSpeedClamp.x, horizontalSpeedClamp.y);
     }

@@ -151,12 +151,23 @@ public class EnemyBonusMover : MonoBehaviour
 
     private void GetScaledSpeedRange(out float min, out float max)
     {
+        int stage = GetStage();
+
+        // SO 우선 (대표님 요구: 난이도 값은 한 곳에서)
+        if (GameManager.I != null && GameManager.I.Difficulty != null)
+        {
+            min = GameManager.I.Difficulty.bonusSpeedMin.Eval(stage);
+            max = GameManager.I.Difficulty.bonusSpeedMax.Eval(stage);
+            if (max < min) max = min;
+            return;
+        }
+
+        // fallback(기존 방식)
         min = moveSpeedMin;
         max = moveSpeedMax;
 
         if (!scaleSpeedByStage) return;
 
-        int stage = GetStage();
         float addMin = (stage - 1) * moveSpeedMinPerStage;
         float addMax = (stage - 1) * moveSpeedMaxPerStage;
 
@@ -186,7 +197,6 @@ public class EnemyBonusMover : MonoBehaviour
 
     private void OnDestroy()
     {
-        // 어떤 경로로든 Destroy되면 카운트 누수 방지
         ReportRemovedToGM();
     }
 

@@ -131,8 +131,17 @@ public class EnemyGalaga : MonoBehaviour
 
     private void Start()
     {
-        int stage = (GameManager.I != null) ? GameManager.I.CurrentStage : 1;
-        moveSpeed = baseSpeed + speedPerStage * (stage - 1);
+        int stage = (GameManager.I != null) ? Mathf.Max(1, GameManager.I.CurrentStage) : 1;
+
+        // ✅ SO 우선 적용 (없으면 기존 인스펙터 값으로 fallback)
+        if (GameManager.I != null && GameManager.I.Difficulty != null)
+        {
+            moveSpeed = GameManager.I.Difficulty.galagaMoveSpeed.Eval(stage);
+        }
+        else
+        {
+            moveSpeed = baseSpeed + speedPerStage * (stage - 1);
+        }
 
         if (shooter != null)
             shooter.EnableAutoFire(true);

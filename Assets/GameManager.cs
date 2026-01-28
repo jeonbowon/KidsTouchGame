@@ -1,4 +1,7 @@
-﻿using System;
+﻿// GameManager.cs (전체)
+// 대표님 업로드 버전에 DifficultyConfig 연결 추가 + 난이도 값 SO 우선 사용
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -27,8 +30,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text stageText;
     [SerializeField] private TMP_Text messageText;
     [SerializeField] private TMP_Text scoreText;
-
-    // 코인 표시용 텍스트
     [SerializeField] private TMP_Text coinText;
 
     [Header("Score / Stage Clear")]
@@ -59,6 +60,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Stage Flow")]
     [SerializeField] private int maxStage = 10;
+
+    [Header("Difficulty (ScriptableObject)")]
+    [Tooltip("난이도 값을 한 곳에서 관리하는 에셋. 설정하면 아래 Per-Stage 값들보다 우선합니다.")]
+    [SerializeField] private DifficultyConfig difficultyConfig;
+
+    public DifficultyConfig Difficulty => difficultyConfig;
 
     [Header("Fallback (Optional)")]
     [SerializeField] private string playerPrefabResourcePath = "";
@@ -98,31 +105,44 @@ public class GameManager : MonoBehaviour
 
     private int score = 0;
 
-    [Header("Player Bullet (배율)")]
+    // -------------------------
+    // 기존 난이도 값(호환용 fallback)
+    // -------------------------
+    [Header("Player Bullet (배율) - Fallback")]
     [SerializeField] private float playerBulletMulStage1 = 1.0f;
     [SerializeField] private float playerBulletMulPerStage = 0.0f;
     [SerializeField] private Vector2 playerBulletMulClamp = new Vector2(0.1f, 3.0f);
+
+    [Header("Enemy Bullet (절대 속도) - Fallback")]
+    [SerializeField] private float enemyBulletSpeedStage1 = 3.5f;
+    [SerializeField] private float enemyBulletSpeedPerStage = 0.6f;
+    [SerializeField] private Vector2 enemyBulletSpeedClamp = new Vector2(0.5f, 10f);
 
     public float BulletSpeedMul
     {
         get
         {
+            if (difficultyConfig != null)
+                return difficultyConfig.playerBulletMul.Eval(CurrentStage);
+
             float mul = playerBulletMulStage1 + (CurrentStage - 1) * playerBulletMulPerStage;
             return Mathf.Clamp(mul, playerBulletMulClamp.x, playerBulletMulClamp.y);
         }
     }
 
-    [Header("Enemy Bullet (절대 속도)")]
-    [SerializeField] private float enemyBulletSpeedStage1 = 3.5f;
-    [SerializeField] private float enemyBulletSpeedPerStage = 0.6f;
-    [SerializeField] private Vector2 enemyBulletSpeedClamp = new Vector2(0.5f, 10f);
-
     public float GetEnemyBulletSpeed()
     {
+        if (difficultyConfig != null)
+        {
+            float r = difficultyConfig.enemyBulletSpeed.Eval(CurrentStage);
+            Debug.Log($"[GM] stage={CurrentStage} -> enemyBulletSpeed={r} (SO)");
+            return r;
+        }
+
         float s = enemyBulletSpeedStage1 + (CurrentStage - 1) * enemyBulletSpeedPerStage;
-        float r = Mathf.Clamp(s, enemyBulletSpeedClamp.x, enemyBulletSpeedClamp.y);
-        Debug.Log($"[GM] stage={CurrentStage} -> enemyBulletSpeed={r}");
-        return r;
+        float rr = Mathf.Clamp(s, enemyBulletSpeedClamp.x, enemyBulletSpeedClamp.y);
+        Debug.Log($"[GM] stage={CurrentStage} -> enemyBulletSpeed={rr} (Fallback)");
+        return rr;
     }
 
     // GameOver 처리 중 중복 방지
@@ -131,17 +151,13 @@ public class GameManager : MonoBehaviour
     private enum GameOverChoice { None, Continue, Menu }
     private GameOverChoice _choice = GameOverChoice.None;
 
-    // ✅ Continue 성공 여부(바깥 while 탈출용)
     private bool _continueSucceededThisFlow = false;
 
-    // 완전정지 보장용
     private float _defaultFixedDeltaTime = 0.02f;
 
-    // Continue 후 Shop 제안 결과
     private enum PostContinueChoice { None, Shop, Skip }
     private PostContinueChoice _postContinueChoice = PostContinueChoice.None;
 
-    // Additive Shop Overlay 로딩/오픈 중: sceneLoaded에서 게임 흐름을 건드리지 않게 막는 플래그
     private bool _overlayShopLoadingOrOpen = false;
 
     void Awake()
@@ -164,7 +180,6 @@ public class GameManager : MonoBehaviour
 
         EnsureAdManagerExists();
 
-        // ✅ Cosmetics: DB/Popup 캐시 준비
         EnsureCosmeticDb();
         EnsureUnlockPopup();
     }
@@ -176,10 +191,6 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // ✅✅ 핵심 수정:
-        // Overlay Shop(Additive) 로딩/오픈 중에는 어떤 sceneLoaded도
-        // "게임 흐름(StopAllCoroutines/ForcePause/StartStage)"를 건드리면 안 됩니다.
-        // (한 번이라도 StopAllCoroutines가 실행되면 Close 대기 코루틴이 끊겨서 Close가 먹통처럼 보입니다.)
         if (_overlayShopLoadingOrOpen && mode == LoadSceneMode.Additive)
         {
             Debug.Log($"[GameManager] OverlayShop 중 Additive sceneLoaded({scene.name}) → GameManager 씬 처리 강제 스킵");
@@ -191,7 +202,6 @@ public class GameManager : MonoBehaviour
 
         EnsureAdManagerExists();
 
-        // 씬 로드마다 popup이 파괴될 수 있으니 재확인
         EnsureCosmeticDb();
         EnsureUnlockPopup();
 
@@ -200,7 +210,6 @@ public class GameManager : MonoBehaviour
             RebindStageSceneObjects();
             EnsureGameOverPanel();
 
-            // 스테이지 진입 시 미리 로드
             if (AdManager.I != null)
             {
                 AdManager.I.RequestRewardedReload();
@@ -493,7 +502,6 @@ public class GameManager : MonoBehaviour
         KillAllPlayers();
         EnsureGameOverPanel();
 
-        // ✅ 완전 정지
         ForcePause(true);
 
         if (!isHandlingGameOverFlow)
@@ -523,7 +531,6 @@ public class GameManager : MonoBehaviour
                 yield break;
             }
 
-            // 기본 라벨
             gameOverPanelInstance.SetButtonLabels("CONTINUE", "MENU");
             gameOverPanelInstance.Show("GAME OVER\nCONTINUE or MENU?", showButtons: true);
             gameOverPanelInstance.SetButtonsInteractable(true);
@@ -555,7 +562,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ✅ Continue 성공 직후: Shop 제안 + (선택) 오버레이 Shop 열고 닫힘까지 대기
     private IEnumerator Co_PostContinueStep()
     {
         if (gameOverPanelInstance == null)
@@ -564,12 +570,10 @@ public class GameManager : MonoBehaviour
         _postContinueChoice = PostContinueChoice.None;
         _choice = GameOverChoice.None;
 
-        // 라벨을 SHOP / SKIP 으로 바꿔서 재사용
         gameOverPanelInstance.SetButtonLabels("SHOP", "SKIP");
         gameOverPanelInstance.Show("CONTINUE READY!\nVISIT SHOP?", showButtons: true);
         gameOverPanelInstance.SetButtonsInteractable(true);
 
-        // 버튼은 기존 OnPanelContinue / OnPanelMenu를 그대로 사용
         while (_choice == GameOverChoice.None)
             yield return null;
 
@@ -582,46 +586,34 @@ public class GameManager : MonoBehaviour
         {
             yield return Co_OpenShopOverlayAndWaitClose();
         }
-
-        yield break;
     }
 
-    // ✅ 핵심: MainMenu 씬을 Additive로 띄워 Shop만 사용하고 닫히면 언로드
     private IEnumerator Co_OpenShopOverlayAndWaitClose()
     {
         bool closed = false;
 
         _overlayShopLoadingOrOpen = true;
 
-        // 혹시 다른 스크립트가 TimeScale을 건드려도, Shop 열려 있는 동안은 강제로 멈춤 유지
         ForcePause(true);
 
-        // MainMenuController에게 "오버레이 Shop 모드로 시작해라" + "닫힐 때 콜백"
         MainMenuController.RequestOverlayStore(() =>
         {
             closed = true;
         });
 
-        // Additive 로드
         var op = SceneManager.LoadSceneAsync(mainMenuSceneName, LoadSceneMode.Additive);
         while (!op.isDone) yield return null;
 
-        // 로드 직후도 다시 한 번 강제 Pause(안전)
         ForcePause(true);
 
-        // 닫힐 때까지 대기
         while (!closed) yield return null;
 
-        // Additive 씬 언로드
         var unload = SceneManager.UnloadSceneAsync(mainMenuSceneName);
         while (unload != null && !unload.isDone) yield return null;
 
         _overlayShopLoadingOrOpen = false;
 
-        // 여기서는 계속 Pause 상태 유지 (Continue 흐름에서 재개/스폰을 한다)
         ForcePause(true);
-
-        yield break;
     }
 
     private IEnumerator Co_TryContinueWithRewardedWait()
@@ -698,7 +690,6 @@ public class GameManager : MonoBehaviour
 
         if (success)
         {
-            // 아직 스폰/재개는 하지 않는다. (Shop 여부 결정 후에 한다)
             Lives = Mathf.Max(1, continueLives);
             UpdateLivesUI();
 
@@ -708,10 +699,8 @@ public class GameManager : MonoBehaviour
 
             _continueSucceededThisFlow = true;
 
-            // Shop 제안/오버레이
             yield return Co_PostContinueStep();
 
-            // 이제 진짜로 재개 + 스폰
             ForcePause(false);
             yield return new WaitForSecondsRealtime(0.05f);
             SpawnPlayer();
@@ -726,7 +715,6 @@ public class GameManager : MonoBehaviour
             gameOverPanelInstance.SetInfo("AD FAILED.\nPlease try again.");
             gameOverPanelInstance.SetButtonsInteractable(true);
         }
-        yield break;
     }
 
     private IEnumerator Co_MenuWithInterstitialWaitThenGoMenu()
@@ -779,15 +767,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
-    private void OnPanelContinue()
-    {
-        _choice = GameOverChoice.Continue;
-    }
-
-    private void OnPanelMenu()
-    {
-        _choice = GameOverChoice.Menu;
-    }
+    private void OnPanelContinue() => _choice = GameOverChoice.Continue;
+    private void OnPanelMenu() => _choice = GameOverChoice.Menu;
 
     private void EnsureGameOverPanel()
     {
@@ -948,7 +929,6 @@ public class GameManager : MonoBehaviour
             scoreText.text = $"SCORE: {score} / {scoreToClearStage}";
     }
 
-    // 코인 UI 갱신
     void UpdateCoinUI()
     {
         if (coinText != null)
@@ -1014,7 +994,6 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // 이미 있으면: 현재 Canvas 밑으로 재부착
         if (unlockPopupInScene != null)
         {
             if (unlockPopupInScene.transform.parent != canvas.transform)
@@ -1022,7 +1001,6 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // 없으면: 로드해서 생성
         var prefab = Resources.Load<CosmeticUnlockPopup>(unlockPopupResourcePath);
         if (prefab == null)
         {
@@ -1048,10 +1026,8 @@ public class GameManager : MonoBehaviour
             if (it == null) continue;
             if (string.IsNullOrEmpty(it.id)) continue;
 
-            // unlockOnStageClear <= 0 은 기본 Unlocked
             if (it.unlockOnStageClear <= 0) continue;
 
-            // 이미 Unlocked/Owned면 새로 해금된 게 아님
             if (CosmeticSaveManager.IsUnlocked(it.id) || CosmeticSaveManager.IsOwned(it.id))
                 continue;
 
@@ -1081,7 +1057,6 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                // 팝업 프리팹이 없으면 MessageText로라도 보상 느낌 메시지
                 string name = string.IsNullOrWhiteSpace(it.displayName) ? it.id : it.displayName;
                 yield return ShowMessageFor($"NEW SKIN UNLOCKED!\n{name}", unlockMessageTime);
             }

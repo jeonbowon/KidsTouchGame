@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0f3003b78f7cc4397a34184e506622, type: 3}
+  m_Name: DifficultyConfig
+  m_EditorClassIdentifier: Assembly-CSharp::DifficultyConfig
+  playerBulletMul:
+    stage1: 1
+    perStage: 0
+    clamp: {x: 0.1, y: 3}
+  enemyBulletSpeed:
+    stage1: 3.5
+    perStage: 0.6
+    clamp: {x: 0.5, y: 10}
+  galagaMoveSpeed:
+    stage1: 2
+    perStage: 0.3
+    clamp: {x: 0.5, y: 20}
+  randomDownSpeed:
+    stage1: 1.5
+    perStage: 0.2
+    clamp: {x: 0.5, y: 8}
+  randomHorizontalSpeed:
+    stage1: 2
+    perStage: 0.15
+    clamp: {x: 0.5, y: 10}
+  bonusSpeedMin:
+    stage1: 1.5
+    perStage: 0.12
+    clamp: {x: 1, y: 6}
+  bonusSpeedMax:
+    stage1: 2.5
+    perStage: 0.15
+    clamp: {x: 1, y: 6}
+  spawnInterval:
+    stage1: 2
+    perStage: -0.05
+    clamp: {x: 0.4, y: 4}
+  maxAliveEnemies:
+    stage1: 25
+    perStage: 1
+    clamp: {x: 1, y: 200}
+  toughSpawnChance:
+    stage1: 0
+    perStage: 0.01
+    clamp: {x: 0, y: 0.8}

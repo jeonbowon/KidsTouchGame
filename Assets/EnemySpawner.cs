@@ -93,8 +93,17 @@ public class EnemySpawner : MonoBehaviour
     private void RefreshSpawnIntervalByStage()
     {
         int stage = GetStage();
-        float raw = spawnInterval + (stage - 1) * spawnIntervalPerStage;
-        currentSpawnInterval = Mathf.Clamp(raw, spawnIntervalClamp.x, spawnIntervalClamp.y);
+
+        // SO 우선
+        if (GameManager.I != null && GameManager.I.Difficulty != null)
+        {
+            currentSpawnInterval = GameManager.I.Difficulty.spawnInterval.Eval(stage);
+        }
+        else
+        {
+            float raw = spawnInterval + (stage - 1) * spawnIntervalPerStage;
+            currentSpawnInterval = Mathf.Clamp(raw, spawnIntervalClamp.x, spawnIntervalClamp.y);
+        }
 
         if (currentSpawnInterval <= 0.01f)
             currentSpawnInterval = spawnIntervalClamp.x;
@@ -102,10 +111,16 @@ public class EnemySpawner : MonoBehaviour
 
     private int GetMaxAliveByStage()
     {
+        int stage = GetStage();
         int m = maxAliveEnemies;
         if (!scaleMaxAliveByStage) return m;
 
-        int stage = GetStage();
+        // SO 우선(옵션)
+        if (GameManager.I != null && GameManager.I.Difficulty != null)
+        {
+            return GameManager.I.Difficulty.maxAliveEnemies.Eval(stage);
+        }
+
         m += (stage - 1) * Mathf.Max(0, maxAlivePerStage);
         return Mathf.Max(1, m);
     }
@@ -114,6 +129,13 @@ public class EnemySpawner : MonoBehaviour
     {
         int stage = GetStage();
         if (stage < 2) return 0f;
+
+        // SO 우선 (단, 대표님 기존 설계대로 stage2부터만 적용)
+        if (GameManager.I != null && GameManager.I.Difficulty != null)
+        {
+            float v = GameManager.I.Difficulty.toughSpawnChance.Eval(stage);
+            return Mathf.Clamp(v, 0f, toughSpawnChanceClampMax);
+        }
 
         float c = toughSpawnChanceStage2 + (stage - 2) * toughSpawnChancePerStage;
         return Mathf.Clamp(c, 0f, toughSpawnChanceClampMax);
