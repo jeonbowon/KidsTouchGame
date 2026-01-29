@@ -68,6 +68,12 @@ public class BackgroundInfiniteScroll : MonoBehaviour
     public void SetSpeed(float speed) => scrollSpeed = speed;
     public void SetScrollDown(bool down) => scrollDown = down;
 
+    public void SetTint(Color c)
+    {
+        if (bgA) bgA.color = c;
+        if (bgB) bgB.color = c;
+    }
+
     public void RebuildAndReset()
     {
         if (!bgA || !bgB)

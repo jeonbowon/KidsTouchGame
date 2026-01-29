@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce5ce185e3d28940a408ab153bc8da5, type: 3}
+  m_Name: BGTheme_SpaceGray
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundThemeConfig
+  baseSprites:
+  - {fileID: 6098261222557978869, guid: 7856a3521fb5bc342b6eb5f71870d1a4, type: 3}
+  scrollSpeedRange: {x: 0.45, y: 0.75}
+  tintMin: {r: 0.7254902, g: 0.7254902, b: 0.74509805, a: 1}
+  tintMax: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+  enableOverlay: 1
+  overlayPrefabs: []
+  overlayBurstCountRange: {x: 0, y: 2}
+  overlaySpawnIntervalRange: {x: 0, y: 0}
+  overlayLifeTime: 6

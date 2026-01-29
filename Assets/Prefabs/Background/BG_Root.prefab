@@ -256,6 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1654967730474905549}
   - component: {fileID: 523519459784543370}
+  - component: {fileID: 5763460417368926330}
   m_Layer: 0
   m_Name: BG_Root
   m_TagString: Untagged
@@ -296,6 +297,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundStageController
   defaultExclusive: 1
+--- !u!114 &5763460417368926330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878555138307460730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a1d48bc1069974490f913b8b76fbb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundOverlaySpawner
+  spawnRoot: {fileID: 1654967730474905549}
 --- !u!1 &4293813359709753193
 GameObject:
   m_ObjectHideFlags: 0

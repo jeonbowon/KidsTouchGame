@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   baseSpeed: 2
-  lifeTime: 5
+  lifeTime: 7
   spritePointsUp: 1
   owner: 0
 --- !u!1 &9052159379889280486

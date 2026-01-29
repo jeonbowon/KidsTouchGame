@@ -596,9 +596,6 @@ MonoBehaviour:
   enabledLayerKeys:
   - Base
   exclusive: 1
-  theme: {fileID: 11400000, guid: 4e071020ecea4b243ab2339d2ab7e161, type: 2}
-  forceEnableBaseKey: 1
-  baseKeyName: Base
 --- !u!4 &794513779
 Transform:
   m_ObjectHideFlags: 0

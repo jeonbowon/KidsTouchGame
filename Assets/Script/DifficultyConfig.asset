@@ -17,9 +17,9 @@ MonoBehaviour:
     perStage: 0
     clamp: {x: 0.1, y: 3}
   enemyBulletSpeed:
-    stage1: 3.5
-    perStage: 0.6
-    clamp: {x: 0.5, y: 10}
+    stage1: 1.5
+    perStage: 0.4
+    clamp: {x: 0.5, y: 15}
   galagaMoveSpeed:
     stage1: 2
     perStage: 0.3
