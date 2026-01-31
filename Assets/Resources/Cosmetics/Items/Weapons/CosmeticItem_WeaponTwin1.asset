@@ -15,10 +15,11 @@ MonoBehaviour:
   id: weapon_twin1
   displayName: "Twin 1 (\uC30D\uBC1C)"
   category: 1
-  unlockOnStageClear: 2
-  priceCoins: 100
+  unlockOnStageClear: 20
+  priceCoins: 150000
   icon: {fileID: -3182672492752990383, guid: 5f58d74d1f4d1cd4cb8418a6f8cbb0e0, type: 3}
   shipSprite: {fileID: 0}
+  bulletSprite: {fileID: 0}
   damageMul: 0.8
   speedMul: 1
   fireIntervalMul: 1.1

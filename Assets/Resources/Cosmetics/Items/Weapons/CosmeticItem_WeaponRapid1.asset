@@ -15,10 +15,11 @@ MonoBehaviour:
   id: weapon_rapid1
   displayName: "Rapid 1 (\uC18D\uC0AC\uD615)"
   category: 1
-  unlockOnStageClear: 2
-  priceCoins: 1000
+  unlockOnStageClear: 5
+  priceCoins: 15000
   icon: {fileID: 3014876059548210706, guid: 3d51ac4f5c933f941a222a6d8eede05d, type: 3}
   shipSprite: {fileID: 0}
+  bulletSprite: {fileID: 0}
   damageMul: 0.85
   speedMul: 1
   fireIntervalMul: 0.65

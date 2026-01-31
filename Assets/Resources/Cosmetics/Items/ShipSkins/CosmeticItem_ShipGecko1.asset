@@ -15,7 +15,26 @@ MonoBehaviour:
   id: ship_gecko1
   displayName: "Gecko Ship (\uAC8C\uCF54 \uB3C4\uB9C8\uBC40 \uC6B0\uC8FC\uC120)"
   category: 0
-  unlockOnStageClear: 3
-  priceCoins: 2000
+  unlockOnStageClear: 6
+  priceCoins: 1800
   icon: {fileID: 0}
   shipSprite: {fileID: 8748150944873370676, guid: 6f72ac004f3a3514f8a8d80b28111e73, type: 3}
+  bulletSprite: {fileID: 0}
+  damageMul: 1
+  speedMul: 1
+  fireIntervalMul: 1
+  shotCount: 1
+  spreadAngle: 0
+  usePierce: 0
+  pierceCount: 0
+  useHoming: 0
+  homingStrength: 0
+  turnRate: 0
+  useExplosion: 0
+  explosionRadius: 0
+  hitRadiusMul: 1
+  critChance: 0
+  critMul: 1.5
+  slowPercent: 0
+  slowTime: 0
+  maxWeight: 5

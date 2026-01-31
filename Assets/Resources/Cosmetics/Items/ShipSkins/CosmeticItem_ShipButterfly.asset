@@ -15,7 +15,26 @@ MonoBehaviour:
   id: ship_butterfly
   displayName: "Butterfly Ship (\uB098\uBE44 \uC6B0\uC8FC\uC120)"
   category: 0
-  unlockOnStageClear: 1
-  priceCoins: 600
+  unlockOnStageClear: 2
+  priceCoins: 1000
   icon: {fileID: 0}
   shipSprite: {fileID: 2272229662046244358, guid: f1e00e3ca65a2ab49a5c2c6c382a94c6, type: 3}
+  bulletSprite: {fileID: 0}
+  damageMul: 1
+  speedMul: 1
+  fireIntervalMul: 1
+  shotCount: 1
+  spreadAngle: 0
+  usePierce: 0
+  pierceCount: 0
+  useHoming: 0
+  homingStrength: 0
+  turnRate: 0
+  useExplosion: 0
+  explosionRadius: 0
+  hitRadiusMul: 1
+  critChance: 0
+  critMul: 1.5
+  slowPercent: 0
+  slowTime: 0
+  maxWeight: 5

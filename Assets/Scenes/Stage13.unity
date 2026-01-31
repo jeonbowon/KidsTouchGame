@@ -934,9 +934,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageBackgroundConfig
   enabledLayerKeys:
-  - Base
+  - BaseRed
   - GalaxyFar
   exclusive: 1
+  theme: {fileID: 0}
+  forceEnableBaseKey: 1
+  baseKeyName: Base
 --- !u!4 &2006986078
 Transform:
   m_ObjectHideFlags: 0

@@ -19,3 +19,22 @@ MonoBehaviour:
   priceCoins: 500
   icon: {fileID: 0}
   shipSprite: {fileID: 6331609056727667426, guid: c47f6430be8609747bc2dfb0f8152729, type: 3}
+  bulletSprite: {fileID: 0}
+  damageMul: 1
+  speedMul: 1
+  fireIntervalMul: 1
+  shotCount: 1
+  spreadAngle: 0
+  usePierce: 0
+  pierceCount: 0
+  useHoming: 0
+  homingStrength: 0
+  turnRate: 0
+  useExplosion: 0
+  explosionRadius: 0
+  hitRadiusMul: 1
+  critChance: 0
+  critMul: 1.5
+  slowPercent: 0
+  slowTime: 0
+  maxWeight: 5

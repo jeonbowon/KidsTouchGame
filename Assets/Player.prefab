@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4433984bdb1f60a4c8f1238ae27d9b44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 4
+  moveSpeed: 3
   cam: {fileID: 0}
   xPadding: 0.3
   yPadding: 0
@@ -157,6 +157,7 @@ MonoBehaviour:
   twinMode: 0
   bulletSpeedBonusMul: 1
   maxAimHalfAngle: 70
+  debugWeaponLog: 1
   aimDir: {x: 0, y: 1}
   cosmeticDb: {fileID: 11400000, guid: d33662cb5004393408b28cfa5e3350ab, type: 2}
 --- !u!114 &-6007922334837466443

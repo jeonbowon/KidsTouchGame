@@ -15,7 +15,26 @@ MonoBehaviour:
   id: ship_Iron1
   displayName: "Iron Ship (\uC544\uC774\uC5B8 \uC6B0\uC8FC\uC120 1)"
   category: 0
-  unlockOnStageClear: 6
-  priceCoins: 3000
+  unlockOnStageClear: 13
+  priceCoins: 10000
   icon: {fileID: 0}
   shipSprite: {fileID: -6431169080849739679, guid: 1a08728a8d525a844aa770346eae660d, type: 3}
+  bulletSprite: {fileID: 0}
+  damageMul: 1
+  speedMul: 1
+  fireIntervalMul: 1
+  shotCount: 1
+  spreadAngle: 0
+  usePierce: 0
+  pierceCount: 0
+  useHoming: 0
+  homingStrength: 0
+  turnRate: 0
+  useExplosion: 0
+  explosionRadius: 0
+  hitRadiusMul: 1
+  critChance: 0
+  critMul: 1.5
+  slowPercent: 0
+  slowTime: 0
+  maxWeight: 5

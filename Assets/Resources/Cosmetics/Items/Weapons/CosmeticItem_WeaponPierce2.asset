@@ -15,8 +15,8 @@ MonoBehaviour:
   id: weapon_pierce2
   displayName: "Pierce 2 (\uAD00\uD1B5\uD615)"
   category: 1
-  unlockOnStageClear: 3
-  priceCoins: 300
+  unlockOnStageClear: 15
+  priceCoins: 35000
   icon: {fileID: 4687734138813058668, guid: 6c666852db9dc6340898515c43cd37f7, type: 3}
   shipSprite: {fileID: 0}
   bulletSprite: {fileID: 0}

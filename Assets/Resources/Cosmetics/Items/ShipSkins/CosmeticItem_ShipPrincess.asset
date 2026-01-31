@@ -15,7 +15,26 @@ MonoBehaviour:
   id: ship_princess
   displayName: "Princess Ship (\uACF5\uC8FC \uC6B0\uC8FC\uC120)"
   category: 0
-  unlockOnStageClear: 4
-  priceCoins: 1500
+  unlockOnStageClear: 16
+  priceCoins: 12000
   icon: {fileID: 0}
   shipSprite: {fileID: 3836682463264587047, guid: 53ac89ba61826bf489dd0440a8fbb3df, type: 3}
+  bulletSprite: {fileID: 0}
+  damageMul: 1
+  speedMul: 1
+  fireIntervalMul: 1
+  shotCount: 1
+  spreadAngle: 0
+  usePierce: 0
+  pierceCount: 0
+  useHoming: 0
+  homingStrength: 0
+  turnRate: 0
+  useExplosion: 0
+  explosionRadius: 0
+  hitRadiusMul: 1
+  critChance: 0
+  critMul: 1.5
+  slowPercent: 0
+  slowTime: 0
+  maxWeight: 5

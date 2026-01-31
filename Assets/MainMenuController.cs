@@ -74,6 +74,35 @@ public class MainMenuController : MonoBehaviour
     // Unity 6 built-in font: LegacyRuntime.ttf
     private Font _builtinFont;
 
+    // =========================
+    // DEV CHEATS UI SCALE (auto enlarge on high-res devices)
+    // =========================
+    private const float DEV_PANEL_BASE_W = 640f;
+    private const float DEV_PANEL_BASE_H = 520f;
+
+    // Panel target size relative to the screen/canvas.
+    // Increase these if you want the dev panel bigger.
+    private const float DEV_PANEL_TARGET_W_RATIO = 0.92f; // 92% of width
+    private const float DEV_PANEL_TARGET_H_RATIO = 0.78f; // 78% of height
+    private const float DEV_PANEL_MAX_SCALE = 2.50f;
+
+    private float ComputeDevPanelScale(Canvas canvas)
+    {
+        RectTransform crt = (canvas != null) ? canvas.GetComponent<RectTransform>() : null;
+
+        Vector2 canvasSize =
+            (crt != null && crt.rect.width > 1f && crt.rect.height > 1f)
+                ? new Vector2(crt.rect.width, crt.rect.height)
+                : new Vector2(Screen.width, Screen.height);
+
+        float targetW = canvasSize.x * DEV_PANEL_TARGET_W_RATIO;
+        float targetH = canvasSize.y * DEV_PANEL_TARGET_H_RATIO;
+
+        float scale = Mathf.Min(targetW / DEV_PANEL_BASE_W, targetH / DEV_PANEL_BASE_H);
+        scale = Mathf.Clamp(scale, 1f, DEV_PANEL_MAX_SCALE);
+        return scale;
+    }
+
     private void Awake()
     {
         _builtinFont = LoadBuiltinFontSafe();
@@ -518,6 +547,10 @@ public class MainMenuController : MonoBehaviour
         var pImg = panel.AddComponent<Image>();
         pImg.color = new Color(0.95f, 0.95f, 0.95f, 1f);
 
+        // Auto scale up on high-res devices (panel + all child texts/buttons)
+        float devScale = ComputeDevPanelScale(canvas);
+        panel.transform.localScale = new Vector3(devScale, devScale, 1f);
+
         // Title
         var title = CreateText(panel.transform, "Title", "DEV CHEATS", 26, TextAnchor.MiddleCenter);
         var tRT = title.GetComponent<RectTransform>();
@@ -576,10 +609,10 @@ public class MainMenuController : MonoBehaviour
         cRT.anchoredPosition = new Vector2(0, -310);
 
         // Buttons row 2
-        CreateButton(panel.transform, "BtnAddCoins", "+1000 COINS", new Vector2(-160, -360), () =>
+        CreateButton(panel.transform, "BtnAddCoins", "+10000 COINS", new Vector2(-160, -360), () =>
         {
             if (!DevCheats.IsDevEnabled()) return;
-            DevCheats.AddCoins(1000);
+            DevCheats.AddCoins(10000);
             RefreshDevInfo();
         });
 

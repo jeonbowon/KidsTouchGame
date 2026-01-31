@@ -15,8 +15,8 @@ MonoBehaviour:
   id: weapon_sniper
   displayName: "Sniper (\uC800\uACA9\uD3EC)"
   category: 1
-  unlockOnStageClear: 2
-  priceCoins: 1000
+  unlockOnStageClear: 7
+  priceCoins: 20000
   icon: {fileID: -4199692420837788071, guid: 1d3b1e4117a86164399ea658d5a8d479, type: 3}
   shipSprite: {fileID: 0}
   bulletSprite: {fileID: 0}

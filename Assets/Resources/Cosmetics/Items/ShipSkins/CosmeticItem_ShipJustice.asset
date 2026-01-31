@@ -15,7 +15,26 @@ MonoBehaviour:
   id: ship_justice
   displayName: "Justice Ship (\uC800\uC2A4\uD2F0\uC2A4)"
   category: 0
-  unlockOnStageClear: 2
-  priceCoins: 1000
+  unlockOnStageClear: 8
+  priceCoins: 1200
   icon: {fileID: 0}
   shipSprite: {fileID: -8062168135032588057, guid: 14ffcaab52f3ca5429547bdf74d82b33, type: 3}
+  bulletSprite: {fileID: 0}
+  damageMul: 1
+  speedMul: 1
+  fireIntervalMul: 1
+  shotCount: 1
+  spreadAngle: 0
+  usePierce: 0
+  pierceCount: 0
+  useHoming: 0
+  homingStrength: 0
+  turnRate: 0
+  useExplosion: 0
+  explosionRadius: 0
+  hitRadiusMul: 1
+  critChance: 0
+  critMul: 1.5
+  slowPercent: 0
+  slowTime: 0
+  maxWeight: 5

@@ -15,7 +15,26 @@ MonoBehaviour:
   id: ship_expensive
   displayName: "Expensive Ship (\uACE0\uAE09 \uC804\uD568)"
   category: 0
-  unlockOnStageClear: 2
+  unlockOnStageClear: 3
   priceCoins: 1000
   icon: {fileID: 0}
   shipSprite: {fileID: -8669506235288626734, guid: 0cba9aba469987347b906863a65c6234, type: 3}
+  bulletSprite: {fileID: 0}
+  damageMul: 1
+  speedMul: 1
+  fireIntervalMul: 1
+  shotCount: 1
+  spreadAngle: 0
+  usePierce: 0
+  pierceCount: 0
+  useHoming: 0
+  homingStrength: 0
+  turnRate: 0
+  useExplosion: 0
+  explosionRadius: 0
+  hitRadiusMul: 1
+  critChance: 0
+  critMul: 1.5
+  slowPercent: 0
+  slowTime: 0
+  maxWeight: 5
