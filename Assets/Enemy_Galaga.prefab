@@ -180,8 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26651ae120375fc4b8b9e1942a670519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyGalaga
-  baseSpeed: 1
-  speedPerStage: 0.2
+  baseSpeed: 0.5
+  speedPerStage: 0.25
   horizontalAmplitude: 6
   horizontalFrequency: 0.9
   useGalagaMove: 0
