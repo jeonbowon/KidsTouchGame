@@ -1,5 +1,5 @@
-﻿// GameManager.cs (전체)
-// 대표님 업로드 버전에 DifficultyConfig 연결 추가 + 난이도 값 SO 우선 사용
+﻿// GameManager.cs
+// ✅ 대표님 버전 기반: 기존 로직 유지 + IAP(광고제거) 우회 + IAPManager 자동 생성
 
 using System;
 using System.Collections;
@@ -96,6 +96,9 @@ public class GameManager : MonoBehaviour
     public bool IsStageRunning => isStageRunning;
     public bool IsGameOver => isGameOver;
 
+    // 추가: 광고 제거 여부(구매자 체크)
+    private bool NoAdsEnabled => IAPManager.HasNoAds();
+
     private int aliveEnemyCount = 0;
 
     private bool isGameOver = false;
@@ -179,9 +182,24 @@ public class GameManager : MonoBehaviour
         QualitySettings.vSyncCount = 1;
 
         EnsureAdManagerExists();
+        EnsureIAPManagerExists();
 
         EnsureCosmeticDb();
         EnsureUnlockPopup();
+    }
+
+    private void EnsureIAPManagerExists()
+    {
+        if (IAPManager.Instance != null) return;
+
+        var found = FindObjectOfType<IAPManager>(true);
+        if (found != null) return;
+
+        var go = new GameObject("IAPManager (Auto)");
+        go.AddComponent<IAPManager>();
+        DontDestroyOnLoad(go);
+
+        Debug.Log("[GameManager] IAPManager가 없어 자동 생성했습니다.");
     }
 
     void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
@@ -201,6 +219,7 @@ public class GameManager : MonoBehaviour
         ForcePause(false);
 
         EnsureAdManagerExists();
+        EnsureIAPManagerExists(); // 추가
 
         EnsureCosmeticDb();
         EnsureUnlockPopup();
@@ -210,7 +229,8 @@ public class GameManager : MonoBehaviour
             RebindStageSceneObjects();
             EnsureGameOverPanel();
 
-            if (AdManager.I != null)
+            // 광고 제거면 로드 자체를 요청하지 않음 (AdManager도 DisableAllAds로 방어됨)
+            if (AdManager.I != null && !NoAdsEnabled)
             {
                 AdManager.I.RequestRewardedReload();
                 AdManager.I.RequestInterstitialReload();
@@ -314,12 +334,21 @@ public class GameManager : MonoBehaviour
         EnsureCosmeticDb();
         EnsureUnlockPopup();
 
+        // IAP 이벤트로 코인 UI/광고 상태를 즉시 반영
+        if (IAPManager.Instance != null)
+        {
+            IAPManager.Instance.OnCoinsGranted -= HandleIapCoinsGranted;
+            IAPManager.Instance.OnCoinsGranted += HandleIapCoinsGranted;
+            IAPManager.Instance.OnRemoveAdsPurchased -= HandleIapRemoveAds;
+            IAPManager.Instance.OnRemoveAdsPurchased += HandleIapRemoveAds;
+        }
+
         if (IsStageScene(SceneManager.GetActiveScene().name))
         {
             RebindStageSceneObjects();
             EnsureGameOverPanel();
 
-            if (AdManager.I != null)
+            if (AdManager.I != null && !NoAdsEnabled)
             {
                 AdManager.I.RequestRewardedReload();
                 AdManager.I.RequestInterstitialReload();
@@ -618,6 +647,30 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Co_TryContinueWithRewardedWait()
     {
+              //  광고 제거 구매자면: Rewarded 없이 즉시 Continue 처리
+        if (NoAdsEnabled)
+        {
+            Debug.Log("[IAP] NO_ADS 활성 → Rewarded 없이 Continue 진행");
+
+            Lives = Mathf.Max(1, continueLives);
+            UpdateLivesUI();
+
+            isGameOver = false;
+            isStageRunning = true;
+            isRespawning = false;
+
+            _continueSucceededThisFlow = true;
+
+            yield return Co_PostContinueStep();
+
+            ForcePause(false);
+            yield return new WaitForSecondsRealtime(0.05f);
+            SpawnPlayer();
+
+            Debug.Log("[GAME] Continue 성공 → 부활 후 재개 (NO_ADS)");
+            yield break;
+        }
+
         if (gameOverPanelInstance != null)
         {
             gameOverPanelInstance.SetInfo("LOADING AD...\n(Rewarded)");
@@ -717,8 +770,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Menu 이동도 광고제거면 Interstitial 없이 즉시 이동
     private IEnumerator Co_MenuWithInterstitialWaitThenGoMenu()
     {
+        if (NoAdsEnabled)
+        {
+            Debug.Log("[IAP] NO_ADS 활성 → Interstitial 없이 메뉴 이동");
+            ForcePause(false);
+            DestroyGameOverPanelInstance();
+            SceneManager.LoadScene(mainMenuSceneName);
+            yield break;
+        }
+
         if (gameOverPanelInstance != null)
         {
             gameOverPanelInstance.SetInfo("LOADING AD...\n(Interstitial)");
@@ -1061,5 +1124,16 @@ public class GameManager : MonoBehaviour
                 yield return ShowMessageFor($"NEW SKIN UNLOCKED!\n{name}", unlockMessageTime);
             }
         }
+    }
+
+    private void HandleIapCoinsGranted(int amount)
+    {
+        UpdateCoinUI();
+    }
+
+    private void HandleIapRemoveAds()
+    {
+        if (AdManager.I != null)
+            AdManager.I.DisableAllAds();
     }
 }
