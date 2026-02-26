@@ -34,6 +34,7 @@ public class StoreController : MonoBehaviour
         {
             IAPManager.Instance.OnCoinsGranted -= OnIapCoinsGranted;
             IAPManager.Instance.OnCoinsGranted += OnIapCoinsGranted;
+
             IAPManager.Instance.OnRemoveAdsPurchased -= OnIapRemoveAdsPurchased;
             IAPManager.Instance.OnRemoveAdsPurchased += OnIapRemoveAdsPurchased;
         }
@@ -41,7 +42,6 @@ public class StoreController : MonoBehaviour
         if (database == null && !string.IsNullOrEmpty(dbResourcePath))
             database = Resources.Load<CosmeticDatabase>(dbResourcePath);
 
-        // 시작은 항상 코인 상점 화면
         EnsureShopListVisible(forceRebuild: true);
         RefreshAll();
     }
@@ -69,7 +69,7 @@ public class StoreController : MonoBehaviour
     }
 
     // ─────────────────────────────────────────────────────────────
-    // IAP 버튼 (현금 결제)
+    // IAP 버튼 (현금 결제)  모달 확인 후 결제하도록 수정
     // ─────────────────────────────────────────────────────────────
     public void OnClickBuyRemoveAds()
     {
@@ -78,7 +78,21 @@ public class StoreController : MonoBehaviour
             Debug.LogWarning("[STORE] IAPManager가 없습니다.");
             return;
         }
-        IAPManager.Instance.BuyRemoveAds();
+
+        if (confirmPopup != null)
+        {
+            confirmPopup.ShowConfirm(
+                title: "구매 확인",
+                message: "광고 제거 상품을 구매하시겠습니까?\n\n구매 후 즉시 광고가 제거됩니다.",
+                confirmLabel: "구매",
+                cancelLabel: "취소",
+                onConfirm: () => IAPManager.Instance.BuyRemoveAds()
+            );
+        }
+        else
+        {
+            IAPManager.Instance.BuyRemoveAds();
+        }
     }
 
     public void OnClickBuyCoin10000()
@@ -88,7 +102,21 @@ public class StoreController : MonoBehaviour
             Debug.LogWarning("[STORE] IAPManager가 없습니다.");
             return;
         }
-        IAPManager.Instance.BuyCoin10000();
+
+        if (confirmPopup != null)
+        {
+            confirmPopup.ShowConfirm(
+                title: "구매 확인",
+                message: "코인 10,000을 구매하시겠습니까?\n\n구매 완료 시 코인이 즉시 지급됩니다.",
+                confirmLabel: "구매",
+                cancelLabel: "취소",
+                onConfirm: () => IAPManager.Instance.BuyCoin10000()
+            );
+        }
+        else
+        {
+            IAPManager.Instance.BuyCoin10000();
+        }
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -96,22 +124,17 @@ public class StoreController : MonoBehaviour
     // ─────────────────────────────────────────────────────────────
     public void OnClickTabIap()
     {
-        // 코인 리스트 숨김, IAP 패널 표시
         if (scrollViewRoot != null) scrollViewRoot.SetActive(false);
         if (iapRoot != null) iapRoot.SetActive(true);
-
         RefreshCoinsUI();
     }
 
-    // 핵심: IAP에서 돌아올 때 "카테고리가 같아도" 리스트를 반드시 보여줘야 한다.
     public void SetCategory(int catValue) => SetCategory((CosmeticCategory)catValue);
 
     public void SetCategory(CosmeticCategory cat)
     {
-        // 무조건 Shop 리스트 화면으로 복귀
         EnsureShopListVisible(forceRebuild: false);
 
-        // ✅ 여기 수정이 핵심: 카테고리가 같아도 return 하지 말고 RefreshAll을 수행
         if (category != cat)
             category = cat;
 
@@ -123,12 +146,9 @@ public class StoreController : MonoBehaviour
         if (iapRoot != null) iapRoot.SetActive(false);
         if (scrollViewRoot != null) scrollViewRoot.SetActive(true);
 
-        // IAP 탭에서 돌아왔는데 리스트가 비어있는 경우가 실제로 자주 생깁니다.
-        // (scrollView를 껐다 켜는 타이밍/초기화 타이밍 때문에)
         if (forceRebuild || _spawned.Count == 0)
         {
-            // 여기서 바로 리스트를 만들도록 유도
-            // (RefreshAll에서 다시 BuildList가 호출되므로 중복 생성 방지는 BuildList 내부에서 처리됨)
+            // RefreshAll에서 BuildList가 다시 호출됩니다.
         }
     }
 
@@ -153,13 +173,11 @@ public class StoreController : MonoBehaviour
 
     private void BuildList()
     {
-        // Shop 화면(Scroll View)이 꺼져있으면 리스트 만들지 않음
         if (scrollViewRoot != null && !scrollViewRoot.activeInHierarchy)
             return;
 
         if (database == null || contentRoot == null || cardPrefab == null) return;
 
-        // 기존 카드 제거
         for (int i = 0; i < _spawned.Count; i++)
             if (_spawned[i] != null) Destroy(_spawned[i].gameObject);
         _spawned.Clear();

@@ -5888,7 +5888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.23529412}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7196,6 +7196,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoreConfirmPopup
   root: {fileID: 1410476546}
+  modalBlocker: {fileID: 1113182621}
+  popupCanvas: {fileID: 0}
+  popupSortingOrder: 2000
+  blockerCanvas: {fileID: 0}
+  blockerSortingOrder: 1990
   titleText: {fileID: 648575407}
   messageText: {fileID: 2061783057}
   confirmButton: {fileID: 1897901779}

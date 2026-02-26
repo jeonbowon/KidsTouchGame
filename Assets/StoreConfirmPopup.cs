@@ -9,6 +9,21 @@ public class StoreConfirmPopup : MonoBehaviour
     [Header("Root")]
     [SerializeField] private GameObject root;
 
+    [Header("Modal (Optional)")]
+    [Tooltip("팝업이 떠 있는 동안 뒤 UI 클릭을 막는 투명 막입니다. Image의 Raycast Target은 켜져 있어야 합니다.")]
+    [SerializeField] private GameObject modalBlocker;
+
+    [Tooltip("팝업이 항상 최상위로 뜨게 하려면 Canvas(overrideSorting=true)로 지정하세요. (선택)")]
+    [SerializeField] private Canvas popupCanvas;
+
+    [Tooltip("ModalBlocker를 쓴다면, 이 Canvas sortingOrder는 blocker보다 크게 잡아야 합니다.")]
+    [SerializeField] private int popupSortingOrder = 2000;
+
+    [Tooltip("ModalBlocker Canvas가 따로 있다면, 팝업보다 낮은 sortingOrder로 잡으세요.")]
+    [SerializeField] private Canvas blockerCanvas;
+
+    [SerializeField] private int blockerSortingOrder = 1990;
+
     [Header("Texts")]
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text messageText;
@@ -28,9 +43,41 @@ public class StoreConfirmPopup : MonoBehaviour
         Hide();
     }
 
-    // =========================================================
-    // ✅ (기존 호환) StoreController가 호출하던 시그니처 유지
-    // =========================================================
+    private void EnsureTopMost()
+    {
+        // (1) Canvas sorting을 사용하는 경우
+        if (popupCanvas != null)
+        {
+            popupCanvas.overrideSorting = true;
+            popupCanvas.sortingOrder = popupSortingOrder;
+        }
+
+        if (blockerCanvas != null)
+        {
+            blockerCanvas.overrideSorting = true;
+            blockerCanvas.sortingOrder = blockerSortingOrder;
+        }
+
+        // (2) Canvas sorting이 없더라도 sibling 순서로 최상단 보장
+        if (modalBlocker != null && modalBlocker.transform.parent == transform.parent)
+            modalBlocker.transform.SetAsLastSibling();
+
+        if (root != null && root.transform.parent == transform.parent)
+            root.transform.SetAsLastSibling();
+        else
+            transform.SetAsLastSibling();
+    }
+
+    private void ShowModalLayer(bool on)
+    {
+        if (modalBlocker != null)
+            modalBlocker.SetActive(on);
+
+        if (on)
+            EnsureTopMost();
+    }
+
+    // (기존 호환) 코인 아이템 구매 확인
     public void ShowPurchaseConfirm(string itemName, int price, int haveCoins, Action onConfirm)
     {
         _onConfirm = onConfirm;
@@ -54,11 +101,12 @@ public class StoreConfirmPopup : MonoBehaviour
 
         if (root != null) root.SetActive(true);
         else gameObject.SetActive(true);
+
+        // ✅ 모달 ON
+        ShowModalLayer(true);
     }
 
-    // =========================================================
-    // ✅ (기존 호환) ShowMessage 유지
-    // =========================================================
+    // (기존 호환) 메시지 팝업
     public void ShowMessage(string message, string title = "알림")
     {
         _onConfirm = null;
@@ -74,12 +122,34 @@ public class StoreConfirmPopup : MonoBehaviour
 
         if (root != null) root.SetActive(true);
         else gameObject.SetActive(true);
+
+        // ✅ 모달 ON
+        ShowModalLayer(true);
     }
 
-    // =========================================================
-    // ✅ (신규) Weapon 성능을 함께 보여주는 버전
-    // StoreController를 나중에 이쪽으로 바꾸면 더 좋음
-    // =========================================================
+    // ✅ (신규) IAP 현금결제 확인용
+    public void ShowConfirm(string title, string message,
+        string confirmLabel, string cancelLabel,
+        Action onConfirm)
+    {
+        _onConfirm = onConfirm;
+
+        if (titleText != null) titleText.text = string.IsNullOrEmpty(title) ? "확인" : title;
+        if (messageText != null) messageText.text = message ?? "";
+
+        if (confirmButtonText != null) confirmButtonText.text = string.IsNullOrEmpty(confirmLabel) ? "확인" : confirmLabel;
+        if (cancelButtonText != null) cancelButtonText.text = string.IsNullOrEmpty(cancelLabel) ? "취소" : cancelLabel;
+
+        if (confirmButton != null) confirmButton.gameObject.SetActive(true);
+        if (cancelButton != null) cancelButton.gameObject.SetActive(true);
+
+        if (root != null) root.SetActive(true);
+        else gameObject.SetActive(true);
+
+        ShowModalLayer(true);
+    }
+
+    // (신규) CosmeticItem 기반 구매 확인 (기존 유지)
     public void ShowPurchaseConfirm(CosmeticItem item, int haveCoins, Action onConfirm)
     {
         if (item == null)
@@ -98,7 +168,6 @@ public class StoreConfirmPopup : MonoBehaviour
         sb.Append($"보유: {haveCoins} COINS\n");
         sb.Append($"구매 후: {Mathf.Max(0, haveCoins - item.priceCoins)} COINS");
 
-        // Weapon이면 성능 요약 추가(유저에게만 보여줌, Weight/Slot은 숨김)
         if (item.category == CosmeticCategory.Weapon)
         {
             var lines = item.GetWeaponDescriptionLines();
@@ -120,6 +189,8 @@ public class StoreConfirmPopup : MonoBehaviour
 
         if (root != null) root.SetActive(true);
         else gameObject.SetActive(true);
+
+        ShowModalLayer(true);
     }
 
     public void Hide()
@@ -128,6 +199,9 @@ public class StoreConfirmPopup : MonoBehaviour
 
         if (root != null) root.SetActive(false);
         else gameObject.SetActive(false);
+
+        // ✅ 모달 OFF
+        ShowModalLayer(false);
     }
 
     private void OnClickConfirm()
