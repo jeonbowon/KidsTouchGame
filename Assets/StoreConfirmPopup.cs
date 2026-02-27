@@ -16,12 +16,10 @@ public class StoreConfirmPopup : MonoBehaviour
     [Tooltip("팝업이 항상 최상위로 뜨게 하려면 Canvas(overrideSorting=true)로 지정하세요. (선택)")]
     [SerializeField] private Canvas popupCanvas;
 
-    [Tooltip("ModalBlocker를 쓴다면, 이 Canvas sortingOrder는 blocker보다 크게 잡아야 합니다.")]
-    [SerializeField] private int popupSortingOrder = 2000;
-
-    [Tooltip("ModalBlocker Canvas가 따로 있다면, 팝업보다 낮은 sortingOrder로 잡으세요.")]
+    [Tooltip("ModalBlocker Canvas가 따로 있다면, 팝업보다 낮은 sortingOrder로 잡으세요. (선택)")]
     [SerializeField] private Canvas blockerCanvas;
 
+    [SerializeField] private int popupSortingOrder = 2000;
     [SerializeField] private int blockerSortingOrder = 1990;
 
     [Header("Texts")]
@@ -35,52 +33,114 @@ public class StoreConfirmPopup : MonoBehaviour
     [SerializeField] private TMP_Text cancelButtonText;
 
     private Action _onConfirm;
+    private bool _isVisible;
+
+    // 팝업 비활성화되어도 코루틴이 돌도록 하는 러너
+    private sealed class _Runner : MonoBehaviour { }
+    private static _Runner s_runner;
+    private static _Runner Runner
+    {
+        get
+        {
+            if (s_runner != null) return s_runner;
+            var go = new GameObject("__StoreConfirmPopup_Runner");
+            DontDestroyOnLoad(go);
+            s_runner = go.AddComponent<_Runner>();
+            return s_runner;
+        }
+    }
+
+    private Transform PopupTransform => (root != null) ? root.transform : transform;
 
     private void Awake()
     {
         if (confirmButton != null) confirmButton.onClick.AddListener(OnClickConfirm);
         if (cancelButton != null) cancelButton.onClick.AddListener(Hide);
-        Hide();
+        HideImmediate();
     }
 
-    private void EnsureTopMost()
+    private void OnDisable()
     {
-        // (1) Canvas sorting을 사용하는 경우
+        _isVisible = false;
+        if (modalBlocker != null) modalBlocker.SetActive(false);
+    }
+
+    private Canvas GetRootCanvas()
+    {
+        var c = GetComponentInParent<Canvas>();
+        if (c == null) return null;
+        return c.rootCanvas != null ? c.rootCanvas : c;
+    }
+
+    // ✅ 핵심: "블로커"와 "팝업"을 둘 다 Root Canvas 아래로 올리고,
+    //         정렬을 '블로커는 팝업 바로 아래'로 강제한다.
+    private void EnsureModalAndPopupHierarchyAndOrder()
+    {
+        var rootCanvas = GetRootCanvas();
+        if (rootCanvas == null) return;
+
+        var canvasRoot = rootCanvas.transform;
+
+        // 1) 블로커를 Root Canvas 아래로 (전체 화면 클릭 차단)
+        if (modalBlocker != null)
+        {
+            if (modalBlocker.transform.parent != canvasRoot)
+                modalBlocker.transform.SetParent(canvasRoot, false);
+
+            var rt = modalBlocker.GetComponent<RectTransform>();
+            if (rt != null)
+            {
+                rt.anchorMin = Vector2.zero;
+                rt.anchorMax = Vector2.one;
+                rt.offsetMin = Vector2.zero;
+                rt.offsetMax = Vector2.zero;
+                rt.localScale = Vector3.one;
+            }
+        }
+
+        // 2) 팝업도 Root Canvas 아래로 (블로커와 같은 부모여야 sibling 정렬이 확실)
+        var popT = PopupTransform;
+        if (popT.parent != canvasRoot)
+            popT.SetParent(canvasRoot, false);
+
+        // 3) sortingOrder를 쓰는 경우: 팝업이 블로커보다 위
         if (popupCanvas != null)
         {
             popupCanvas.overrideSorting = true;
             popupCanvas.sortingOrder = popupSortingOrder;
         }
-
         if (blockerCanvas != null)
         {
             blockerCanvas.overrideSorting = true;
             blockerCanvas.sortingOrder = blockerSortingOrder;
         }
 
-        // (2) Canvas sorting이 없더라도 sibling 순서로 최상단 보장
-        if (modalBlocker != null && modalBlocker.transform.parent == transform.parent)
-            modalBlocker.transform.SetAsLastSibling();
+        // 4) sibling 정렬 강제:
+        //    팝업을 최상위로 올리고, 블로커는 "팝업 바로 아래"로 둔다.
+        popT.SetAsLastSibling();
 
-        if (root != null && root.transform.parent == transform.parent)
-            root.transform.SetAsLastSibling();
-        else
-            transform.SetAsLastSibling();
+        if (modalBlocker != null)
+        {
+            // popT가 last인 상태에서 그 바로 아래로
+            int popupIndex = popT.GetSiblingIndex();
+            modalBlocker.transform.SetSiblingIndex(Mathf.Max(0, popupIndex - 1));
+        }
     }
 
     private void ShowModalLayer(bool on)
     {
-        if (modalBlocker != null)
-            modalBlocker.SetActive(on);
-
-        if (on)
-            EnsureTopMost();
+        if (modalBlocker != null) modalBlocker.SetActive(on);
+        if (on) EnsureModalAndPopupHierarchyAndOrder();
     }
 
-    // (기존 호환) 코인 아이템 구매 확인
+    // -------------------------
+    // 공개 API들
+    // -------------------------
+
     public void ShowPurchaseConfirm(string itemName, int price, int haveCoins, Action onConfirm)
     {
         _onConfirm = onConfirm;
+        _isVisible = true;
 
         if (titleText != null) titleText.text = "구매 확인";
 
@@ -99,17 +159,14 @@ public class StoreConfirmPopup : MonoBehaviour
         if (confirmButton != null) confirmButton.gameObject.SetActive(true);
         if (cancelButton != null) cancelButton.gameObject.SetActive(true);
 
-        if (root != null) root.SetActive(true);
-        else gameObject.SetActive(true);
-
-        // ✅ 모달 ON
+        ShowRoot(true);
         ShowModalLayer(true);
     }
 
-    // (기존 호환) 메시지 팝업
     public void ShowMessage(string message, string title = "알림")
     {
         _onConfirm = null;
+        _isVisible = true;
 
         if (titleText != null) titleText.text = title;
         if (messageText != null) messageText.text = message;
@@ -120,36 +177,45 @@ public class StoreConfirmPopup : MonoBehaviour
         if (confirmButton != null) confirmButton.gameObject.SetActive(true);
         if (cancelButton != null) cancelButton.gameObject.SetActive(false);
 
-        if (root != null) root.SetActive(true);
-        else gameObject.SetActive(true);
-
-        // ✅ 모달 ON
+        ShowRoot(true);
         ShowModalLayer(true);
     }
 
-    // ✅ (신규) IAP 현금결제 확인용
-    public void ShowConfirm(string title, string message,
-        string confirmLabel, string cancelLabel,
-        Action onConfirm)
+    // IAP 확인용 범용 Confirm
+    public void ShowConfirm(string title, string message, string confirmLabel, string cancelLabel, Action onConfirm, Action onCancel = null)
     {
         _onConfirm = onConfirm;
+        _isVisible = true;
 
-        if (titleText != null) titleText.text = string.IsNullOrEmpty(title) ? "확인" : title;
-        if (messageText != null) messageText.text = message ?? "";
+        if (titleText != null) titleText.text = title;
+        if (messageText != null) messageText.text = message;
 
         if (confirmButtonText != null) confirmButtonText.text = string.IsNullOrEmpty(confirmLabel) ? "확인" : confirmLabel;
         if (cancelButtonText != null) cancelButtonText.text = string.IsNullOrEmpty(cancelLabel) ? "취소" : cancelLabel;
 
-        if (confirmButton != null) confirmButton.gameObject.SetActive(true);
-        if (cancelButton != null) cancelButton.gameObject.SetActive(true);
+        if (confirmButton != null)
+        {
+            confirmButton.gameObject.SetActive(true);
+            confirmButton.interactable = true;
+        }
 
-        if (root != null) root.SetActive(true);
-        else gameObject.SetActive(true);
+        if (cancelButton != null)
+        {
+            cancelButton.gameObject.SetActive(true);
+            cancelButton.interactable = true;
 
+            cancelButton.onClick.RemoveAllListeners();
+            cancelButton.onClick.AddListener(() =>
+            {
+                Hide();
+                onCancel?.Invoke();
+            });
+        }
+
+        ShowRoot(true);
         ShowModalLayer(true);
     }
 
-    // (신규) CosmeticItem 기반 구매 확인 (기존 유지)
     public void ShowPurchaseConfirm(CosmeticItem item, int haveCoins, Action onConfirm)
     {
         if (item == null)
@@ -159,6 +225,7 @@ public class StoreConfirmPopup : MonoBehaviour
         }
 
         _onConfirm = onConfirm;
+        _isVisible = true;
 
         if (titleText != null) titleText.text = "구매 확인";
 
@@ -187,21 +254,56 @@ public class StoreConfirmPopup : MonoBehaviour
         if (confirmButton != null) confirmButton.gameObject.SetActive(true);
         if (cancelButton != null) cancelButton.gameObject.SetActive(true);
 
-        if (root != null) root.SetActive(true);
-        else gameObject.SetActive(true);
-
+        ShowRoot(true);
         ShowModalLayer(true);
     }
 
+    // -------------------------
+    // 닫기 (클릭 스루 방지)
+    // -------------------------
     public void Hide()
     {
         _onConfirm = null;
 
-        if (root != null) root.SetActive(false);
-        else gameObject.SetActive(false);
+        if (!_isVisible)
+        {
+            ShowModalLayer(false);
+            ShowRoot(false);
+            return;
+        }
 
-        // ✅ 모달 OFF
+        _isVisible = false;
+
+        // 닫는 순간 클릭이 뒤로 통과하는 걸 막기 위해 현재 프레임 입력 종료 후 닫는다.
+        if (confirmButton != null) confirmButton.interactable = false;
+        if (cancelButton != null) cancelButton.interactable = false;
+
+        Runner.StartCoroutine(CoHideNextFrame());
+    }
+
+    private System.Collections.IEnumerator CoHideNextFrame()
+    {
+        yield return null;
+
+        ShowRoot(false);
         ShowModalLayer(false);
+
+        if (confirmButton != null) confirmButton.interactable = true;
+        if (cancelButton != null) cancelButton.interactable = true;
+    }
+
+    private void HideImmediate()
+    {
+        _onConfirm = null;
+        _isVisible = false;
+        ShowRoot(false);
+        ShowModalLayer(false);
+    }
+
+    private void ShowRoot(bool on)
+    {
+        if (root != null) root.SetActive(on);
+        else gameObject.SetActive(on);
     }
 
     private void OnClickConfirm()

@@ -20,8 +20,15 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     public static bool IsInitialized => _storeController != null && _storeExtensionProvider != null;
 
+    // 결제 플로우 진행중(결제창 떠있거나 처리중)
+    public static bool IsPurchaseInProgress { get; private set; }
+
     public event Action OnRemoveAdsPurchased;
     public event Action<int> OnCoinsGranted;
+
+    // UI 잠금/해제에 쓰는 이벤트
+    public event Action<string> OnPurchaseFlowStarted;         // productId
+    public event Action<string, bool> OnPurchaseFlowFinished;  // productId, success
 
     private void Awake()
     {
@@ -55,6 +62,13 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     private void BuyProductID(string productId)
     {
+        // 결제중이면 추가 구매 시도 무시
+        if (IsPurchaseInProgress)
+        {
+            Debug.LogWarning($"[IAP] Purchase already in progress. Ignore: {productId}");
+            return;
+        }
+
         if (!IsInitialized)
         {
             Debug.LogWarning($"[IAP] Not initialized yet. productId={productId}");
@@ -75,6 +89,10 @@ public class IAPManager : MonoBehaviour, IStoreListener
             return;
         }
 
+        // 결제 플로우 시작(이 순간부터 UI 잠가야 함)
+        IsPurchaseInProgress = true;
+        OnPurchaseFlowStarted?.Invoke(productId);
+
         _storeController.InitiatePurchase(product);
     }
 
@@ -85,7 +103,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         Debug.Log("[IAP] Initialized OK");
 
-        // 이미 광고제거 구매가 복원된 상태면 즉시 적용
         if (HasNoAds())
         {
             ApplyNoAdsToGame();
@@ -110,6 +127,10 @@ public class IAPManager : MonoBehaviour, IStoreListener
         string id = e.purchasedProduct.definition.id;
         Debug.Log($"[IAP] Purchase Success: {id}");
 
+        // 결제 플로우 종료(성공)
+        IsPurchaseInProgress = false;
+        OnPurchaseFlowFinished?.Invoke(id, true);
+
         if (id == PRODUCT_REMOVE_ADS)
         {
             SetNoAds(true);
@@ -132,6 +153,10 @@ public class IAPManager : MonoBehaviour, IStoreListener
     public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
     {
         Debug.LogWarning($"[IAP] Purchase Failed: {product.definition.id}, reason={failureReason}");
+
+        // 결제 플로우 종료(실패/취소 포함)
+        IsPurchaseInProgress = false;
+        OnPurchaseFlowFinished?.Invoke(product.definition.id, false);
     }
 
     private static void ApplyNoAdsToGame()

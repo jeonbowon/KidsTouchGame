@@ -17,8 +17,11 @@ public class StoreController : MonoBehaviour
     [SerializeField] private GameObject scrollViewRoot;   // Panel_Store 안의 'Scroll View'
     [SerializeField] private GameObject iapRoot;          // Panel_IAP
 
-    [Header("Purchase Popup (NEW)")]
+    [Header("Popup")]
     [SerializeField] private StoreConfirmPopup confirmPopup;
+
+    [Header("Modal Blocker (UI Lock)")]
+    [SerializeField] private GameObject modalBlocker;     // ✅ ModalBlocker 연결 (Raycast Target ON인 Image가 있어야 함)
 
     [Header("Category")]
     [SerializeField] private CosmeticCategory category = CosmeticCategory.ShipSkin;
@@ -44,6 +47,9 @@ public class StoreController : MonoBehaviour
 
         EnsureShopListVisible(forceRebuild: true);
         RefreshAll();
+
+        // 혹시 이미 결제 진행 중 상태로 들어온 경우(드물지만) 잠금 반영
+        ApplyIapUiLock(IAPManager.IsPurchaseInProgress);
     }
 
     private void OnDisable()
@@ -53,6 +59,19 @@ public class StoreController : MonoBehaviour
             IAPManager.Instance.OnCoinsGranted -= OnIapCoinsGranted;
             IAPManager.Instance.OnRemoveAdsPurchased -= OnIapRemoveAdsPurchased;
         }
+    }
+
+    private void Update()
+    {
+        // ✅ “결제 진행중”은 시스템 창이 떠있는 동안도 유지되어야 합니다.
+        // IAPManager에서 플래그를 잘 관리하면, 이 한 줄로 UI 잠금이 자동으로 따라갑니다.
+        ApplyIapUiLock(IAPManager.IsPurchaseInProgress);
+    }
+
+    private void ApplyIapUiLock(bool locked)
+    {
+        if (modalBlocker != null && modalBlocker.activeSelf != locked)
+            modalBlocker.SetActive(locked);
     }
 
     private void OnIapCoinsGranted(int amount)
@@ -69,10 +88,14 @@ public class StoreController : MonoBehaviour
     }
 
     // ─────────────────────────────────────────────────────────────
-    // IAP 버튼 (현금 결제)  모달 확인 후 결제하도록 수정
+    // IAP 버튼 (현금 결제) : “결제 진행 중 재진입” 확실히 차단
     // ─────────────────────────────────────────────────────────────
     public void OnClickBuyRemoveAds()
     {
+        // ✅ 결제 진행 중이면 무조건 무시
+        if (IAPManager.IsPurchaseInProgress)
+            return;
+
         if (IAPManager.Instance == null)
         {
             Debug.LogWarning("[STORE] IAPManager가 없습니다.");
@@ -83,20 +106,34 @@ public class StoreController : MonoBehaviour
         {
             confirmPopup.ShowConfirm(
                 title: "구매 확인",
-                message: "광고 제거 상품을 구매하시겠습니까?\n\n구매 후 즉시 광고가 제거됩니다.",
+                message: "광고 제거 상품을 구매하시겠습니까?\n\n결제창이 떠 있는 동안에는 다른 버튼을 누를 수 없습니다.",
                 confirmLabel: "구매",
                 cancelLabel: "취소",
-                onConfirm: () => IAPManager.Instance.BuyRemoveAds()
+                onConfirm: () =>
+                {
+                    // 결제 시작 전에 먼저 잠금
+                    ApplyIapUiLock(true);
+                    IAPManager.Instance.BuyRemoveAds();
+                },
+                onCancel: () =>
+                {
+                    // 취소하면 잠금 해제
+                    ApplyIapUiLock(false);
+                }
             );
         }
         else
         {
+            ApplyIapUiLock(true);
             IAPManager.Instance.BuyRemoveAds();
         }
     }
 
     public void OnClickBuyCoin10000()
     {
+        if (IAPManager.IsPurchaseInProgress)
+            return;
+
         if (IAPManager.Instance == null)
         {
             Debug.LogWarning("[STORE] IAPManager가 없습니다.");
@@ -107,23 +144,35 @@ public class StoreController : MonoBehaviour
         {
             confirmPopup.ShowConfirm(
                 title: "구매 확인",
-                message: "코인 10,000을 구매하시겠습니까?\n\n구매 완료 시 코인이 즉시 지급됩니다.",
+                message: "코인 10,000을 구매하시겠습니까?\n\n결제창이 떠 있는 동안에는 다른 버튼을 누를 수 없습니다.",
                 confirmLabel: "구매",
                 cancelLabel: "취소",
-                onConfirm: () => IAPManager.Instance.BuyCoin10000()
+                onConfirm: () =>
+                {
+                    ApplyIapUiLock(true);
+                    IAPManager.Instance.BuyCoin10000();
+                },
+                onCancel: () =>
+                {
+                    ApplyIapUiLock(false);
+                }
             );
         }
         else
         {
+            ApplyIapUiLock(true);
             IAPManager.Instance.BuyCoin10000();
         }
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 탭 전환
+    // 탭 전환 (결제중엔 전환도 막는게 안전)
     // ─────────────────────────────────────────────────────────────
     public void OnClickTabIap()
     {
+        if (IAPManager.IsPurchaseInProgress)
+            return;
+
         if (scrollViewRoot != null) scrollViewRoot.SetActive(false);
         if (iapRoot != null) iapRoot.SetActive(true);
         RefreshCoinsUI();
@@ -133,6 +182,9 @@ public class StoreController : MonoBehaviour
 
     public void SetCategory(CosmeticCategory cat)
     {
+        if (IAPManager.IsPurchaseInProgress)
+            return;
+
         EnsureShopListVisible(forceRebuild: false);
 
         if (category != cat)
@@ -145,11 +197,6 @@ public class StoreController : MonoBehaviour
     {
         if (iapRoot != null) iapRoot.SetActive(false);
         if (scrollViewRoot != null) scrollViewRoot.SetActive(true);
-
-        if (forceRebuild || _spawned.Count == 0)
-        {
-            // RefreshAll에서 BuildList가 다시 호출됩니다.
-        }
     }
 
     public void RefreshAll()
@@ -220,6 +267,9 @@ public class StoreController : MonoBehaviour
 
     private void OnClickItem(CosmeticItem item)
     {
+        if (IAPManager.IsPurchaseInProgress)
+            return;
+
         if (item == null) return;
 
         bool unlocked = IsUnlockedNow(item);
@@ -274,12 +324,18 @@ public class StoreController : MonoBehaviour
 
     public void OnClickTabShip()
     {
+        if (IAPManager.IsPurchaseInProgress)
+            return;
+
         Debug.Log("[STORE] TabShip Click");
         SetCategory(CosmeticCategory.ShipSkin);
     }
 
     public void OnClickTabWeapon()
     {
+        if (IAPManager.IsPurchaseInProgress)
+            return;
+
         Debug.Log("[STORE] TabWeapon Click");
         SetCategory(CosmeticCategory.Weapon);
     }
