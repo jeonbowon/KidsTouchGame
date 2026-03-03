@@ -146,6 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 381930778681772258}
   - component: {fileID: 2877608536130202764}
+  - component: {fileID: 764806987958225910}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -188,6 +189,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SafeAreaTopOffset
   extraDown: 20
+--- !u!114 &764806987958225910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2548101101579828932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c69f15f7d1b0ee441ace2464495a90e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HUDController
+  coinText: {fileID: 3826559455432751618}
+  stageText: {fileID: 1663427153974545259}
+  scoreText: {fileID: 4843482063801748166}
 --- !u!1 &3225425289907337027
 GameObject:
   m_ObjectHideFlags: 0

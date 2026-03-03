@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,14 @@ public static class CosmeticSaveManager
 {
     private const string KEY = "cosmetic_save_v1";
     private static CosmeticSaveData _cache;
+
+    public static event Action<int> OnCoinsChanged;
+
+    private static void NotifyCoinsChanged()
+    {
+        try { OnCoinsChanged?.Invoke(Data.coins); }
+        catch (Exception e) { Debug.LogWarning($"[CosmeticSave] OnCoinsChanged invoke failed: {e.Message}"); }
+    }
 
     public static CosmeticSaveData Data
     {
@@ -60,6 +69,7 @@ public static class CosmeticSaveManager
         Data.coins += amount;
         Save(Data);
         Debug.Log($"[CosmeticSave] coins += {amount} -> {Data.coins}");
+        NotifyCoinsChanged();
     }
 
     public static bool TrySpendCoins(int cost)
@@ -70,11 +80,12 @@ public static class CosmeticSaveManager
         Data.coins -= cost;
         Save(Data);
         Debug.Log($"[CosmeticSave] coins -= {cost} -> {Data.coins}");
+        NotifyCoinsChanged();
         return true;
     }
 
     // -----------------------------
-    // Unlock (구매 가능) / Owned (구매 완료)
+    // Unlock () / Owned ()
     // -----------------------------
     public static bool IsUnlocked(string id) => Data.IsUnlocked(id);
 

@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text coinText;
 
+    [SerializeField] private HUDController hud;
+    [Header("Monetization (Ads/IAP)")]
+    [SerializeField] private MonetizationManager monetization; // 없으면 자동 탐색/생성
+
     [Header("Score / Stage Clear")]
     [SerializeField] private int scoreToClearStage = 100;
 
@@ -95,10 +99,6 @@ public class GameManager : MonoBehaviour
     public int AliveEnemyCount => aliveEnemyCount;
     public bool IsStageRunning => isStageRunning;
     public bool IsGameOver => isGameOver;
-
-    // 추가: 광고 제거 여부(구매자 체크)
-    private bool NoAdsEnabled => IAPManager.HasNoAds();
-
     private int aliveEnemyCount = 0;
 
     private bool isGameOver = false;
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
     private int score = 0;
 
     // -------------------------
-    // 기존 난이도 값(호환용 fallback)
+       // 기존 난이도 값(호환용 fallback)
     // -------------------------
     [Header("Player Bullet (배율) - Fallback")]
     [SerializeField] private float playerBulletMulStage1 = 1.0f;
@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 1;
 
-        EnsureAdManagerExists();
+        EnsureMonetizationManagerExists();
         EnsureIAPManagerExists();
 
         EnsureCosmeticDb();
@@ -202,8 +202,26 @@ public class GameManager : MonoBehaviour
         Debug.Log("[GameManager] IAPManager가 없어 자동 생성했습니다.");
     }
 
-    void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
-    void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
+    // ✅ 여기(구독) + 아래 HandleCoinsChanged가 이번 수정의 핵심입니다.
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        // ✅ 코인 획득/소비 즉시 HUD 갱신 (CosmeticSaveManager에서 이벤트를 발행해야 함)
+        //CosmeticSaveManager.OnCoinsChanged -= HandleCoinsChanged;
+        //CosmeticSaveManager.OnCoinsChanged += HandleCoinsChanged;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        //CosmeticSaveManager.OnCoinsChanged -= HandleCoinsChanged;
+    }
+
+    //private void HandleCoinsChanged(int coins)
+    //{
+    //    UpdateCoinUI();  // ✅ 코인 획득/소비 즉시 HUD 갱신
+    //}
 
     private bool IsStageScene(string sceneName) => sceneName.StartsWith("Stage");
 
@@ -218,7 +236,7 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines();
         ForcePause(false);
 
-        EnsureAdManagerExists();
+        EnsureMonetizationManagerExists();
         EnsureIAPManagerExists(); // 추가
 
         EnsureCosmeticDb();
@@ -228,14 +246,9 @@ public class GameManager : MonoBehaviour
         {
             RebindStageSceneObjects();
             EnsureGameOverPanel();
-
-            // 광고 제거면 로드 자체를 요청하지 않음 (AdManager도 DisableAllAds로 방어됨)
-            if (AdManager.I != null && !NoAdsEnabled)
-            {
-                AdManager.I.RequestRewardedReload();
-                AdManager.I.RequestInterstitialReload();
-            }
-
+            // 광고는 MonetizationManager가 전담
+            if (monetization != null)
+                monetization.PreloadStageAds();
             StartCoroutine(Co_StartStage(CurrentStage));
         }
         else
@@ -261,19 +274,18 @@ public class GameManager : MonoBehaviour
             AudioListener.pause = false;
         }
     }
-
-    private void EnsureAdManagerExists()
+    private void EnsureMonetizationManagerExists()
     {
-        if (AdManager.I != null) return;
+        if (monetization != null) return;
 
-        var found = FindObjectOfType<AdManager>(true);
-        if (found != null) return;
+        monetization = FindObjectOfType<MonetizationManager>(true);
+        if (monetization != null) return;
 
-        var go = new GameObject("AdManager (Auto)");
-        go.AddComponent<AdManager>();
+        var go = new GameObject("MonetizationManager (Auto)");
+        monetization = go.AddComponent<MonetizationManager>();
         DontDestroyOnLoad(go);
 
-        Debug.Log("[GameManager] AdManager가 없어 자동 생성했습니다.");
+        Debug.Log("[GameManager] MonetizationManager가 없어 자동 생성했습니다.");
     }
 
     private void RebindStageSceneObjects()
@@ -288,7 +300,8 @@ public class GameManager : MonoBehaviour
         if (messageText == null) messageText = SafeFindTMP("MessageText");
         if (scoreText == null) scoreText = SafeFindTMP("ScoreText");
         if (coinText == null) coinText = SafeFindTMP("CoinText");
-
+        
+        if (hud == null) hud = FindObjectOfType<HUDController>(true);
         if (playerPrefab == null && !string.IsNullOrEmpty(playerPrefabResourcePath))
         {
             playerPrefab = Resources.Load<GameObject>(playerPrefabResourcePath);
@@ -334,26 +347,12 @@ public class GameManager : MonoBehaviour
         EnsureCosmeticDb();
         EnsureUnlockPopup();
 
-        // IAP 이벤트로 코인 UI/광고 상태를 즉시 반영
-        if (IAPManager.Instance != null)
-        {
-            IAPManager.Instance.OnCoinsGranted -= HandleIapCoinsGranted;
-            IAPManager.Instance.OnCoinsGranted += HandleIapCoinsGranted;
-            IAPManager.Instance.OnRemoveAdsPurchased -= HandleIapRemoveAds;
-            IAPManager.Instance.OnRemoveAdsPurchased += HandleIapRemoveAds;
-        }
-
         if (IsStageScene(SceneManager.GetActiveScene().name))
         {
             RebindStageSceneObjects();
             EnsureGameOverPanel();
-
-            if (AdManager.I != null && !NoAdsEnabled)
-            {
-                AdManager.I.RequestRewardedReload();
-                AdManager.I.RequestInterstitialReload();
-            }
-
+            if (monetization != null)
+                monetization.PreloadStageAds();
             StartCoroutine(Co_StartStage(CurrentStage));
         }
     }
@@ -645,10 +644,12 @@ public class GameManager : MonoBehaviour
         ForcePause(true);
     }
 
-    private IEnumerator Co_TryContinueWithRewardedWait()
+        private IEnumerator Co_TryContinueWithRewardedWait()
     {
-              //  광고 제거 구매자면: Rewarded 없이 즉시 Continue 처리
-        if (NoAdsEnabled)
+        EnsureMonetizationManagerExists();
+
+        // 광고 제거 구매자면: Rewarded 없이 즉시 Continue 처리
+        if (monetization != null && monetization.IsAdsDisabled)
         {
             Debug.Log("[IAP] NO_ADS 활성 → Rewarded 없이 Continue 진행");
 
@@ -677,7 +678,7 @@ public class GameManager : MonoBehaviour
             gameOverPanelInstance.SetButtonsInteractable(false);
         }
 
-        if (AdManager.I == null)
+        if (monetization == null)
         {
             if (gameOverPanelInstance != null)
             {
@@ -688,58 +689,18 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
-        AdManager.I.RequestRewardedReload();
-
-        float t = 0f;
-        float nextTick = 0f;
-
-        while (!AdManager.I.IsRewardedReady && t < rewardedWaitTimeout)
-        {
-            if (!AdManager.I.IsRewardedLoading && AdManager.I.RewardedLoadFailed)
-                break;
-
-            t += Time.unscaledDeltaTime;
-
-            if (gameOverPanelInstance != null && t >= nextTick)
-            {
-                float remain = Mathf.Max(0f, rewardedWaitTimeout - t);
-                gameOverPanelInstance.SetInfo($"LOADING AD...\n{remain:0.0}s");
-                nextTick = t + waitTick;
-            }
-
-            yield return null;
-        }
-
-        if (!AdManager.I.IsRewardedReady)
-        {
-            string err = AdManager.I.LastRewardedLoadError;
-            Debug.LogWarning($"[ADS] Rewarded NOT READY → 재시도(게임 재개 금지) / err={err}");
-
-            if (gameOverPanelInstance != null)
-            {
-                gameOverPanelInstance.SetInfo("AD NOT READY.\nPlease try again.");
-                gameOverPanelInstance.SetButtonsInteractable(true);
-            }
-            yield return new WaitForSecondsRealtime(0.2f);
-            yield break;
-        }
-
-        if (gameOverPanelInstance != null)
-        {
-            gameOverPanelInstance.SetInfo("SHOWING AD...\n(Rewarded)");
-            gameOverPanelInstance.SetButtonsInteractable(false);
-        }
-
-        bool done = false;
         bool success = false;
 
-        AdManager.I.ShowRewarded(ok =>
-        {
-            success = ok;
-            done = true;
-        }, "Continue_Unlimited");
-
-        while (!done) yield return null;
+        yield return monetization.Co_ShowRewardedWithWait(
+            rewardedWaitTimeout,
+            waitTick,
+            status =>
+            {
+                if (gameOverPanelInstance != null)
+                    gameOverPanelInstance.SetInfo(status);
+            },
+            ok => success = ok,
+            "Continue_Unlimited");
 
         if (success)
         {
@@ -771,9 +732,12 @@ public class GameManager : MonoBehaviour
     }
 
     // Menu 이동도 광고제거면 Interstitial 없이 즉시 이동
+        // Menu 이동도 광고제거면 Interstitial 없이 즉시 이동
     private IEnumerator Co_MenuWithInterstitialWaitThenGoMenu()
     {
-        if (NoAdsEnabled)
+        EnsureMonetizationManagerExists();
+
+        if (monetization != null && monetization.IsAdsDisabled)
         {
             Debug.Log("[IAP] NO_ADS 활성 → Interstitial 없이 메뉴 이동");
             ForcePause(false);
@@ -788,39 +752,23 @@ public class GameManager : MonoBehaviour
             gameOverPanelInstance.SetButtonsInteractable(false);
         }
 
-        if (AdManager.I != null)
-            AdManager.I.RequestInterstitialReload();
+        bool shown = false;
 
-        float t = 0f;
-        float nextTick = 0f;
-
-        while (AdManager.I != null && !AdManager.I.IsInterstitialReady && t < interstitialWaitTimeout)
+        if (monetization != null)
         {
-            if (!AdManager.I.IsInterstitialLoading && AdManager.I.InterstitialLoadFailed)
-                break;
-
-            t += Time.unscaledDeltaTime;
-
-            if (gameOverPanelInstance != null && t >= nextTick)
-            {
-                float remain = Mathf.Max(0f, interstitialWaitTimeout - t);
-                gameOverPanelInstance.SetInfo($"LOADING AD...\n{remain:0.0}s");
-                nextTick = t + waitTick;
-            }
-
-            yield return null;
+            yield return monetization.Co_ShowInterstitialWithWait(
+                interstitialWaitTimeout,
+                waitTick,
+                status =>
+                {
+                    if (gameOverPanelInstance != null)
+                        gameOverPanelInstance.SetInfo(status);
+                },
+                ok => shown = ok,
+                "MenuToMenu_Interstitial");
         }
 
-        if (AdManager.I != null && AdManager.I.IsInterstitialReady)
-        {
-            if (gameOverPanelInstance != null)
-                gameOverPanelInstance.SetInfo("SHOWING AD...\n(Interstitial)");
-
-            bool done = false;
-            AdManager.I.ShowInterstitial(ok => { done = true; }, "MenuToMenu_Interstitial");
-            while (!done) yield return null;
-        }
-        else
+        if (!shown)
         {
             Debug.LogWarning("[ADS] Interstitial NOT READY → 광고 스킵하고 메뉴 이동");
         }
@@ -982,18 +930,33 @@ public class GameManager : MonoBehaviour
 
     void UpdateStageUI()
     {
+		if (hud != null)
+    	{
+        	hud.SetStage(CurrentStage);
+        	return;
+    	}
         if (stageText != null)
             stageText.text = $"STAGE: {CurrentStage}";
     }
 
     void UpdateScoreUI()
     {
+		if (hud != null)
+    	{
+        	hud.SetScore(score, scoreToClearStage);
+        	return;
+    	}
         if (scoreText != null)
             scoreText.text = $"SCORE: {score} / {scoreToClearStage}";
     }
 
     void UpdateCoinUI()
     {
+		if (hud != null)
+    	{
+        	hud.RefreshCoins();
+        	return;
+    	}
         if (coinText != null)
             coinText.text = $"COIN: {CosmeticSaveManager.GetCoins()}";
     }
@@ -1124,16 +1087,5 @@ public class GameManager : MonoBehaviour
                 yield return ShowMessageFor($"NEW SKIN UNLOCKED!\n{name}", unlockMessageTime);
             }
         }
-    }
-
-    private void HandleIapCoinsGranted(int amount)
-    {
-        UpdateCoinUI();
-    }
-
-    private void HandleIapRemoveAds()
-    {
-        if (AdManager.I != null)
-            AdManager.I.DisableAllAds();
     }
 }

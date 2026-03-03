@@ -141,7 +141,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
         if (id == PRODUCT_COIN_10000)
         {
-            CosmeticSaveManager.AddCoins(COIN_PACK_10000); // 실제 게임 코인에 반영
+            if (EconomyManager.I != null) EconomyManager.I.AddCoins(COIN_PACK_10000);
+            else CosmeticSaveManager.AddCoins(COIN_PACK_10000);
             OnCoinsGranted?.Invoke(COIN_PACK_10000);
             return PurchaseProcessingResult.Complete;
         }
@@ -161,6 +162,12 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     private static void ApplyNoAdsToGame()
     {
+        if (MonetizationManager.I != null)
+        {
+            MonetizationManager.I.DisableAds();
+            return;
+        }
+
         if (AdManager.I != null)
             AdManager.I.DisableAllAds();
     }
