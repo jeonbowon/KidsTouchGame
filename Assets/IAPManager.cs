@@ -4,13 +4,13 @@ using UnityEngine.Purchasing;
 
 public class IAPManager : MonoBehaviour, IStoreListener
 {
-    // Play Console Á¦Ç° ID(SKU)¿Í 100% µ¿ÀÏÇØ¾ß ÇÕ´Ï´Ù.
+    // Play Console ï¿½ï¿½Ç° ID(SKU)ï¿½ï¿½ 100% ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.
     public const string PRODUCT_REMOVE_ADS = "remove_ads";   // Non-Consumable
     public const string PRODUCT_COIN_10000 = "coin_10000";   // Consumable
 
     private const int COIN_PACK_10000 = 10000;
 
-    // PlayerPrefs Key (±¤°íÁ¦°Å¸¸ ÀúÀå)
+    // PlayerPrefs Key (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½)
     private const string PREF_NO_ADS = "NO_ADS";
 
     public static IAPManager Instance { get; private set; }
@@ -20,13 +20,13 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     public static bool IsInitialized => _storeController != null && _storeExtensionProvider != null;
 
-    // °áÁ¦ ÇÃ·Î¿ì ÁøÇàÁß(°áÁ¦Ã¢ ¶°ÀÖ°Å³ª Ã³¸®Áß)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½Ö°Å³ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½)
     public static bool IsPurchaseInProgress { get; private set; }
 
     public event Action OnRemoveAdsPurchased;
     public event Action<int> OnCoinsGranted;
 
-    // UI Àá±Ý/ÇØÁ¦¿¡ ¾²´Â ÀÌº¥Æ®
+    // UI ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®
     public event Action<string> OnPurchaseFlowStarted;         // productId
     public event Action<string, bool> OnPurchaseFlowFinished;  // productId, success
 
@@ -62,7 +62,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
 
     private void BuyProductID(string productId)
     {
-        // °áÁ¦ÁßÀÌ¸é Ãß°¡ ±¸¸Å ½Ãµµ ¹«½Ã
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½
         if (IsPurchaseInProgress)
         {
             Debug.LogWarning($"[IAP] Purchase already in progress. Ignore: {productId}");
@@ -89,7 +89,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
             return;
         }
 
-        // °áÁ¦ ÇÃ·Î¿ì ½ÃÀÛ(ÀÌ ¼ø°£ºÎÅÍ UI Àá°¡¾ß ÇÔ)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UI ï¿½á°¡ï¿½ï¿½ ï¿½ï¿½)
         IsPurchaseInProgress = true;
         OnPurchaseFlowStarted?.Invoke(productId);
 
@@ -100,8 +100,6 @@ public class IAPManager : MonoBehaviour, IStoreListener
     {
         _storeController = controller;
         _storeExtensionProvider = extensions;
-
-        Debug.Log("[IAP] Initialized OK");
 
         if (HasNoAds())
         {
@@ -125,9 +123,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
     {
         string id = e.purchasedProduct.definition.id;
-        Debug.Log($"[IAP] Purchase Success: {id}");
 
-        // °áÁ¦ ÇÃ·Î¿ì Á¾·á(¼º°ø)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
         IsPurchaseInProgress = false;
         OnPurchaseFlowFinished?.Invoke(id, true);
 
@@ -155,7 +152,7 @@ public class IAPManager : MonoBehaviour, IStoreListener
     {
         Debug.LogWarning($"[IAP] Purchase Failed: {product.definition.id}, reason={failureReason}");
 
-        // °áÁ¦ ÇÃ·Î¿ì Á¾·á(½ÇÆÐ/Ãë¼Ò Æ÷ÇÔ)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         IsPurchaseInProgress = false;
         OnPurchaseFlowFinished?.Invoke(product.definition.id, false);
     }

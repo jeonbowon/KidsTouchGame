@@ -134,7 +134,9 @@ public class EnemyBullet : MonoBehaviour, IBullet
     {
         if (prefab != null)
         {
-            GameObject fx = Instantiate(prefab, pos, Quaternion.identity);
+            // DestroyAfterAnimation.OnEnable()이 스케일을 원본으로 리셋한 뒤
+            // scaleFactor를 곱하므로 풀 재사용 시에도 정확한 크기가 유지됨
+            GameObject fx = PoolManager.I.Get(prefab, pos);
             fx.transform.localScale *= scaleFactor;
         }
 

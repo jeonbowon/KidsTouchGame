@@ -13,7 +13,7 @@ public class EnemyShooter : MonoBehaviour
 
     [Header("Auto")]
     [SerializeField] private bool autoStartOnEnable = true; // 활성화 시 자동 발사 시작
-    [SerializeField] private bool logVerbose = true;        // 상세 로그
+    [SerializeField] private bool logVerbose = false;       // 상세 로그 (디버깅 시에만 활성화)
 
     // 상태
     private bool autoFire = false;

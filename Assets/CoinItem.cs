@@ -27,7 +27,7 @@ public class CoinItem : MonoBehaviour
         transform.position += Vector3.down * fallSpeed * Time.deltaTime;
 
         if (transform.position.y < destroyY)
-            Destroy(gameObject);
+            ReturnToPool();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -44,6 +44,14 @@ public class CoinItem : MonoBehaviour
             else AudioSource.PlayClipAtPoint(collectSfx, transform.position, Mathf.Clamp01(sfxVolume));
         }
 
-        Destroy(gameObject);
+        ReturnToPool();
+    }
+
+    private void ReturnToPool()
+    {
+        if (PoolManager.I != null)
+            PoolManager.I.Return(gameObject);
+        else
+            Destroy(gameObject);
     }
 }

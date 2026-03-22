@@ -51,6 +51,23 @@ public class EnemyRandomMover : MonoBehaviour
 
     void Start()
     {
+        ResetForActivation();
+    }
+
+    void OnEnable()
+    {
+        // 풀에서 재사용될 때(두 번째 활성화~) 위치/상태 재초기화
+        // Start()가 다시 호출되지 않으므로 OnEnable에서 처리
+        if (!_initialized) return;
+        ResetForActivation();
+    }
+
+    private bool _initialized = false;
+
+    private void ResetForActivation()
+    {
+        _initialized = true;
+
         _spawnY = transform.position.y;
         _centerX = transform.position.x;
 
@@ -58,6 +75,7 @@ public class EnemyRandomMover : MonoBehaviour
         _horiNow = GetTargetHorizontalSpeed();
 
         _fallAccum = 0f;
+        _currentDir = Random.value > 0.5f ? 1f : -1f;
 
         ScheduleNextDirectionChange();
         ScheduleNextFire();

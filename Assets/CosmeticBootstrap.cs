@@ -2,19 +2,17 @@ using UnityEngine;
 
 public class CosmeticBootstrap : MonoBehaviour
 {
-    [Tooltip("Ã³À½ Áö±Þ/ÀåÂøÇÒ ±âº» ½ºÅ² id")]
+    [Tooltip("Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½Å² id")]
     public string defaultShipId = "ship_default";
 
     void Start()
     {
-        // ÀÌ¹Ì ÀåÂøÀÌ µÇ¾î ÀÖÀ¸¸é ¾Æ¹« °Íµµ ¾È ÇÔ
+        // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½ ï¿½Íµï¿½ ï¿½ï¿½ ï¿½ï¿½
         string equipped = CosmeticSaveManager.GetEquipped(CosmeticCategory.ShipSkin);
         if (!string.IsNullOrEmpty(equipped)) return;
 
-        // ±âº» ½ºÅ² Áö±Þ + ÀåÂø
+        // ï¿½âº» ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½
         CosmeticSaveManager.GrantOwned(defaultShipId);
         CosmeticSaveManager.Equip(CosmeticCategory.ShipSkin, defaultShipId);
-
-        Debug.Log($"[CosmeticBootstrap] First run -> grant+equip {defaultShipId}");
     }
 }

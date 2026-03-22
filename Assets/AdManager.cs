@@ -99,8 +99,6 @@ public class AdManager : MonoBehaviour
         // ✅ IAP 광고 제거가 이미 저장되어 있으면 즉시 반영
         _adsDisabled = IAPManager.HasNoAds();
 
-        Debug.Log($"[ADS] Awake / disabled={_adsDisabled} / SDK={(IsAdMobSdkPresent() ? "YES" : "NO")} / editor={_isEditor} devBuild={_isDevBuild}");
-
         if (!_adsDisabled)
             Init();
     }
@@ -110,7 +108,6 @@ public class AdManager : MonoBehaviour
         if (_adsDisabled) return;
 
         _adsDisabled = true;
-        Debug.Log("[ADS] DisableAllAds() -> 광고 제거 구매 적용. 이후 광고 로드/표시 전부 중단");
 
 #if GOOGLE_MOBILE_ADS
         try { _rewarded?.Destroy(); } catch { }
@@ -143,7 +140,6 @@ public class AdManager : MonoBehaviour
         if (_pendingInitComplete)
         {
             _pendingInitComplete = false;
-            Debug.Log("[ADS] MobileAds.Initialize 완료 (main thread) -> LoadRewarded/LoadInterstitial");
             LoadRewarded();
             LoadInterstitial();
         }
@@ -161,14 +157,9 @@ public class AdManager : MonoBehaviour
 
     public void Init()
     {
-        if (_adsDisabled)
-        {
-            Debug.Log("[ADS] Init SKIP (ads disabled)");
-            return;
-        }
+        if (_adsDisabled) return;
 
 #if GOOGLE_MOBILE_ADS
-        Debug.Log($"[ADS] Init AdMob. appIdAndroid={(string.IsNullOrEmpty(androidAppId) ? "(empty)" : "set")}");
         ConfigureTestDevices_EditorOrDevBuildOnly();
 
         MobileAds.Initialize(_ =>
@@ -193,17 +184,9 @@ public class AdManager : MonoBehaviour
     private void ConfigureTestDevices_EditorOrDevBuildOnly()
     {
 #if GOOGLE_MOBILE_ADS
-        if (!_isEditor && !_isDevBuild)
-        {
-            Debug.Log("[ADS] TestDevice config SKIP (Release build)");
-            return;
-        }
+        if (!_isEditor && !_isDevBuild) return;
 
-        if (testDeviceIds == null || testDeviceIds.Length == 0)
-        {
-            Debug.Log("[ADS] TestDevice config SKIP (no ids)");
-            return;
-        }
+        if (testDeviceIds == null || testDeviceIds.Length == 0) return;
 
         var list = new List<string>();
         foreach (var id in testDeviceIds)
@@ -212,11 +195,7 @@ public class AdManager : MonoBehaviour
                 list.Add(id.Trim());
         }
 
-        if (list.Count == 0)
-        {
-            Debug.Log("[ADS] TestDevice config SKIP (ids invalid)");
-            return;
-        }
+        if (list.Count == 0) return;
 
         var config = new RequestConfiguration
         {
@@ -224,21 +203,18 @@ public class AdManager : MonoBehaviour
         };
 
         MobileAds.SetRequestConfiguration(config);
-        Debug.Log($"[ADS] Test devices REGISTERED / count={list.Count}");
 #endif
     }
 
     public void RequestRewardedReload()
     {
         if (_adsDisabled) return;
-        Debug.Log("[ADS] RequestRewardedReload() -> ensure load");
         LoadRewarded();
     }
 
     public void RequestInterstitialReload()
     {
         if (_adsDisabled) return;
-        Debug.Log("[ADS] RequestInterstitialReload() -> ensure load");
         LoadInterstitial();
     }
 
@@ -318,7 +294,6 @@ public class AdManager : MonoBehaviour
     {
         if (_adsDisabled)
         {
-            Debug.Log($"[ADS] ShowRewarded SKIP (ads disabled) reason={reason}");
             onDone?.Invoke(true);
             return;
         }
@@ -438,7 +413,6 @@ public class AdManager : MonoBehaviour
     {
         if (_adsDisabled)
         {
-            Debug.Log($"[ADS] ShowInterstitial SKIP (ads disabled) reason={reason}");
             onDone?.Invoke(true);
             return;
         }

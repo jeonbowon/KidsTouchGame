@@ -111,4 +111,13 @@ public class DifficultyConfig : ScriptableObject
         perStage = 0.03f,
         clamp = new Vector2(0f, 0.8f)
     };
+
+    [Header("Stage Clear Coin Reward")]
+    [Tooltip("스테이지 클리어 시 지급할 코인. stage1=기본값, perStage=스테이지당 증가량")]
+    public IntByStage stageClearCoins = new IntByStage
+    {
+        stage1  = 30,
+        perStage = 5,
+        clamp   = new Vector2Int(30, 200)
+    };
 }

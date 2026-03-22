@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class EnemyGalaga : MonoBehaviour
+public class EnemyGalaga : MonoBehaviour, ITakeDamage
 {
     [Header("Movement Settings")]
     public float baseSpeed = 2f;
@@ -90,6 +90,7 @@ public class EnemyGalaga : MonoBehaviour
 
     private bool isDying = false;
     private bool _reportedRemoveToGM = false;
+    private bool _initialized = false; // 풀 재사용 시 OnEnable/Start 구분용
 
     private SpriteRenderer _sr;
     private Color _origColor;
@@ -131,22 +132,58 @@ public class EnemyGalaga : MonoBehaviour
 
     private void Start()
     {
+        _initialized = true;
+        ResetForActivation();
+    }
+
+    private void OnEnable()
+    {
+        // Start() 이전 첫 활성화 시에는 건너뜀 (Start가 처리)
+        // 풀에서 꺼낼 때(두 번째 활성화~)만 리셋 수행
+        if (!_initialized) return;
+        ResetForActivation();
+    }
+
+    private void ResetForActivation()
+    {
         int stage = (GameManager.I != null) ? Mathf.Max(1, GameManager.I.CurrentStage) : 1;
 
-        // ✅ SO 우선 적용 (없으면 기존 인스펙터 값으로 fallback)
         if (GameManager.I != null && GameManager.I.Difficulty != null)
-        {
             moveSpeed = GameManager.I.Difficulty.galagaMoveSpeed.Eval(stage);
-        }
         else
-        {
             moveSpeed = baseSpeed + speedPerStage * (stage - 1);
-        }
 
         if (shooter != null)
             shooter.EnableAutoFire(true);
 
         sinTime = Random.Range(0f, 100f);
+
+        // 상태 초기화
+        isDying = false;
+        _reportedRemoveToGM = false;
+        _hpInt = _maxHpInt;
+        hp = _hpInt;
+
+        // 스프라이트 색상 복원
+        if (_sr != null) _sr.color = _origColor;
+
+        // 데미지 연기 제거
+        if (_damageSmokeInstance != null)
+        {
+            Destroy(_damageSmokeInstance);
+            _damageSmokeInstance = null;
+        }
+
+        // HP UI 리셋
+        if (useTwoPipHpUI && _maxHpInt >= 2 && _hpRoot != null)
+        {
+            UpdateTwoPipUI();
+            SetHpUIVisible(false);
+        }
+
+        // 코루틴 참조 초기화 (비활성화 시 Unity가 자동 중단)
+        _flashCo = null;
+        _hpHideCo = null;
     }
 
     private void Update()
@@ -159,11 +196,11 @@ public class EnemyGalaga : MonoBehaviour
         float xOffset = Mathf.Sin(sinTime) * horizontalAmplitude;
         transform.position += new Vector3(xOffset * dt, -moveSpeed * dt, 0);
 
-        // 화면 밖으로 빠져 "그냥 Destroy" 되는 경로도 카운트 누수 없이 처리
+        // 화면 밖으로 빠져 나가면 풀에 반환
         if (transform.position.y < -6f)
         {
             ReportRemovedToGM();
-            Destroy(gameObject);
+            ReturnToPool();
         }
 
         if (_hpRoot != null)
@@ -303,7 +340,7 @@ public class EnemyGalaga : MonoBehaviour
             shooter.StopAll();
 
         if (explosionPrefab != null)
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            PoolManager.I.Get(explosionPrefab, transform.position);
 
         // 단일 폭발음(프리팹별로 dieSfx만 바꿔서 사용)
         PlayDieSfx();
@@ -312,7 +349,7 @@ public class EnemyGalaga : MonoBehaviour
         TryDropRewards();
 
         ReportRemovedToGM();
-        Destroy(gameObject);
+        ReturnToPool();
     }
 
     private void TryDropRewards()
@@ -323,14 +360,14 @@ public class EnemyGalaga : MonoBehaviour
         if (scoreItemPrefab != null && Random.value <= scoreDropChance)
         {
             Vector3 p = basePos + new Vector3(Random.Range(-dropScatter, dropScatter), Random.Range(-dropScatter, dropScatter), 0f);
-            Instantiate(scoreItemPrefab, p, Quaternion.identity);
+            PoolManager.I.Get(scoreItemPrefab, p);
         }
 
         // Coin
         if (coinItemPrefab != null && Random.value <= coinDropChance)
         {
             Vector3 p = basePos + new Vector3(Random.Range(-dropScatter, dropScatter), Random.Range(-dropScatter, dropScatter), 0f);
-            Instantiate(coinItemPrefab, p, Quaternion.identity);
+            PoolManager.I.Get(coinItemPrefab, p);
         }
     }
 
@@ -346,7 +383,7 @@ public class EnemyGalaga : MonoBehaviour
             shooter.StopAll();
 
         ReportRemovedToGM();
-        Destroy(gameObject);
+        ReturnToPool();
     }
 
     /// <summary>
@@ -362,12 +399,20 @@ public class EnemyGalaga : MonoBehaviour
             shooter.StopAll();
 
         if (explosionPrefab != null)
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            PoolManager.I.Get(explosionPrefab, transform.position);
 
         PlayDieSfx();
 
         ReportRemovedToGM();
-        Destroy(gameObject);
+        ReturnToPool();
+    }
+
+    private void ReturnToPool()
+    {
+        if (PoolManager.I != null)
+            PoolManager.I.Return(gameObject);
+        else
+            Destroy(gameObject);
     }
 
     private void OnDestroy()

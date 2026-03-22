@@ -228,7 +228,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (prefab == null) return;
 
-        Instantiate(prefab, pos, Quaternion.identity);
+        PoolManager.I.Get(prefab, pos);
 
         if (GameManager.I != null)
             GameManager.I.OnEnemySpawned();

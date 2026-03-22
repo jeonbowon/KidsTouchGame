@@ -35,7 +35,7 @@ public class PlayerShoot : MonoBehaviour
     public float maxAimHalfAngle = 90f;
 
     [Header("디버그")]
-    public bool debugWeaponLog = true;
+    public bool debugWeaponLog = false;
     public Vector2 aimDir = Vector2.up;
 
     private float nextFireTime = 0f;
@@ -63,6 +63,18 @@ public class PlayerShoot : MonoBehaviour
     {
         EnsureCosmeticDb();
         RefreshEquippedWeapon();
+        CosmeticSaveManager.OnEquipChanged += OnEquipChanged;
+    }
+
+    void OnDisable()
+    {
+        CosmeticSaveManager.OnEquipChanged -= OnEquipChanged;
+    }
+
+    private void OnEquipChanged(CosmeticCategory cat)
+    {
+        if (cat == CosmeticCategory.Weapon)
+            RefreshEquippedWeapon();
     }
 
     void Update()
@@ -176,9 +188,6 @@ public class PlayerShoot : MonoBehaviour
 
     public void Fire(Vector2 dir)
     {
-        // 여기서 매번 갱신: 스토어 장착 변경이 100% 반영됨
-        RefreshEquippedWeapon();
-
         if (bulletPrefab == null || firePoint == null)
         {
             Debug.LogWarning("[PlayerShoot] bulletPrefab 또는 firePoint가 설정되지 않았습니다.");
@@ -231,7 +240,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void ShootOneBullet(Transform muzzle, Vector2 dir)
     {
-        var b = Instantiate(bulletPrefab, muzzle.position, Quaternion.identity);
+        var b = PoolManager.I.Get<Bullet>(bulletPrefab, muzzle.position);
 
         float speed = b.baseSpeed;
 

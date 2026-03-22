@@ -79,8 +79,6 @@ public class MonetizationManager : MonoBehaviour
         var go = new GameObject("AdManager (Auto)");
         go.AddComponent<AdManager>();
         DontDestroyOnLoad(go);
-
-        Debug.Log("[Monetization] AdManager가 없어 자동 생성했습니다.");
     }
 
     private void EnsureIapManager()
@@ -93,8 +91,6 @@ public class MonetizationManager : MonoBehaviour
         var go = new GameObject("IAPManager (Auto)");
         go.AddComponent<IAPManager>();
         DontDestroyOnLoad(go);
-
-        Debug.Log("[Monetization] IAPManager가 없어 자동 생성했습니다.");
     }
 
     private void TrySubscribeIapEvents()

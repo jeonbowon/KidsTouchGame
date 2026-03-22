@@ -9,10 +9,19 @@ public static class CosmeticSaveManager
 
     public static event Action<int> OnCoinsChanged;
 
+    /// <summary>무기/스킨 장착이 변경될 때 발행 (category 전달)</summary>
+    public static event Action<CosmeticCategory> OnEquipChanged;
+
     private static void NotifyCoinsChanged()
     {
         try { OnCoinsChanged?.Invoke(Data.coins); }
         catch (Exception e) { Debug.LogWarning($"[CosmeticSave] OnCoinsChanged invoke failed: {e.Message}"); }
+    }
+
+    private static void NotifyEquipChanged(CosmeticCategory cat)
+    {
+        try { OnEquipChanged?.Invoke(cat); }
+        catch (Exception e) { Debug.LogWarning($"[CosmeticSave] OnEquipChanged invoke failed: {e.Message}"); }
     }
 
     public static CosmeticSaveData Data
@@ -68,7 +77,6 @@ public static class CosmeticSaveManager
         if (amount <= 0) return;
         Data.coins += amount;
         Save(Data);
-        Debug.Log($"[CosmeticSave] coins += {amount} -> {Data.coins}");
         NotifyCoinsChanged();
     }
 
@@ -79,7 +87,6 @@ public static class CosmeticSaveManager
 
         Data.coins -= cost;
         Save(Data);
-        Debug.Log($"[CosmeticSave] coins -= {cost} -> {Data.coins}");
         NotifyCoinsChanged();
         return true;
     }
@@ -97,7 +104,6 @@ public static class CosmeticSaveManager
         {
             Data.AddUnlocked(id);
             Save(Data);
-            Debug.Log($"[CosmeticSave] unlocked += {id}");
         }
     }
 
@@ -111,7 +117,6 @@ public static class CosmeticSaveManager
         {
             Data.AddOwned(id);
             Save(Data);
-            Debug.Log($"[CosmeticSave] owned += {id}");
         }
     }
 
@@ -121,6 +126,6 @@ public static class CosmeticSaveManager
     {
         Data.SetEquipped(cat, itemId);
         Save(Data);
-        Debug.Log($"[CosmeticSave] equip {cat} = {itemId}");
+        NotifyEquipChanged(cat);
     }
 }

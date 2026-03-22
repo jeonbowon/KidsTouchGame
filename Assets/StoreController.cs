@@ -327,7 +327,6 @@ public class StoreController : MonoBehaviour
         if (IAPManager.IsPurchaseInProgress)
             return;
 
-        Debug.Log("[STORE] TabShip Click");
         SetCategory(CosmeticCategory.ShipSkin);
     }
 
@@ -336,7 +335,6 @@ public class StoreController : MonoBehaviour
         if (IAPManager.IsPurchaseInProgress)
             return;
 
-        Debug.Log("[STORE] TabWeapon Click");
         SetCategory(CosmeticCategory.Weapon);
     }
 }

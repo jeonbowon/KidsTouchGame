@@ -137,15 +137,11 @@ public class GameManager : MonoBehaviour
     {
         if (difficultyConfig != null)
         {
-            float r = difficultyConfig.enemyBulletSpeed.Eval(CurrentStage);
-            Debug.Log($"[GM] stage={CurrentStage} -> enemyBulletSpeed={r} (SO)");
-            return r;
+            return difficultyConfig.enemyBulletSpeed.Eval(CurrentStage);
         }
 
         float s = enemyBulletSpeedStage1 + (CurrentStage - 1) * enemyBulletSpeedPerStage;
-        float rr = Mathf.Clamp(s, enemyBulletSpeedClamp.x, enemyBulletSpeedClamp.y);
-        Debug.Log($"[GM] stage={CurrentStage} -> enemyBulletSpeed={rr} (Fallback)");
-        return rr;
+        return Mathf.Clamp(s, enemyBulletSpeedClamp.x, enemyBulletSpeedClamp.y);
     }
 
     // GameOver 처리 중 중복 방지
@@ -198,8 +194,6 @@ public class GameManager : MonoBehaviour
         var go = new GameObject("IAPManager (Auto)");
         go.AddComponent<IAPManager>();
         DontDestroyOnLoad(go);
-
-        Debug.Log("[GameManager] IAPManager가 없어 자동 생성했습니다.");
     }
 
     // ✅ 여기(구독) + 아래 HandleCoinsChanged가 이번 수정의 핵심입니다.
@@ -228,10 +222,7 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (_overlayShopLoadingOrOpen && mode == LoadSceneMode.Additive)
-        {
-            Debug.Log($"[GameManager] OverlayShop 중 Additive sceneLoaded({scene.name}) → GameManager 씬 처리 강제 스킵");
             return;
-        }
 
         StopAllCoroutines();
         ForcePause(false);
@@ -284,8 +275,6 @@ public class GameManager : MonoBehaviour
         var go = new GameObject("MonetizationManager (Auto)");
         monetization = go.AddComponent<MonetizationManager>();
         DontDestroyOnLoad(go);
-
-        Debug.Log("[GameManager] MonetizationManager가 없어 자동 생성했습니다.");
     }
 
     private void RebindStageSceneObjects()
@@ -305,9 +294,7 @@ public class GameManager : MonoBehaviour
         if (playerPrefab == null && !string.IsNullOrEmpty(playerPrefabResourcePath))
         {
             playerPrefab = Resources.Load<GameObject>(playerPrefabResourcePath);
-            if (playerPrefab != null)
-                Debug.Log($"[GameManager] Resources에서 playerPrefab 로드 성공: {playerPrefabResourcePath}");
-            else
+            if (playerPrefab == null)
                 Debug.LogWarning($"[GameManager] Resources에서 playerPrefab 로드 실패: {playerPrefabResourcePath}");
         }
 
@@ -359,7 +346,6 @@ public class GameManager : MonoBehaviour
 
     public void NewRun()
     {
-        Debug.Log("[GameManager] NewRun()");
         isGameOver = false;
         isStageRunning = false;
         isRespawning = false;
@@ -435,9 +421,13 @@ public class GameManager : MonoBehaviour
         isStageClearing = true;
         isStageRunning = false;
 
-        if (stageClearStoreCoins > 0)
+        int reward = (difficultyConfig != null)
+            ? difficultyConfig.stageClearCoins.Eval(CurrentStage)
+            : stageClearStoreCoins;
+
+        if (reward > 0)
         {
-            CosmeticSaveManager.AddCoins(stageClearStoreCoins);
+            CosmeticSaveManager.AddCoins(reward);
             UpdateCoinUI();
         }
 
@@ -651,8 +641,6 @@ public class GameManager : MonoBehaviour
         // 광고 제거 구매자면: Rewarded 없이 즉시 Continue 처리
         if (monetization != null && monetization.IsAdsDisabled)
         {
-            Debug.Log("[IAP] NO_ADS 활성 → Rewarded 없이 Continue 진행");
-
             Lives = Mathf.Max(1, continueLives);
             UpdateLivesUI();
 
@@ -667,8 +655,6 @@ public class GameManager : MonoBehaviour
             ForcePause(false);
             yield return new WaitForSecondsRealtime(0.05f);
             SpawnPlayer();
-
-            Debug.Log("[GAME] Continue 성공 → 부활 후 재개 (NO_ADS)");
             yield break;
         }
 
@@ -719,7 +705,6 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.05f);
             SpawnPlayer();
 
-            Debug.Log("[GAME] Continue 성공 → 부활 후 재개 (UNLIMITED)");
             yield break;
         }
 
@@ -739,7 +724,6 @@ public class GameManager : MonoBehaviour
 
         if (monetization != null && monetization.IsAdsDisabled)
         {
-            Debug.Log("[IAP] NO_ADS 활성 → Interstitial 없이 메뉴 이동");
             ForcePause(false);
             DestroyGameOverPanelInstance();
             SceneManager.LoadScene(mainMenuSceneName);
@@ -810,8 +794,6 @@ public class GameManager : MonoBehaviour
             gameOverPanelInstance.OnMenuClicked += OnPanelMenu;
 
             gameOverPanelInstance.Hide();
-
-            Debug.Log("[GameManager] 씬에 존재하는 GameOverPanel을 사용합니다.");
             return;
         }
 
@@ -856,7 +838,6 @@ public class GameManager : MonoBehaviour
         gameOverPanelInstance.OnMenuClicked += OnPanelMenu;
 
         gameOverPanelInstance.Hide();
-        Debug.Log($"[GameManager] GameOverPanel 생성 완료 (parent={canvas.name})");
     }
 
     private Canvas FindBestCanvasInScene()
