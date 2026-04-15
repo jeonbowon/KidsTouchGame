@@ -269,7 +269,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 2
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 2800000, guid: 41cc9168f1c92144abf6f9bbafc4b35f, type: 3}
-  AndroidKeystoreName: D:/Keystore/kids_shooting_key.keystore
+  AndroidKeystoreName: D:/Keystores/kids_shooting_key.keystore
   AndroidKeyaliasName: 'releasekey '
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidEnableArm64MTE: 0
