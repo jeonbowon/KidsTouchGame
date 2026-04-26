@@ -4881,6 +4881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af81865714ec5b449768e475991188e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdManager
+  forceDisableAds: 1
   androidAppId: ca-app-pub-3852398620139102~6276153711
   rewardedUnitIdAndroid: ca-app-pub-3852398620139102/2625695073
   interstitialUnitIdAndroid: ca-app-pub-3852398620139102/4140944964

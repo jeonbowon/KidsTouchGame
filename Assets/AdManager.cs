@@ -22,6 +22,9 @@ public class AdManager : MonoBehaviour
     private volatile bool _pendingInitComplete;
 #endif
 
+    [Header("Disable Ads Option")]
+    [SerializeField] private bool forceDisableAds = false;
+
     [Header("AdMob IDs (Android)")]
     [SerializeField] private string androidAppId = "";
     [SerializeField] private string rewardedUnitIdAndroid = "";
@@ -96,8 +99,8 @@ public class AdManager : MonoBehaviour
         _isDevBuild = Debug.isDebugBuild;
         _isTestContext = (_isEditor || _isDevBuild);
 
-        // ✅ IAP 광고 제거가 이미 저장되어 있으면 즉시 반영
-        _adsDisabled = IAPManager.HasNoAds();
+        // ✅ IAP 광고 제거 또는 forceDisableAds 옵션이면 즉시 반영
+        _adsDisabled = forceDisableAds || IAPManager.HasNoAds();
 
         if (!_adsDisabled)
             Init();
